@@ -1,0 +1,84 @@
+.sidebar {
+  border-top: 1px solid rgba(33, 74, 60, 0.2784313725);
+  background-color: #101010;
+  color: white;
+  display: none;
+}
+@media (min-width: 768px) {
+  .sidebar {
+    width: -moz-fit-content;
+    width: fit-content;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    height: 100vh;
+    border-left: 1px solid rgba(71, 70, 70, 0.586);
+    padding: 1rem;
+    flex: 0.5;
+  }
+}
+.sidebar__top {
+  display: flex;
+  flex-direction: column;
+  gap: clamp(0.6rem, 1vw, 0.8rem);
+  padding: 0 clamp(0.6rem, 1vw, 1rem);
+}
+.sidebar__logo img {
+  width: 40px;
+}
+.sidebar__menu {
+  display: flex;
+  flex-direction: column;
+}
+.sidebar .menu-item {
+  display: flex;
+  align-items: center;
+  gap: 0.8rem;
+  padding: 0.6rem clamp(1rem, 1.5vw, 1.5rem);
+  border-radius: 8px;
+  font-size: clamp(1rem, 1.5vw, 1.5rem);
+  text-decoration: none;
+  color: #333;
+  font-weight: 500;
+  transition: background 0.2s ease;
+}
+.sidebar .menu-item:hover {
+  background: rgba(75, 74, 74, 0.4274509804);
+  color: rgba(255, 255, 255, 0.6588235294);
+}
+.sidebar .menu-item.active {
+  color: #fff;
+}
+.sidebar__post-btn {
+  background: #1d9bf0;
+  color: #fff;
+  padding: 0.6rem 1.2rem;
+  border-radius: 999px;
+  margin-top: auto;
+  margin-bottom: clamp(0.5rem, 1vw, 1rem);
+  margin-left: clamp(0.5rem, 1vw, 1rem);
+  margin-right: clamp(0.5rem, 1vw, 1rem);
+  font-size: clamp(1rem, 1.4vw, 1.5rem);
+  font-weight: bold;
+  border: none;
+  cursor: pointer;
+}
+.sidebar__profile {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  padding: 0.8rem;
+  border-top: 1px solid #ddd;
+}
+.sidebar__profile .profile-img {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+}
+.sidebar__profile .profile-info {
+  display: flex;
+  flex-direction: column;
+}
+.sidebar__profile .dots {
+  margin-left: auto;
+}/*# sourceMappingURL=Sidebar.css.map */

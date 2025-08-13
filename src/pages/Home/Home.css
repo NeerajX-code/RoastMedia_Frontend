@@ -1,0 +1,134 @@
+/* ===== Variables replaced ===== */
+.post-feed {
+  display: flex;
+  flex: 1;
+  background-color: #101010;
+  font-family: 'Inter', sans-serif;
+}
+
+
+.post-feed_wrapper {
+  width: 100%;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  margin: 0 auto;
+  max-width: 768px;
+  border: 1px solid rgba(255, 255, 255, 0.263);
+  border-bottom: none;
+}
+
+.post-feed_options {
+  flex: 0 auto;
+  display: flex;
+  justify-content: space-between;
+  color: rgba(255, 255, 255, 0.785);
+  padding: 1rem 1rem;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.627);
+}
+
+.header-h1 {
+  font-family: "Lexend", sans-serif;
+  font-size: clamp(1rem, 1vw, 1.2rem);
+  font-weight: bold;
+  color: #ffffff;
+}
+
+.post-feed_options h2 {
+  font-size: clamp(1rem, 1.1vw, 1.5rem);
+  font-weight: 500;
+}
+
+
+
+.post-feed__list {
+  width: 100%;
+  padding: clamp(0.5rem, 1vw, 1rem);
+  overflow-y: auto;
+  max-width: 580px;
+  margin: 0 auto;
+  display: grid;
+  gap: clamp(1rem, 1vw, 2rem);
+}
+
+/* ===== Post Card ===== */
+.post {
+  padding: clamp(0.5rem, 1vw, 1rem);
+  background-color: #0b0b0b;
+  border-radius: 1rem;
+  border: 1px solid rgba(255, 255, 255, 0.252);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
+}
+
+.post__image {
+  width: 100%;
+  aspect-ratio: 1/.9;
+}
+
+.post__image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.post__content {
+  padding: 1rem;
+}
+
+.post__username {
+  font-size: 1.2rem;
+  font-weight: 600;
+  color: #ffffff;
+}
+
+.post__caption {
+  font-size: 0.95rem;
+  color: #2fff75;
+  margin-top: 0.3rem;
+}
+
+.post__roast {
+  font-size: 0.9rem;
+  color: #a0a0a0;
+  margin-top: 0.5rem;
+  font-style: italic;
+}
+
+.post__actions {
+  display: flex;
+  justify-content: space-around;
+  margin-top: 1rem;
+}
+
+.post__actions button {
+  background: none;
+  border: none;
+  color: #ffffff;
+  font-size: 1rem;
+  display: flex;
+  align-items: center;
+  gap: 0.3rem;
+  cursor: pointer;
+  transition: color 0.3s;
+}
+
+.post__actions button:hover {
+  color: #2fff75;
+}
+
+.post__actions button svg {
+  font-size: 1.1rem;
+}
+
+/* ===== Responsive ===== */
+@media (max-width: 768px) {
+
+  .post__username {
+    font-size: 1rem;
+  }
+
+  .post-feed .post-feed_wrapper {
+    border: 1px solid rgba(255, 255, 255, 0.505);
+    border-bottom: none;
+  }
+}

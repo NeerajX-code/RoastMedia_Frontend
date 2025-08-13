@@ -1,0 +1,43 @@
+.navbar {
+    flex: 0 auto;
+    display: flex;
+    gap: 0.5rem;
+    border-top: 1px solid #214a3c;
+    background-color: #17352b;
+    padding: 0.5rem 1rem 0.75rem 1rem;
+}
+
+.nav-item {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: end;
+    gap: 0.25rem;
+    color: #8ecdb7;
+    text-decoration: none;
+}
+
+.nav-item.active {
+    color: white;
+}
+
+.icon {
+    display: flex;
+    height: 2rem;
+    align-items: center;
+    justify-content: center;
+}
+
+.icon svg {
+    width: 24px;
+    height: 24px;
+    fill: currentColor;
+}
+
+
+@media (min-width: 769px) {
+    .navbar {
+        display: none;
+    }
+}
