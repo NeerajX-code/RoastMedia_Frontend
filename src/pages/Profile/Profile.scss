@@ -1,0 +1,139 @@
+.profile {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  background-color: #101010;
+  border: 1px solid rgba(255, 255, 255, 0.345);
+  border-top: none;
+  border-bottom: none;
+  font-family: "Plus Jakarta Sans", "Noto Sans", sans-serif;
+  justify-content: space-between;
+  overflow-x: hidden;
+  color: white;
+
+  &__header {
+    padding: 1rem;
+  }
+
+  &__nav {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    .profile__back-btn {
+      width: 3rem;
+      height: 3rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .profile__username {
+      flex: 1;
+      text-align: center;
+      padding-right: 3rem;
+      font-size: 1.125rem;
+      font-weight: bold;
+    }
+  }
+
+  &__info {
+    padding: 1rem;
+    text-align: center;
+
+    .profile__avatar {
+      width: 8rem;
+      height: 8rem;
+      background-size: cover;
+      background-position: center;
+      border-radius: 50%;
+      margin: 0 auto 1rem;
+    }
+
+    .profile__name {
+      font-size: 1.375rem;
+      font-weight: bold;
+    }
+    .profile__role,
+    .profile__joined {
+      font-size: 1rem;
+      color: #96c5a8;
+    }
+  }
+
+  &__stats {
+    display: flex;
+    gap: 1rem;
+    padding: 1rem;
+    justify-content: center;
+
+    .stat {
+      border: 1px solid #366347;
+      border-radius: 0.5rem;
+      padding: 0.75rem;
+      text-align: center;
+      flex: 1;
+      min-width: 111px;
+
+      &__number {
+        font-size: 1.5rem;
+        font-weight: bold;
+      }
+      &__label {
+        font-size: 0.875rem;
+        color: #96c5a8;
+      }
+    }
+  }
+
+  &__bio {
+    padding: 0 1rem 1rem;
+    text-align: center;
+    font-size: 1rem;
+  }
+
+  &__tabs {
+    display: flex;
+    justify-content: center;
+    border-bottom: 1px solid #366347;
+
+    a {
+      padding: 1rem;
+      &.active {
+        border-bottom: 3px solid #39e079;
+      }
+    }
+  }
+
+  &__posts {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(158px, 1fr));
+    gap: 0.75rem;
+    padding: 1rem;
+
+    .post {
+      aspect-ratio: 1;
+      background-size: cover;
+      background-position: center;
+      border-radius: 0.75rem;
+    }
+  }
+
+//   &__bottom-nav {
+//     display: flex;
+//     border-top: 1px solid #264532;
+//     background: #1b3124;
+//     padding: 0.5rem 1rem;
+
+//     a {
+//       flex: 1;
+//       display: flex;
+//       justify-content: center;
+//       color: #96c5a8;
+
+//       &.active {
+//         color: white;
+//       }
+//     }
+//   }
+}

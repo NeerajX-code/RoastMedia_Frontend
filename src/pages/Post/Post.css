@@ -1,0 +1,118 @@
+.roast-generator {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  justify-content: space-between;
+  background-color: #101010;
+  border: 1px solid rgba(255, 255, 255, 0.396);
+  border-top: none;
+  border-bottom: none;
+  overflow-x: hidden;
+  font-family: "Plus Jakarta Sans", "Noto Sans", sans-serif;
+}
+.roast-generator__header {
+  display: flex;
+  align-items: center;
+  background-color: #101010;
+  padding: 1rem;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.396);
+  padding-bottom: 0.5rem;
+  justify-content: space-between;
+}
+.roast-generator__back-icon {
+  color: white;
+  display: flex;
+  width: 3rem;
+  height: 3rem;
+  align-items: center;
+  cursor: pointer;
+}
+.roast-generator__back-icon svg {
+  width: 24px;
+  height: 24px;
+}
+.roast-generator__title {
+  color: white;
+  font-size: 1.125rem;
+  font-weight: bold;
+  line-height: 1.2;
+  flex: 1;
+  text-align: center;
+  padding-right: 3rem;
+}
+.roast-generator__main-title {
+  color: white;
+  font-weight: bold;
+  font-size: 28px;
+  text-align: center;
+  padding: 1.25rem 1rem 0.75rem;
+}
+.roast-generator__subtitle {
+  color: white;
+  font-size: 1rem;
+  font-weight: normal;
+  text-align: center;
+  padding: 0.25rem 1rem 0.75rem;
+}
+.roast-generator__dropzone-wrapper {
+  display: flex;
+  flex-direction: column;
+  padding: 1rem;
+}
+.roast-generator__dropzone {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1.5rem;
+  border: 2px dashed #366347;
+  border-radius: 0.75rem;
+  padding: 3.5rem 1.5rem;
+}
+.roast-generator__dropzone-texts {
+  max-width: 480px;
+  text-align: center;
+}
+.roast-generator__dropzone-texts .dropzone-title {
+  color: white;
+  font-size: 1.125rem;
+  font-weight: bold;
+  line-height: 1.3;
+}
+.roast-generator__dropzone-texts .dropzone-subtitle {
+  color: white;
+  font-size: 0.875rem;
+  font-weight: normal;
+}
+.roast-generator .dropzone-btn {
+  min-width: 84px;
+  max-width: 480px;
+  height: 2.5rem;
+  padding: 0 1rem;
+  background-color: #264532;
+  color: white;
+  font-size: 0.875rem;
+  font-weight: bold;
+  border-radius: 9999px;
+  cursor: pointer;
+  border: none;
+}
+.roast-generator__footer {
+  display: flex;
+  padding: 0.75rem 1rem;
+  flex-direction: column;
+  align-items: center;
+}
+.roast-generator .post-btn {
+  min-width: 84px;
+  max-width: 480px;
+  height: 3rem;
+  padding: 0 1.25rem;
+  background-color: #39e079;
+  color: #122118;
+  font-size: 1rem;
+  font-weight: bold;
+  border-radius: 9999px;
+  cursor: pointer;
+  border: none;
+}/*# sourceMappingURL=Post.css.map */

@@ -5,7 +5,9 @@ import "./Navbar.css";
 export default function Navbar() {
     return (
         <div className="navbar">
-            <NavLink className="nav-item active" href="#">
+            <NavLink className={({ isActive }) =>
+                `nav-item ${isActive ? "active" : ""}`
+            } to="/">
                 <div className="icon">
                     {/* Home Icon */}
                     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" viewBox="0 0 256 256">
@@ -14,7 +16,9 @@ export default function Navbar() {
                 </div>
             </NavLink>
 
-            <NavLink className="nav-item" href="#">
+            <NavLink className={({ isActive }) =>
+                `nav-item ${isActive ? "active" : ""}`
+            } to="/Search">
                 <div className="icon">
                     {/* Search Icon */}
                     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" viewBox="0 0 256 256">
@@ -23,7 +27,9 @@ export default function Navbar() {
                 </div>
             </NavLink>
 
-            <NavLink className="nav-item" href="#">
+            <NavLink className={({ isActive }) =>
+                `nav-item ${isActive ? "active" : ""}`
+            } to="/Post" >
                 <div className="icon">
                     {/* Plus Icon */}
                     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" viewBox="0 0 256 256">
@@ -31,7 +37,9 @@ export default function Navbar() {
                     </svg>
                 </div>
             </NavLink>
-            <NavLink className="nav-item" href="#">
+            <NavLink className={({ isActive }) =>
+                `nav-item ${isActive ? "active" : ""}`
+            } to="/Notification">
                 <div className="icon">
                     {/* Heart Icon */}
                     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" viewBox="0 0 256 256">
@@ -40,7 +48,9 @@ export default function Navbar() {
                 </div>
             </NavLink>
 
-            <NavLink className="nav-item" href="#">
+            <NavLink className={({ isActive }) =>
+                `nav-item ${isActive ? "active" : ""}`
+            } to="/Profile">
                 <div className="icon">
                     {/* User Icon */}
                     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" viewBox="0 0 256 256">
