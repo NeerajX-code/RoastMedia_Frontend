@@ -58,7 +58,7 @@ export default function Login() {
                             {...register("identifier", { required: "Email is required" })}
                         />
                         {errors.email && (
-                            <span className="error-message">{errors.email.message}</span>
+                            <span className="error-message">{errors.identifier.message}</span>
                         )}
                     </label>
 
