@@ -127,7 +127,7 @@
         @media (min-width: 768px) {
           &:hover:enabled {
             background-color: #1479bc;
-            transform: scale(1.03);
+            
           }
           &:active:enabled {
             transform: scale(0.96);
@@ -142,12 +142,6 @@
       a {
         color: #14ab79;
         text-decoration: none;
-
-        @media (min-width: 768px) {
-          &:hover {
-            text-decoration: underline;
-          }
-        }
       }
     }
   }

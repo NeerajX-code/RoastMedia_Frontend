@@ -121,7 +121,6 @@
 @media (min-width: 768px) {
   .login-container .login-content .login-form .login-button:hover:enabled {
     background-color: #1479bc;
-    transform: scale(1.03);
   }
   .login-container .login-content .login-form .login-button:active:enabled {
     transform: scale(0.96);
@@ -133,9 +132,4 @@
 .login-container .login-content .login-type a {
   color: #14ab79;
   text-decoration: none;
-}
-@media (min-width: 768px) {
-  .login-container .login-content .login-type a:hover {
-    text-decoration: underline;
-  }
 }/*# sourceMappingURL=Login.css.map */

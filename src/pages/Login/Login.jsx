@@ -7,8 +7,8 @@ import { ArrowLeft } from "lucide-react";
 import { NavLink } from "react-router-dom";
 
 export default function Login() {
-    const dispatch = useDispatch();
-    const { loading, error } = useSelector((state) => state.authReducer);
+  const dispatch = useDispatch();
+  const { loading, error } = useSelector((state) => state.authReducer);
 
   const {
     register,
@@ -16,17 +16,17 @@ export default function Login() {
     formState: { errors },
   } = useForm();
 
-    const onSubmit = (data) => {
-        console.log("Form SUbmitted:" + data);
-        dispatch(asyncLoginUser(data));
-    };
+  const onSubmit = (data) => {
+    console.log("Form SUbmitted:" + data);
+    dispatch(asyncLoginUser(data));
+  };
 
-    if (loading) return (
-        <div className="loading">
-            <div className="loader"></div>
+  if (loading) return (
+    <div className="loading">
+      <div className="loader"></div>
 
-        </div>
-    )
+    </div>
+  )
 
   return (
     <div className="login-container">
@@ -63,16 +63,18 @@ export default function Login() {
 
           <p className="forgot-password">Forgot Password ?</p>
 
-                    <button type="submit" className="login-button" disabled={loading}>
-                        {loading ? "Logging in..." : "Log In"}
-                    </button>
-                </form>
-            </div>
+          <button type="submit" className="login-button">
+            Log in
+          </button>
+        </form>
 
-            {/* Footer */}
-            <div className="login-footer">
-                <p>Don't have an account? Sign Up</p>
-            </div>
-        </div>
-    );
+        <p className="login-type">
+          Don't have an account ?
+          <NavLink to={"/register"}>
+            <span> Sign Up</span>
+          </NavLink>{" "}
+        </p>
+      </div>
+    </div>
+  );
 }
