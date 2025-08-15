@@ -1,103 +1,193 @@
 .register-page {
-    flex: 1;
-    background: #1a1122;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  border: 1px solid rgba(255, 255, 255, 0.274);
+  border-top: none;
+  border-bottom: none;
+  font-family: "Space Grotesk", "Noto Sans", sans-serif;
+  color: white;
+
+  .register-header {
     display: flex;
-    flex-direction: column;
-    border: 1px solid rgba(255, 255, 255, 0.274);
-    border-top: none;
-    border-bottom: none;
+    align-items: center;
+    padding: clamp(8px, 2vw, 16px);
+    padding-bottom: clamp(4px, 1vw, 8px);
     justify-content: space-between;
-    font-family: "Space Grotesk", "Noto Sans", sans-serif;
-    color: white;
 
-    .register-header {
-        display: flex;
-        align-items: center;
-        padding: 16px;
-        padding-bottom: 8px;
-        justify-content: space-between;
+    h2 {
+      font-size: clamp(1rem, 1.2vw, 1.125rem);
+      font-weight: bold;
 
-        h2 {
-            flex: 1;
-            text-align: center;
-            font-size: 1.2rem;
-            font-weight: bold;
-            padding-right: 3rem;
-        }
+      @media (min-width: 768px) {
+        display: none;
+      }
+    }
 
-        .back-icon {
-            display: flex;
-            align-items: center;
+    .login-backbtn {
+      border-radius: 50%;
+      border: 2px solid rgba(128, 128, 128, 0.473);
+      cursor: pointer;
+      padding: clamp(4px, 0.8vw, 6px);
 
-            svg {
-                color: white;
-                cursor: pointer;
-            }
-        }
+      @media (max-width: 768px) {
+        display: none;
+      }
+    }
+  }
+
+  .form {
+    height: 100%;
+    display: flex;
+    gap: clamp(0.5rem, 1.5vw, 1rem);
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 0 clamp(1.2rem, 2vw, 2rem);
+
+    h1 {
+      margin-bottom: 10px;
+      font-size: clamp(1.8rem, 3vw, 2.2rem);
+      font-weight: 400;
+      color: #d0e7df;
     }
 
     .register-form {
-        max-width: 480px;
+      display: flex;
+      flex-direction: column;
+      gap: clamp(0.2rem, 2vw, 0.3rem);
+      max-width: 400px;
+      width: 100%;
+
+      .form-group {
+        display: flex;
+        flex-direction: column;
+        margin-bottom: clamp(10px, 2vw, 16px);
+
+        input {
+          background: rgba(128, 128, 128, 0.388);
+          border: none;
+          border-radius: 4px;
+          padding: clamp(10px, 2vw, 14px);
+          color: white;
+          font-size: clamp(1.1rem, 2vw, 1.2rem);
+
+          &::placeholder {
+            color: #d9d8db;
+            padding-left: 3px;
+          }
+
+          &:focus {
+            outline: none;
+           border: 3px solid rgb(12, 152, 78);
+          }
+        }
+
+        span {
+          margin-top: 4px;
+          font-size: clamp(0.75rem, 1.2vw, 0.85rem);
+          color: #ff6b6b;
+        }
+      }
+
+      .register-btn {
         width: 100%;
-        margin: 0 auto;
-        padding: 16px;
+        background: #1d9bf0;
+        color: rgba(255, 255, 255, 0.906);
+        border: none;
+        border-radius: 4px;
+        padding: clamp(10px, 2vw, 12px);
+        font-size: clamp(1rem, 2vw, 1.2rem);
+        font-weight: 500;
+        cursor: pointer;
+        transition: all 0.3s cubic-bezier(0.19, 1, 0.22, 1);
 
-        .form-group {
-            display: flex;
-            flex-direction: column;
-            margin-bottom: 16px;
-
-            input {
-                background: #362348;
-                border: none;
-                border-radius: 8px;
-                padding: 14px;
-                color: white;
-                font-size: 1rem;
-
-                &::placeholder {
-                    color: #ad92c9;
-                }
-
-                &:focus {
-                    outline: none;
-                    box-shadow: 0 0 0 2px #8d2bee;
-                }
-            }
-
-            span {
-                margin-top: 4px;
-                font-size: 0.85rem;
-                color: #ff6b6b;
-            }
+        @media (min-width: 768px) {
+          &:hover {
+            background: #1479bc;
+          }
+          &:active {
+            background: #10679c;
+            transform: scale(.96);
+          }
         }
-
-        .register-btn {
-            width: 100%;
-            background: #8d2bee;
-            color: white;
-            font-weight: bold;
-            border: none;
-            border-radius: 8px;
-            padding: 12px;
-            font-size: 1rem;
-            cursor: pointer;
-
-            &:hover {
-                background: #7a24cc;
-            }
-        }
+      }
     }
 
-    .register-footer {
-        text-align: center;
-        padding: 12px;
+    .register-type {
+      color: gray;
+      margin-top: 6px;
 
-        p {
-            color: #ad92c9;
-            font-size: 0.9rem;
-            text-decoration: underline;
-            cursor: pointer;
-        }
+      a {
+        color: #14ab79;
+        text-decoration: none;
+      }
     }
+
+    .divider {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 100%;
+      max-width: clamp(230px, 40vw, 350px);
+      margin: clamp(6px, 2vw, 10px) 0;
+      color: #999;
+      font-size: clamp(1rem, 3vw, 1.25rem);
+
+      span {
+        padding: 0 clamp(6px, 1vw, 10px);
+      }
+
+      &::before,
+      &::after {
+        content: "";
+        flex: 1;
+        border-bottom: 1px solid #ccc;
+      }
+
+      &::before {
+        margin-right: clamp(6px, 1vw, 10px);
+      }
+
+      &::after {
+        margin-left: clamp(6px, 1vw, 10px);
+      }
+    }
+
+    .google-btn {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: clamp(0.3rem, 1vw, 0.5rem);
+      padding: clamp(0.6rem, 2vw, 0.7rem) clamp(0.8rem, 2vw, 1rem);
+      width: 100%;
+      max-width: 400px;
+      background-color: #5a5858;
+      color: rgba(255, 255, 255, 0.676);
+      border: none;
+      outline: none;
+      border-radius: 4px;
+      cursor: pointer;
+      transition: all 0.3s cubic-bezier(0.19, 1, 0.22, 1);
+
+      @media (min-width: 768px) {
+        &:hover {
+          background-color: rgb(66, 63, 63);
+        }
+        &:active {
+          transform: scale(.97);
+        }
+      }
+
+      img {
+        width: clamp(20px, 2vw, 25px);
+        height: clamp(20px, 2vw, 25px);
+      }
+
+      h3 {
+        font-weight: 400;
+        font-size: clamp(1.1rem, 2vw, 1.2rem);
+      }
+    }
+  }
 }

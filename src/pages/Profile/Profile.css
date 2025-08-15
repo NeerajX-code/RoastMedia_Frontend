@@ -45,12 +45,12 @@
   border-radius: 50%;
   margin: 0 auto 1rem;
 }
-.profile__info .profile__name {
+.profile__info .user_info .profile__name {
   font-size: 1.375rem;
   font-weight: bold;
 }
-.profile__info .profile__role,
-.profile__info .profile__joined {
+.profile__info .user_info .profile__role,
+.profile__info .user_info .profile__joined {
   font-size: 1rem;
   color: #96c5a8;
 }
@@ -61,33 +61,39 @@
   justify-content: center;
 }
 .profile__stats .stat {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.7rem;
   border: 1px solid #366347;
-  border-radius: 0.5rem;
+  border-radius: 2rem;
   padding: 0.75rem;
   text-align: center;
   flex: 1;
   min-width: 111px;
 }
 .profile__stats .stat__number {
-  font-size: 1.5rem;
+  font-size: 1.4rem;
   font-weight: bold;
 }
 .profile__stats .stat__label {
-  font-size: 0.875rem;
+  font-size: 1.2rem;
   color: #96c5a8;
 }
 .profile__bio {
   padding: 0 1rem 1rem;
-  text-align: center;
+  text-align: start;
   font-size: 1rem;
 }
 .profile__tabs {
   display: flex;
-  justify-content: center;
+  justify-content: flex-start;
   border-bottom: 1px solid #366347;
 }
 .profile__tabs a {
   padding: 1rem;
+  text-decoration: none;
+  color: rgb(246, 240, 230);
 }
 .profile__tabs a.active {
   border-bottom: 3px solid #39e079;
