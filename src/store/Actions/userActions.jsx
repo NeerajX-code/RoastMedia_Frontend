@@ -12,16 +12,3 @@ export const getUserProfile = createAsyncThunk(
           }
      }
 );
-
-
-export const asyncRegisterUser = createAsyncThunk(
-     "user/asyncRegisterUser",
-     async (formData, { rejectWithValue }) => {
-          try {
-               await axios.post("/api/auth/register", formData);
-          } catch (error) {
-               console.log(error);
-               return rejectWithValue(error.response?.data?.message || "Registration failed");
-          }
-     }
-);

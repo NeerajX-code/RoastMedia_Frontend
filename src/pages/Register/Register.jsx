@@ -1,7 +1,7 @@
 import React from "react";
 import { useForm } from "react-hook-form";
 import "./Register.css";
-import { asyncRegisterUser } from "../../store/Actions/userActions";
+import { asyncRegisterUser } from "../../store/Actions/authActions";
 import { useDispatch, useSelector } from "react-redux"
 import { useEffect } from "react";
 import { ArrowLeft } from "lucide-react";
@@ -9,7 +9,7 @@ import { NavLink } from "react-router-dom";
 
 export default function Register() {
 
-    const { registerLoading, error } = useSelector((state) => state.userReducer)
+    const { loading, error } = useSelector((state) => state.authReducer)
 
     const {
         register,
@@ -29,9 +29,10 @@ export default function Register() {
 
         if (error) console.log(error);
 
-    }, [registerLoading])
+    }, [loading])
 
-    if (registerLoading) return (
+
+    if (loading) return (
         <div className="loading">
             <div className="loader"></div>
         </div>

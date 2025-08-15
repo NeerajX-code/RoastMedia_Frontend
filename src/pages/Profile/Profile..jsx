@@ -1,13 +1,33 @@
 import React from "react";
 import "./Profile.css";
-import { ArrowLeft } from "lucide-react";
+import { getUserProfile } from "../../store/Actions/userActions";
+import { useDispatch, useSelector } from "react-redux";
+import { useEffect } from "react";
 
 const Profile = () => {
+  const { user, loading } = useSelector((state) => state.userReducer);
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    if (!user) {
+      dispatch(getUserProfile());
+    }
+  }, [dispatch, user]);
+
+
   const posts = [
     "https://lh3.googleusercontent.com/aida-public/AB6AXuCwCkH5HxagQUH02_QjyXu-J4d5W0J3mGg52L4hPfWee8vwrv_zlO5tPBll1am-r593xqa9Jw0QAHGCq61C431t1-R9lJq7_mUlYOMpPp41B1JTwjiLY1Sptsxs9J4MhLdhVXFvz7UBMwcW5_ax_yG8swWgJumP21JCJ4YQ4acsmpaXVltMbCXvg1P0rVRu1c7LXG4tfImPB8Mjh1cj5osAWzYzUeTJmatg8UvatkT9KT5wo848GbrkUUzJtXZhLyt9YVH76CB90eU",
     "https://lh3.googleusercontent.com/aida-public/AB6AXuDLBUlDa8CRqdWmFJxY51-OarnT47EU1PlvdPb4Vr2Zjl80phxUXunvadOf5BrUBf7VWujHAn7TAVHCwAxh55Q96OhtJSYHtr6GoEWHvmKQPx3Q6-Ov2I6-5VvxFe2UkbUnjvjH_6XNwbbm9NfaN5w79Kqp_kXM_jlm3sh2kvJ2wMGPbBSa1u9vxzpcbVOF-fghCA3Y6uv6rqrPcvBPFK2hJmWXX1-MTU9z-Tvt8Uqi3byh3ipL5AT4dnEzi4sZuzzAPkUPcVWw3bI",
     "https://lh3.googleusercontent.com/aida-public/AB6AXuBJqfJIcOj8vPlclc95E7F_y6MKTuos0jUMVFFc4VJTWbJJH7uyyU8Mp0thNO5JcwkwNiVufjFhXnqpbEMV6UxR3IDMDa-RaDJuHjFuKPiTYgRkIBq3lTCfne2wJvHx2rPKLrGf3P4WEuDYU0Abg6w0qomHz1e0GlmsiH9dLcf9ukmoNUdEuVsvvLposq05FfAbsROlCOTnVX56aUAFH4oZIzwDoHjX1pTKG6KJ3ZEzKqU8apQuCZ7ABo5gkkbklwPT20U8OGWPQv8",
+    // Add all remaining image URLs here...
   ];
+
+
+  if (loading) return (
+    <div className="loading">
+      <div className="loader"></div>
+    </div>
+  )
 
   return (
     <div className="profile">
