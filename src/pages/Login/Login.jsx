@@ -1,11 +1,12 @@
 import React from "react";
 import { useForm } from "react-hook-form";
 import { useDispatch, useSelector } from "react-redux";
+import { asyncLoginUser } from "../../store/Actions/authActions";
 import "./Login.css";
 
 export default function Login() {
     const dispatch = useDispatch();
-    //   const { loginLoading, error } = useSelector((state) => state.user);
+    const { loading, error } = useSelector((state) => state.authReducer);
 
     const {
         register,
@@ -14,9 +15,16 @@ export default function Login() {
     } = useForm();
 
     const onSubmit = (data) => {
-        console.log("Form SUbmitted:"+data);
-        // dispatch(asyncLoginUser(data));
+        console.log("Form SUbmitted:" + data);
+        dispatch(asyncLoginUser(data));
     };
+
+    if (loading) return (
+        <div className="loading">
+            <div className="loader"></div>
+
+        </div>
+    )
 
     return (
         <div className="login-container">
@@ -69,8 +77,8 @@ export default function Login() {
 
                     <p className="forgot-password">Forgot Password?</p>
 
-                    <button type="submit" className="login-button">
-                        {/* {loginLoading ? "Logging in..." : "Log In"} */}Log In
+                    <button type="submit" className="login-button" disabled={loading}>
+                        {loading ? "Logging in..." : "Log In"}
                     </button>
                 </form>
             </div>

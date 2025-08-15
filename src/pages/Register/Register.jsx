@@ -1,13 +1,13 @@
 import React from "react";
 import { useForm } from "react-hook-form";
 import "./Register.css";
-import { asyncRegisterUser } from "../../store/Actions/userActions";
+import { asyncRegisterUser } from "../../store/Actions/authActions";
 import { useDispatch, useSelector } from "react-redux"
 import { useEffect } from "react";
 
 export default function Register() {
 
-    const { registerLoading, error } = useSelector((state) => state.userReducer)
+    const { loading, error } = useSelector((state) => state.authReducer)
 
     const {
         register,
@@ -25,12 +25,12 @@ export default function Register() {
 
     useEffect(() => {
 
-        if(error) console.log(error);
-      
-    }, [registerLoading])
-    
+        if (error) console.log(error);
 
-    if (registerLoading) return (
+    }, [loading])
+
+
+    if (loading) return (
         <div className="loading">
             <div className="loader"></div>
 
