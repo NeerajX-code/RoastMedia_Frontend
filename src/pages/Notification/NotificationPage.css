@@ -3,7 +3,6 @@
   background: #101010;
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
   border: 1px solid rgba(255, 255, 255, 0.152);
   border-top: none;
   border-bottom: none;
@@ -28,7 +27,6 @@
   color: #ffffff;
   border: none;
   cursor: pointer;
-  font-size: 1.5rem;
 }
 .notification-page .section-title {
   color: #ffffff;

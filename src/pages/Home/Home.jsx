@@ -29,11 +29,8 @@ const Home = () => {
 
   return (
     <div className="post-feed">
-
-
       <div className="post-feed_wrapper">
         <div className="post-feed_options">
-          <h1 className="header-h1">RoastMe</h1>
             <h2>For You</h2>
             <h2>Following</h2>
         </div>
@@ -59,9 +56,6 @@ const Home = () => {
           ))}
         </div>
       </div>
-
-
-
     </div>
   );
 };

@@ -1,5 +1,6 @@
 import React from "react";
 import "./NotificationPage.css";
+import { Settings } from "lucide-react";
 
 const NotificationPage = () => {
   const todayNotifications = [
@@ -54,19 +55,16 @@ const NotificationPage = () => {
 
   return (
     <div className="notification-page">
-      {/* Header */}
       <div className="header">
         <h2>Notifications</h2>
         <button className="settings-btn">
-          <i className="icon-gear">⚙️</i>
+        <Settings />
         </button>
       </div>
 
-      {/* Today */}
       <h3 className="section-title">Today</h3>
       {renderList(todayNotifications)}
 
-      {/* Yesterday */}
       <h3 className="section-title">Yesterday</h3>
       {renderList(yesterdayNotifications)}
     </div>

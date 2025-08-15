@@ -1,92 +1,174 @@
 .register-page {
   flex: 1;
-  background: #1a1122;
   display: flex;
   flex-direction: column;
   border: 1px solid rgba(255, 255, 255, 0.274);
   border-top: none;
   border-bottom: none;
-  justify-content: space-between;
   font-family: "Space Grotesk", "Noto Sans", sans-serif;
   color: white;
 }
 .register-page .register-header {
   display: flex;
   align-items: center;
-  padding: 16px;
-  padding-bottom: 8px;
+  padding: clamp(8px, 2vw, 16px);
+  padding-bottom: clamp(4px, 1vw, 8px);
   justify-content: space-between;
 }
 .register-page .register-header h2 {
-  flex: 1;
-  text-align: center;
-  font-size: 1.2rem;
+  font-size: clamp(1rem, 1.2vw, 1.125rem);
   font-weight: bold;
-  padding-right: 3rem;
 }
-.register-page .register-header .back-icon {
-  display: flex;
-  align-items: center;
+@media (min-width: 768px) {
+  .register-page .register-header h2 {
+    display: none;
+  }
 }
-.register-page .register-header .back-icon svg {
-  color: white;
+.register-page .register-header .login-backbtn {
+  border-radius: 50%;
+  border: 2px solid rgba(128, 128, 128, 0.473);
   cursor: pointer;
+  padding: clamp(4px, 0.8vw, 6px);
 }
-.register-page .register-form {
-  max-width: 480px;
-  width: 100%;
-  margin: 0 auto;
-  padding: 16px;
+@media (max-width: 768px) {
+  .register-page .register-header .login-backbtn {
+    display: none;
+  }
 }
-.register-page .register-form .form-group {
+.register-page .form {
+  height: 100%;
+  display: flex;
+  gap: clamp(0.5rem, 1.5vw, 1rem);
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 0 clamp(1.2rem, 2vw, 2rem);
+}
+.register-page .form h1 {
+  margin-bottom: 10px;
+  font-size: clamp(1.8rem, 3vw, 2.2rem);
+  font-weight: 400;
+  color: #d0e7df;
+}
+.register-page .form .register-form {
   display: flex;
   flex-direction: column;
-  margin-bottom: 16px;
+  gap: clamp(0.2rem, 2vw, 0.3rem);
+  max-width: 400px;
+  width: 100%;
 }
-.register-page .register-form .form-group input {
-  background: #362348;
+.register-page .form .register-form .form-group {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: clamp(10px, 2vw, 16px);
+}
+.register-page .form .register-form .form-group input {
+  background: rgba(128, 128, 128, 0.388);
   border: none;
-  border-radius: 8px;
-  padding: 14px;
+  border-radius: 4px;
+  padding: clamp(10px, 2vw, 14px);
   color: white;
-  font-size: 1rem;
+  font-size: clamp(1.1rem, 2vw, 1.2rem);
 }
-.register-page .register-form .form-group input::-moz-placeholder {
-  color: #ad92c9;
+.register-page .form .register-form .form-group input::-moz-placeholder {
+  color: #d9d8db;
+  padding-left: 3px;
 }
-.register-page .register-form .form-group input::placeholder {
-  color: #ad92c9;
+.register-page .form .register-form .form-group input::placeholder {
+  color: #d9d8db;
+  padding-left: 3px;
 }
-.register-page .register-form .form-group input:focus {
+.register-page .form .register-form .form-group input:focus {
   outline: none;
-  box-shadow: 0 0 0 2px #8d2bee;
+  border: 3px solid rgb(12, 152, 78);
 }
-.register-page .register-form .form-group span {
+.register-page .form .register-form .form-group span {
   margin-top: 4px;
-  font-size: 0.85rem;
+  font-size: clamp(0.75rem, 1.2vw, 0.85rem);
   color: #ff6b6b;
 }
-.register-page .register-form .register-btn {
+.register-page .form .register-form .register-btn {
   width: 100%;
-  background: #8d2bee;
-  color: white;
-  font-weight: bold;
+  background: #1d9bf0;
+  color: rgba(255, 255, 255, 0.906);
   border: none;
-  border-radius: 8px;
-  padding: 12px;
-  font-size: 1rem;
+  border-radius: 4px;
+  padding: clamp(10px, 2vw, 12px);
+  font-size: clamp(1rem, 2vw, 1.2rem);
+  font-weight: 500;
   cursor: pointer;
+  transition: all 0.3s cubic-bezier(0.19, 1, 0.22, 1);
 }
-.register-page .register-form .register-btn:hover {
-  background: #7a24cc;
+@media (min-width: 768px) {
+  .register-page .form .register-form .register-btn:hover {
+    background: #1479bc;
+  }
+  .register-page .form .register-form .register-btn:active {
+    background: #10679c;
+    transform: scale(0.96);
+  }
 }
-.register-page .register-footer {
-  text-align: center;
-  padding: 12px;
+.register-page .form .register-type {
+  color: gray;
+  margin-top: 6px;
 }
-.register-page .register-footer p {
-  color: #ad92c9;
-  font-size: 0.9rem;
-  text-decoration: underline;
+.register-page .form .register-type a {
+  color: #14ab79;
+  text-decoration: none;
+}
+.register-page .form .divider {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  max-width: clamp(230px, 40vw, 350px);
+  margin: clamp(6px, 2vw, 10px) 0;
+  color: #999;
+  font-size: clamp(1rem, 3vw, 1.25rem);
+}
+.register-page .form .divider span {
+  padding: 0 clamp(6px, 1vw, 10px);
+}
+.register-page .form .divider::before, .register-page .form .divider::after {
+  content: "";
+  flex: 1;
+  border-bottom: 1px solid #ccc;
+}
+.register-page .form .divider::before {
+  margin-right: clamp(6px, 1vw, 10px);
+}
+.register-page .form .divider::after {
+  margin-left: clamp(6px, 1vw, 10px);
+}
+.register-page .form .google-btn {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: clamp(0.3rem, 1vw, 0.5rem);
+  padding: clamp(0.6rem, 2vw, 0.7rem) clamp(0.8rem, 2vw, 1rem);
+  width: 100%;
+  max-width: 400px;
+  background-color: #5a5858;
+  color: rgba(255, 255, 255, 0.676);
+  border: none;
+  outline: none;
+  border-radius: 4px;
   cursor: pointer;
+  transition: all 0.3s cubic-bezier(0.19, 1, 0.22, 1);
+}
+@media (min-width: 768px) {
+  .register-page .form .google-btn:hover {
+    background-color: rgb(66, 63, 63);
+  }
+  .register-page .form .google-btn:active {
+    transform: scale(0.97);
+  }
+}
+.register-page .form .google-btn img {
+  width: clamp(20px, 2vw, 25px);
+  height: clamp(20px, 2vw, 25px);
+}
+.register-page .form .google-btn h3 {
+  font-weight: 400;
+  font-size: clamp(1.1rem, 2vw, 1.2rem);
 }/*# sourceMappingURL=Register.css.map */

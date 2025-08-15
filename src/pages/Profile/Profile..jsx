@@ -35,9 +35,7 @@ const Profile = () => {
       <div className="profile__header">
         <div className="profile__nav">
           <div className="profile__back-btn">
-            <svg xmlns="http://www.w3.org/2000/svg" width="24px" height="24px" fill="currentColor" viewBox="0 0 256 256">
-              <path d="M224,128a8,8,0,0,1-8,8H59.31l58.35,58.34a8,8,0,0,1-11.32,11.32l-72-72a8,8,0,0,1,0-11.32l72-72a8,8,0,0,1,11.32,11.32L59.31,120H216A8,8,0,0,1,224,128Z"></path>
-            </svg>
+            <ArrowLeft size={30} />
           </div>
           <h2 className="profile__username">Liam</h2>
         </div>
@@ -45,9 +43,12 @@ const Profile = () => {
         {/* Profile Info */}
         <div className="profile__info">
           <div className="profile__avatar" style={{ backgroundImage: `url("https://lh3.googleusercontent.com/aida-public/AB6AXuCvZ6iX3SS0n5bWvq4xivN92oDnmMmoPonKiGulM2PvFLtdFxF6eyVrTBeE3UQtkxdiNU3-4hgssfcdEtNLC_0vOMumHsu9WeV5VzCak-VKmQJuYP9hTcQa7IDcFf0gKtBjU7OguR4YD4vSdk3Nyzf5GQHbzPaXqQNP9bwbuepDDJ2OZ889Bsdw6iX-rL1drIoBrKoJc3Bxt-GxOwJrr-MK2gDB4rNECU9WkHpFdbvgcNJ8uuvzjMTtu7edZ9-US0OhApKxfEXDKDM")` }}></div>
-          <p className="profile__name">Liam</p>
-          <p className="profile__role">AI Roast Master</p>
-          <p className="profile__joined">Joined 2021</p>
+
+          <div className="user_info">
+            <p className="profile__name">Liam</p>
+            <p className="profile__role">AI Roast Master</p>
+            <p className="profile__joined">Joined 2021</p>
+          </div>
         </div>
 
         {/* Stats */}

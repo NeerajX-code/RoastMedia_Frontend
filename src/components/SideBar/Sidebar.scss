@@ -1,94 +1,117 @@
 .sidebar {
-    border-top: 1px solid #214a3c47;
-    background-color: #101010;
-    color: white;
-    display: none;
+  border-top: 1px solid #214a3c47;
+  background-color: #101010;
+  color: white;
+  display: none;
 
-    // Show only on mobile
-    @media (min-width: 768px) {
-        width: fit-content;
-        display: flex;
-        flex-direction: column;
-        justify-content: space-between;
-        height: 100vh;
-        border-left: 1px solid rgba(71, 70, 70, 0.586);
-        padding: 1rem;
-        flex: 0.5;
+  // Show only on mobile
+  @media (min-width: 768px) {
+    width: fit-content;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    height: 100vh;
+    border-left: 1px solid rgba(71, 70, 70, 0.586);
+    padding: 1rem;
+    flex: 0.5;
+  }
+
+  &__top {
+    display: flex;
+    flex-direction: column;
+    gap: clamp(0.6rem, 1vw, 0.8rem);
+    padding: 0 clamp(0.6rem, 1vw, 1rem);
+  }
+
+  &__logo img {
+    width: 40px;
+  }
+
+  &__menu {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .sidebar_menu {
+    margin-top: 1rem;
+  }
+
+  .menu-item {
+    display: flex;
+    align-items: center;
+    gap: 0.8rem;
+    padding: 0.6rem clamp(1rem, 1.5vw, 1.5rem);
+    border-radius: 8px;
+    font-size: clamp(1rem, 1.5vw, 1.5rem);
+    text-decoration: none;
+    color: #767474;
+    font-weight: 500;
+    transition: background 0.2s ease;
+
+    &:hover {
+      background: #4b4a4a6d;
+      color: #ffffffa8;
     }
 
-    &__top {
-        display: flex;
-        flex-direction: column;
-        gap: clamp(0.6rem, 1vw, 0.8rem);
-        padding: 0 clamp(0.6rem,1vw,1rem);
+    &.active {
+      color: #fff;
     }
 
-    &__logo img {
-        width: 40px;
+    .label {
+      font-size: 20px;
     }
 
-    &__menu {
-        display: flex;
-        flex-direction: column;
+    svg {
+      fill: none;
+      stroke: gray;
+      width: 32px;
+      height: 32px;
+    }
+  }
+
+  &_post-btn {
+    background: #1d9bf0;
+    color: #fff;
+    padding: 0.6rem 1rem;
+    border-radius: 100px;
+    margin-top: auto;
+    margin-bottom: clamp(0.5rem, 1vw, 1rem);
+    margin-left: clamp(0.5rem, 1vw, 1rem);
+    margin-right: clamp(0.5rem, 1vw, 1rem);
+    font-size: clamp(1.3rem, 3vw, 1rem);
+    font-weight: 500;
+    border: none;
+     cursor: pointer;
+  }
+
+  &__profile {
+    display: flex;
+    align-items: center;
+    gap: 0.8rem;
+    padding: 0.8rem;
+    cursor: pointer;
+    border-top: 1px solid #ddd;
+
+    .profile-img {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      cursor: pointer;
     }
 
-    .menu-item {
-        display: flex;
-        align-items: center;
-        gap: 0.8rem;
-        padding: 0.6rem clamp(1rem,1.5vw,1.5rem);
-        border-radius: 8px;
-        font-size: clamp(1rem,1.5vw,1.5rem);
-        text-decoration: none;
-        color: #333;
-        font-weight: 500;
-        transition: background 0.2s ease;
+    .profile-info {
+      display: flex;
+      flex-direction: column;
+      cursor: pointer;
 
-        &:hover {
-            background: #4b4a4a6d;
-            color: #ffffffa8;
-        }
-
-        &.active {
-            color: #fff;
-        }
+      span{
+        color: grey;
+      }
     }
 
-    &__post-btn {
-        background: #1d9bf0;
-        color: #fff;
-        padding: 0.6rem 1.2rem;
-        border-radius: 999px;
-        margin-top: auto;
-        margin-bottom: clamp(0.5rem,1vw,1rem);
-        margin-left: clamp(0.5rem,1vw,1rem);
-        margin-right: clamp(0.5rem,1vw,1rem);
-        font-size: clamp(1rem,1.4vw,1.5rem);
-        font-weight: bold;
-        border: none;
-        cursor: pointer;
+    .dots {
+      margin-left: auto;
+      cursor: pointer;
     }
-
-    &__profile {
-        display: flex;
-        align-items: center;
-        gap: 0.6rem;
-        padding: 0.8rem;
-        border-top: 1px solid #ddd;
-
-        .profile-img {
-            width: 40px;
-            height: 40px;
-            border-radius: 50%;
-        }
-
-        .profile-info{
-            display: flex;
-            flex-direction: column;
-        }
-
-        .dots {
-            margin-left: auto;
-        }
-    }
+  }
 }
