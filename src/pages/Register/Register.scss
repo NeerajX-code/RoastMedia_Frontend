@@ -1,0 +1,103 @@
+.register-page {
+    flex: 1;
+    background: #1a1122;
+    display: flex;
+    flex-direction: column;
+    border: 1px solid rgba(255, 255, 255, 0.274);
+    border-top: none;
+    border-bottom: none;
+    justify-content: space-between;
+    font-family: "Space Grotesk", "Noto Sans", sans-serif;
+    color: white;
+
+    .register-header {
+        display: flex;
+        align-items: center;
+        padding: 16px;
+        padding-bottom: 8px;
+        justify-content: space-between;
+
+        h2 {
+            flex: 1;
+            text-align: center;
+            font-size: 1.2rem;
+            font-weight: bold;
+            padding-right: 3rem;
+        }
+
+        .back-icon {
+            display: flex;
+            align-items: center;
+
+            svg {
+                color: white;
+                cursor: pointer;
+            }
+        }
+    }
+
+    .register-form {
+        max-width: 480px;
+        width: 100%;
+        margin: 0 auto;
+        padding: 16px;
+
+        .form-group {
+            display: flex;
+            flex-direction: column;
+            margin-bottom: 16px;
+
+            input {
+                background: #362348;
+                border: none;
+                border-radius: 8px;
+                padding: 14px;
+                color: white;
+                font-size: 1rem;
+
+                &::placeholder {
+                    color: #ad92c9;
+                }
+
+                &:focus {
+                    outline: none;
+                    box-shadow: 0 0 0 2px #8d2bee;
+                }
+            }
+
+            span {
+                margin-top: 4px;
+                font-size: 0.85rem;
+                color: #ff6b6b;
+            }
+        }
+
+        .register-btn {
+            width: 100%;
+            background: #8d2bee;
+            color: white;
+            font-weight: bold;
+            border: none;
+            border-radius: 8px;
+            padding: 12px;
+            font-size: 1rem;
+            cursor: pointer;
+
+            &:hover {
+                background: #7a24cc;
+            }
+        }
+    }
+
+    .register-footer {
+        text-align: center;
+        padding: 12px;
+
+        p {
+            color: #ad92c9;
+            font-size: 0.9rem;
+            text-decoration: underline;
+            cursor: pointer;
+        }
+    }
+}

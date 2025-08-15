@@ -5,6 +5,8 @@ import Post from '../pages/Post/Post'
 import Profile from '../pages/Profile/Profile.'
 import SearchUserPage from '../pages/SearchUser/SearchUserPage'
 import NotificationPage from '../pages/Notification/NotificationPage'
+import Register from '../pages/Register/Register'
+import Login from '../pages/Login/Login'
 
 const MainRoutes = () => {
     return (
@@ -14,6 +16,8 @@ const MainRoutes = () => {
             <Route path='/Profile' element={<Profile />} />
             <Route path='/Search' element={<SearchUserPage />} />
             <Route path='/Notification' element={<NotificationPage />} />
+            <Route path="/Register" element={<Register />} />
+            <Route path='/Login' element={<Login />} />
         </Routes>
     )
 }

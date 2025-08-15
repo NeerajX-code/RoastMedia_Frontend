@@ -1,0 +1,108 @@
+.login-container {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  color: white;
+  font-family: "Space Grotesk", "Noto Sans", sans-serif;
+  background-color: #1a1122;
+  border: 1px solid rgba(255, 255, 255, 0.274);
+  border-top: none;
+  border-bottom: none;
+  justify-content: space-between;
+  overflow-x: hidden;
+}
+.login-container .login-content {
+  padding: 1rem;
+}
+.login-container .login-content .login-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-bottom: 0.5rem;
+}
+.login-container .login-content .login-header h2 {
+  font-size: 1.125rem;
+  font-weight: bold;
+}
+.login-container .login-content .login-header .help-button {
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  color: white;
+}
+.login-container .login-content h1 {
+  font-size: 1.375rem;
+  font-weight: bold;
+  text-align: center;
+  padding: 1.25rem 0 0.75rem 0;
+}
+.login-container .login-content p {
+  font-size: 1rem;
+  text-align: center;
+  padding-bottom: 0.75rem;
+  color: rgba(255, 255, 255, 0.8);
+}
+.login-container .login-content .login-form {
+  display: flex;
+  flex-direction: column;
+  max-width: 480px;
+  margin: 0 auto;
+  gap: 1rem;
+}
+.login-container .login-content .login-form label {
+  display: flex;
+  flex-direction: column;
+}
+.login-container .login-content .login-form label input {
+  width: 100%;
+  height: 3.5rem;
+  padding: 1rem;
+  border-radius: 0.5rem;
+  border: none;
+  background-color: #362348;
+  color: white;
+}
+.login-container .login-content .login-form label input::-moz-placeholder {
+  color: #ad92c9;
+}
+.login-container .login-content .login-form label input::placeholder {
+  color: #ad92c9;
+}
+.login-container .login-content .login-form label input:focus {
+  outline: none;
+}
+.login-container .login-content .login-form label .error-message {
+  color: #ff6b6b;
+  font-size: 0.875rem;
+  margin-top: 0.25rem;
+}
+.login-container .login-content .login-form .forgot-password {
+  font-size: 0.875rem;
+  text-decoration: underline;
+  color: #ad92c9;
+  cursor: pointer;
+  text-align: right;
+}
+.login-container .login-content .login-form .login-button {
+  height: 3rem;
+  border: none;
+  border-radius: 0.5rem;
+  background-color: #8d2bee;
+  color: white;
+  font-weight: bold;
+  font-size: 1rem;
+  cursor: pointer;
+}
+.login-container .login-content .login-form .login-button:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+.login-container .login-footer {
+  text-align: center;
+  padding: 1rem;
+  font-size: 0.875rem;
+  color: #ad92c9;
+  text-decoration: underline;
+}/*# sourceMappingURL=Login.css.map */

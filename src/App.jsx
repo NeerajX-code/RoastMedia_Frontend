@@ -9,7 +9,8 @@ const App = () => {
     <div className='app'>
       <div className="app_wrapper">
         <Sidebar />
-        <MainRoutes /></div>
+        <MainRoutes />
+      </div>
       <Navbar />
     </div>
   )
