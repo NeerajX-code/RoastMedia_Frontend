@@ -6,6 +6,7 @@ import { useDispatch, useSelector } from "react-redux"
 import { useEffect } from "react";
 import { ArrowLeft } from "lucide-react";
 import { NavLink } from "react-router-dom";
+import Loading from "../../components/Loader/Loading";
 
 export default function Register() {
 
@@ -33,9 +34,7 @@ export default function Register() {
 
 
     if (loading) return (
-        <div className="loading">
-            <div className="loader"></div>
-        </div>
+        <Loading />
     )
 
     else return (

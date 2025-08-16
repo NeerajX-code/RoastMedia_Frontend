@@ -4,7 +4,7 @@ import { getUserProfile } from "../../store/Actions/userActions";
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect } from "react";
 import { ArrowLeft } from "lucide-react";
-
+import Loading from "../../components/Loader/Loading";
 
 const Profile = () => {
   const { user, loading } = useSelector((state) => state.userReducer);
@@ -14,6 +14,7 @@ const Profile = () => {
     if (!user) {
       dispatch(getUserProfile());
     }
+    if (user) console.log(user);
   }, [dispatch, user]);
 
 
@@ -26,9 +27,7 @@ const Profile = () => {
 
 
   if (loading) return (
-    <div className="loading">
-      <div className="loader"></div>
-    </div>
+    <Loading />
   )
 
   return (
@@ -39,7 +38,7 @@ const Profile = () => {
           <div className="profile__back-btn">
             <ArrowLeft size={30} />
           </div>
-          <h2 className="profile__username">Liam</h2>
+          <h2 className="profile__username">{user?.displayName}</h2>
         </div>
 
         {/* Profile Info */}
@@ -47,8 +46,8 @@ const Profile = () => {
           <div className="profile__avatar" style={{ backgroundImage: `url("https://lh3.googleusercontent.com/aida-public/AB6AXuCvZ6iX3SS0n5bWvq4xivN92oDnmMmoPonKiGulM2PvFLtdFxF6eyVrTBeE3UQtkxdiNU3-4hgssfcdEtNLC_0vOMumHsu9WeV5VzCak-VKmQJuYP9hTcQa7IDcFf0gKtBjU7OguR4YD4vSdk3Nyzf5GQHbzPaXqQNP9bwbuepDDJ2OZ889Bsdw6iX-rL1drIoBrKoJc3Bxt-GxOwJrr-MK2gDB4rNECU9WkHpFdbvgcNJ8uuvzjMTtu7edZ9-US0OhApKxfEXDKDM")` }}></div>
 
           <div className="user_info">
-            <p className="profile__name">Liam</p>
-            <p className="profile__role">AI Roast Master</p>
+            <p className="profile__name">{user?.displayName}</p>
+            <p className="profile__role">{user?.userId?.username}</p>
             <p className="profile__joined">Joined 2021</p>
           </div>
         </div>
@@ -56,12 +55,13 @@ const Profile = () => {
         {/* Stats */}
         <div className="profile__stats">
           <div className="stat">
-            <p className="stat__number">123</p>
-            <p className="stat__label">Posts</p>
+            <p className="stat__number">{user?.
+              followersCount} </p>
+            <p className="stat__label">Followers</p>
           </div>
           <div className="stat">
-            <p className="stat__number">456</p>
-            <p className="stat__label">Followers</p>
+            <p className="stat__number">{user?.followingCount}</p>
+            <p className="stat__label">Following</p>
           </div>
         </div>
 

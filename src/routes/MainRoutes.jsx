@@ -7,17 +7,33 @@ import SearchUserPage from '../pages/SearchUser/SearchUserPage'
 import NotificationPage from '../pages/Notification/NotificationPage'
 import Register from '../pages/Register/Register'
 import Login from '../pages/Login/Login'
+import AuthWrapper from '../components/AuthWrapper/AuthWrapper'
+import UnAuthWrapper from '../components/UnAuthWrapper/UnAuthWrapper'
 
 const MainRoutes = () => {
     return (
         <Routes>
             <Route path="/" element={<Home />} />
-            <Route path='/Post' element={<Post />} />
-            <Route path='/Profile' element={<Profile />} />
+            <Route path='/Post' element={
+                <AuthWrapper>
+                    <Post />
+                </AuthWrapper>
+            } />
+            <Route path='/Profile' element={
+                <AuthWrapper>
+                    <Profile />
+                </AuthWrapper>
+            } />
             <Route path='/Search' element={<SearchUserPage />} />
-            <Route path='/Notification' element={<NotificationPage />} />
-            <Route path="/Register" element={<Register />} />
-            <Route path='/Login' element={<Login />} />
+            <Route path='/Notification' element={
+                <AuthWrapper>
+                    <NotificationPage />
+                </AuthWrapper>} />
+            <Route path="/Register" element={
+                <UnAuthWrapper>
+                    <Register />
+                </UnAuthWrapper>} />
+            <Route path='/Login' element={<UnAuthWrapper><Login /></UnAuthWrapper>} />
         </Routes>
     )
 }
