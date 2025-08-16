@@ -7,10 +7,10 @@ const Home = () => {
   const posts = [
     {
       username: "JohnDoe",
-      image: "https://ik.imagekit.io/nkde9n0dc/baf8f3a4-e595-47fb-9445-c75e66597d23_Iw-1qYj_z",
+      image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRa2u7UKUlNuOGSrw2-h-oIz99LT8N37JWqXQ&s",
       caption: "My latest selfie!",
       roast: "You look like a potato that just learned about the gym.",
-      likes: 24,
+      likes: 99,
       comments: 5,
       shares: 2,
       bookmarks: 3

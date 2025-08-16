@@ -3,6 +3,8 @@ import "./Profile.css";
 import { getUserProfile } from "../../store/Actions/userActions";
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect } from "react";
+import { ArrowLeft } from "lucide-react";
+
 
 const Profile = () => {
   const { user, loading } = useSelector((state) => state.userReducer);
