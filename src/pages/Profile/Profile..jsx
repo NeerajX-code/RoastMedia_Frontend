@@ -4,6 +4,7 @@ import { getUserProfile } from "../../store/Actions/userActions";
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect } from "react";
 import { ArrowLeft } from "lucide-react";
+import Loading from "../../components/Loader/Loading";
 
 const Profile = () => {
   const { user, loading } = useSelector((state) => state.userReducer);
@@ -26,9 +27,7 @@ const Profile = () => {
 
 
   if (loading) return (
-    <div className="loading">
-      <div className="loader"></div>
-    </div>
+    <Loading />
   )
 
   return (

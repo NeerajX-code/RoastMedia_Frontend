@@ -1,11 +1,13 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { asyncRegisterUser, asyncLoginUser } from "../Actions/authActions";
 import { isAnyOf } from "@reduxjs/toolkit";
+import Cookies from "js-cookie";
 
 const initialState = {
     loading: false,
     error: null,
     successMessage: null,
+    token: Cookies.get("token") || null
 };
 
 const authSlice = createSlice({

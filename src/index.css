@@ -2,30 +2,15 @@
   margin: 0;
   padding: 0;
   box-sizing: border-box;
-  font-family: 'Lexend',sans-serif;
+  font-family: 'Lexend', sans-serif;
 }
+
 html,
 body {
   height: 100%;
   width: 100%;
 }
 
-.loading {
-  background: rgba(0,0,0,0.4); /* dim background */
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  z-index: 999;
-}
-
-.loader {
-  width: 40px;
-  height: 40px;
-  border: 4px solid #fff;
-  border-top: 4px solid red;
-  border-radius: 50%;
-  animation: spin 0.8s linear infinite;
-}
 
 @keyframes spin {
   to {

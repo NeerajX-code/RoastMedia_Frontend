@@ -5,6 +5,7 @@ import { asyncLoginUser } from "../../store/Actions/authActions";
 import "./Login.css";
 import { ArrowLeft } from "lucide-react";
 import { NavLink } from "react-router-dom";
+import Loading from "../../components/Loader/Loading";
 
 export default function Login() {
   const dispatch = useDispatch();
@@ -22,10 +23,7 @@ export default function Login() {
   };
 
   if (loading) return (
-    <div className="loading">
-      <div className="loader"></div>
-
-    </div>
+    <Loading />
   )
 
   return (

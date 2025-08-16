@@ -5,16 +5,16 @@ import { Heart, Combine, Share2, Bookmark } from "lucide-react";
 const Home = () => {
 
   const posts = [
-    {
-      username: "JohnDoe",
-      image: "https://ik.imagekit.io/nkde9n0dc/baf8f3a4-e595-47fb-9445-c75e66597d23_Iw-1qYj_z",
-      caption: "My latest selfie!",
-      roast: "You look like a potato that just learned about the gym.",
-      likes: 24,
-      comments: 5,
-      shares: 2,
-      bookmarks: 3
-    },
+    // {
+    //   username: "JohnDoe",
+    //   image: "",
+    //   caption: "My latest selfie!",
+    //   roast: "You look like a potato that just learned about the gym.",
+    //   likes: 24,
+    //   comments: 5,
+    //   shares: 2,
+    //   bookmarks: 3
+    // },
     {
       username: "JaneSmith",
       image: "https://ik.imagekit.io/nkde9n0dc/b3984cf4-0b18-473d-8ec5-4cf5837f2e06_UDs3mhVzz6",
