@@ -69,7 +69,7 @@ const SearchUserPage = () => {
 
       {/* Tabs */}
       <div className="tabs">
-        <a href="#" className="active">Top</a>
+        <a href="#"  className="active">Top</a>
         <a href="#">Users</a>
       </div>
 
