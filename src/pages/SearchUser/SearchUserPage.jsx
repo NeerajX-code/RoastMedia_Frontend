@@ -19,7 +19,7 @@ const SearchUserPage = () => {
       } else {
         dispatch(clearSearch()); // Agar input empty hai toh results clear ho jayein
       }
-    }, 500); // 👈 500ms delay
+    }, 500); 
 
     return () => {
       clearTimeout(handler);

@@ -1,50 +1,69 @@
-import React, { useRef, useState } from "react";
+import React, { useRef, useState, useEffect } from "react";
 import "./Post.css";
+import { asyncGenerateCaption } from "../../store/Actions/postActions";
 
-const Post = () => {
+const MAX_FILE_SIZE = 5 * 1024 * 1024; // 5MB
+
+const Post = ({ onSubmit }) => {
+  const [file, setFile] = useState(null);
   const [preview, setPreview] = useState(null);
-  const [isDragging, setIsDragging] = useState(false);
+  const [error, setError] = useState(null);
 
   const desktopInputRef = useRef(null);
   const galleryInputRef = useRef(null);
 
-  // Handle file selection (from input or drop)
-  const handleImageChange = (e) => {
-    const file = e.target.files ? e.target.files[0] : e.dataTransfer.files[0];
-    
-    if (file) {
-      setPreview(URL.createObjectURL(file));
-      console.log(file);
+  useEffect(() => {
+    return () => {
+      if (preview) URL.revokeObjectURL(preview);
+    };
+  }, [preview]);
+
+  const validateFile = (file) => {
+    if (!file.type.startsWith("image/")) {
+      return "Only image files are allowed";
     }
+    if (file.size > MAX_FILE_SIZE) {
+      return "File size must be under 5MB";
+    }
+    return null;
   };
 
-  // Drag over event (prevents browser from opening the file)
-  const handleDragOver = (e) => {
-    e.preventDefault();
-    setIsDragging(true);
+  const handleFileSelect = (file) => {
+    const errorMsg = validateFile(file);
+    if (errorMsg) {
+      setError(errorMsg);
+      setFile(null);
+      setPreview(null);
+      return;
+    }
+    setError(null);
+    setFile(file);
+    setPreview(URL.createObjectURL(file));
   };
 
-  // Drag leave event (when leaving dropzone)
-  const handleDragLeave = () => {
-    setIsDragging(false);
+  const handleImageChange = (e) => {
+    const file = e.target.files?.[0];
+    if (file) handleFileSelect(file);
   };
 
-  // Drop event (when user drops file)
   const handleDrop = (e) => {
     e.preventDefault();
-    setIsDragging(false);
-
-    const file = e.dataTransfer.files[0];
-    console.log(file);
-    
-    if (file) {
-      setPreview(URL.createObjectURL(file));
-    }
+    const file = e.dataTransfer.files?.[0];
+    if (file) handleFileSelect(file);
   };
 
   const submitHandler = () => {
-    console.log('hello');
-  }
+    if (!file) {
+      setError("Please select an image before submitting.");
+      return;
+    }
+
+    const formData = new FormData();
+    formData.append("image", file);
+      
+    asyncGenerateCaption(formData)
+    
+  };
 
   return (
     <div className="roast-generator">
@@ -53,25 +72,25 @@ const Post = () => {
       </div>
 
       <div className="roast-generator__content">
-        <h2 className="roast-generator__main-title">Drag &amp; Drop <span style={{
-          color: "#39E079",
-        }}>Your Image</span></h2>
-
-        <p className="roast-generator__subtitle">
-          and See the magic
-        </p>
+        <h2 className="roast-generator__main-title">
+          Give{" "}
+          <span style={{ color: "#39E079", fontSize: "clamp(1.9rem, 2vw, 2.1rem)" }}>
+            Your Image
+          </span>
+        </h2>
+        <p className="roast-generator__subtitle">and See the magic</p>
       </div>
 
       <div className="roast-generator__dropzone-wrapper">
         <div
-          className={`roast-generator__dropzone ${isDragging ? "dragging" : ""}`}
-          onDragOver={handleDragOver}
-          onDragLeave={handleDragLeave}
+          className="roast-generator__dropzone"
+          onDragOver={(e) => e.preventDefault()}
           onDrop={handleDrop}
         >
           <div className="roast-generator__dropzone-texts">
             <p className="dropzone-title">Drop your image here</p>
-            <p className="dropzone-subtitle">Or browse your files</p>
+            <p className="dropzone-or">Or</p>
+            <p className="dropzone-subtitle">Browse your files</p>
           </div>
 
           <div className="roast-generator__capture-btn">
@@ -107,6 +126,8 @@ const Post = () => {
           </div>
         </div>
       </div>
+
+      {error && <p style={{ color: "red", marginTop: "10px" }}>{error}</p>}
 
       {preview && (
         <div style={{ marginTop: "20px", textAlign: "center" }}>
