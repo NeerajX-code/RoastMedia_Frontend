@@ -6,8 +6,6 @@
   border-top: none;
   border-bottom: none;
   flex-direction: column;
-  font-family: "Space Grotesk", "Noto Sans", sans-serif;
-  padding-bottom: 60px; // space for bottom nav
 }
 
 .search-bar {
@@ -73,15 +71,10 @@
 
 .user-grid {
   flex: 1;
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(158px, 1fr));
+  display: flex;
+  flex-direction: column;
   gap: 1rem;
-  padding: 1rem;
+  padding: clamp(0.8rem,1vw,1rem);
+  overflow-y: auto;
 
-  .user-card {
-    aspect-ratio: 1 / 1;
-    background-size: cover;
-    background-position: center;
-    border-radius: 8px;
-  }
 }

@@ -51,7 +51,7 @@
     }
 
     .user_info {
-      
+
       .profile__name {
         font-size: 1.375rem;
         font-weight: bold;
@@ -87,6 +87,7 @@
         font-size: 1.4rem;
         font-weight: bold;
       }
+
       &__label {
         font-size: 1.2rem;
         color: #96c5a8;
@@ -130,21 +131,10 @@
     }
   }
 
-  //   &__bottom-nav {
-  //     display: flex;
-  //     border-top: 1px solid #264532;
-  //     background: #1b3124;
-  //     padding: 0.5rem 1rem;
+}
 
-  //     a {
-  //       flex: 1;
-  //       display: flex;
-  //       justify-content: center;
-  //       color: #96c5a8;
+.profile__posts {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
 
-  //       &.active {
-  //         color: white;
-  //       }
-  //     }
-  //   }
 }

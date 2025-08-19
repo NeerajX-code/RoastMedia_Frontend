@@ -1,0 +1,96 @@
+.post {
+  padding: clamp(0.5rem, 1vw, 1rem);
+  background-color: #0b0b0b;
+  border-radius: 1rem;
+  border: 1px solid rgba(255, 255, 255, 0.252);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
+}
+.post a {
+  text-decoration: none;
+}
+.post_top {
+  width: 100%;
+  display: flex;
+  color: white;
+  gap: clamp(0.8rem, 1vw, 1rem);
+  padding-bottom: clamp(0.5rem, 0.8vw, 1rem);
+}
+.post_top_userImg {
+  flex: 0 auto;
+}
+.post_top_userImg img {
+  width: clamp(40px, 5vw, 60px);
+  height: clamp(40px, 5vw, 60px);
+  border-radius: 50%;
+  overflow: hidden;
+  -o-object-fit: cover;
+     object-fit: cover;
+}
+.post_top_userDetails {
+  display: flex;
+  justify-content: space-between;
+  flex: 1;
+}
+.post_top_userDetails .userDetails_left h2 {
+  font-weight: 700;
+  font-size: clamp(0.8rem, 1.5vw, 1.5rem);
+  background: linear-gradient(90deg, #22c55e, #16a34a, #15803d);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+.post_top_userDetails .userDetails_left p {
+  color: rgba(255, 255, 255, 0.873);
+}
+.post_top_userDetails .userDetails_right p {
+  color: rgba(255, 255, 255, 0.592);
+}
+.post .post__image {
+  width: 100%;
+}
+.post .post__image img {
+  width: 100%;
+  aspect-ratio: 1/0.8;
+  -o-object-fit: cover;
+     object-fit: cover;
+}
+.post .post__content {
+  padding: 1rem;
+}
+.post .post__username {
+  font-size: 1.2rem;
+  font-weight: 600;
+  color: #ffffff;
+}
+.post .post__caption {
+  font-size: 0.95rem;
+  color: rgb(225, 242, 192);
+  margin-top: 0.3rem;
+}
+.post .post__roast {
+  font-size: 0.9rem;
+  color: #a0a0a0;
+  margin-top: 0.5rem;
+  font-style: italic;
+}
+.post .post__actions {
+  display: flex;
+  justify-content: space-around;
+  margin-top: 1rem;
+}
+.post .post__actions button {
+  background: none;
+  border: none;
+  color: #ffffff;
+  font-size: 1rem;
+  display: flex;
+  align-items: center;
+  gap: 0.3rem;
+  cursor: pointer;
+  transition: color 0.3s;
+}
+.post .post__actions button:hover {
+  color: #2fff75;
+}
+.post .post__actions button svg {
+  font-size: 1.1rem;
+}/*# sourceMappingURL=PostCard.css.map */

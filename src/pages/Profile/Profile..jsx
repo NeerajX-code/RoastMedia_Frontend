@@ -43,7 +43,7 @@ const Profile = () => {
 
         {/* Profile Info */}
         <div className="profile__info">
-          <div className="profile__avatar" style={{ backgroundImage: `url("https://lh3.googleusercontent.com/aida-public/AB6AXuCvZ6iX3SS0n5bWvq4xivN92oDnmMmoPonKiGulM2PvFLtdFxF6eyVrTBeE3UQtkxdiNU3-4hgssfcdEtNLC_0vOMumHsu9WeV5VzCak-VKmQJuYP9hTcQa7IDcFf0gKtBjU7OguR4YD4vSdk3Nyzf5GQHbzPaXqQNP9bwbuepDDJ2OZ889Bsdw6iX-rL1drIoBrKoJc3Bxt-GxOwJrr-MK2gDB4rNECU9WkHpFdbvgcNJ8uuvzjMTtu7edZ9-US0OhApKxfEXDKDM")` }}></div>
+          <div className="profile__avatar" style={{ backgroundImage: `url(${user?.avatarUrl})` }}></div>
 
           <div className="user_info">
             <p className="profile__name">{user?.displayName}</p>

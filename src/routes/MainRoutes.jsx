@@ -9,6 +9,7 @@ import Register from '../pages/Register/Register'
 import Login from '../pages/Login/Login'
 import AuthWrapper from '../components/AuthWrapper/AuthWrapper'
 import UnAuthWrapper from '../components/UnAuthWrapper/UnAuthWrapper'
+import OtherProfile from '../pages/Profile/OtherProfile'
 
 const MainRoutes = () => {
     return (
@@ -24,6 +25,7 @@ const MainRoutes = () => {
                     <Profile />
                 </AuthWrapper>
             } />
+            <Route path='/other/profile/:id' element={<OtherProfile />} />
             <Route path='/Search' element={<SearchUserPage />} />
             <Route path='/Notification' element={
                 <AuthWrapper>

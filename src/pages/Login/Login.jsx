@@ -1,15 +1,18 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { useDispatch, useSelector } from "react-redux";
 import { asyncLoginUser } from "../../store/Actions/authActions";
 import "./Login.css";
 import { ArrowLeft } from "lucide-react";
-import { NavLink } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
 import Loading from "../../components/Loader/Loading";
 
 export default function Login() {
   const dispatch = useDispatch();
   const { loading, error } = useSelector((state) => state.authReducer);
+
+
+  const navigate = useNavigate();
 
   const {
     register,
@@ -21,6 +24,14 @@ export default function Login() {
     console.log("Form SUbmitted:" + data);
     dispatch(asyncLoginUser(data));
   };
+
+
+  // useEffect(() => {
+  //   if (token) {
+  //     console.log(token);
+  //     navigate("/Profile");
+  //   }
+  // }, [token, navigate]);
 
   if (loading) return (
     <Loading />

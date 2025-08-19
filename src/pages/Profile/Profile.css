@@ -109,4 +109,9 @@
   background-size: cover;
   background-position: center;
   border-radius: 0.75rem;
+}
+
+.profile__posts {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
 }/*# sourceMappingURL=Profile.css.map */

@@ -5,12 +5,13 @@ import { asyncRegisterUser } from "../../store/Actions/authActions";
 import { useDispatch, useSelector } from "react-redux"
 import { useEffect } from "react";
 import { ArrowLeft } from "lucide-react";
-import { NavLink } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
 import Loading from "../../components/Loader/Loading";
 
 export default function Register() {
 
-    const { loading, error } = useSelector((state) => state.authReducer)
+    const { loading, error } = useSelector((state) => state.authReducer);
+    const navigate = useNavigate();
 
     const {
         register,
@@ -25,13 +26,6 @@ export default function Register() {
         console.log("Form submitted:", data);
         dispatch(asyncRegisterUser(data));
     };
-
-    useEffect(() => {
-
-        if (error) console.log(error);
-
-    }, [loading])
-
 
     if (loading) return (
         <Loading />
