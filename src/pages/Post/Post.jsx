@@ -1,48 +1,153 @@
-import React from "react";
+import React, { useRef, useState, useEffect } from "react";
 import "./Post.css";
+import { asyncGenerateCaption } from "../../store/Actions/postActions";
 
-const Post = () => {
+const MAX_FILE_SIZE = 5 * 1024 * 1024; // 5MB
+
+const Post = ({ onSubmit }) => {
+  const [file, setFile] = useState(null);
+  const [preview, setPreview] = useState(null);
+  const [error, setError] = useState(null);
+
+  const desktopInputRef = useRef(null);
+  const galleryInputRef = useRef(null);
+
+  useEffect(() => {
+    return () => {
+      if (preview) URL.revokeObjectURL(preview);
+    };
+  }, [preview]);
+
+  const validateFile = (file) => {
+    if (!file.type.startsWith("image/")) {
+      return "Only image files are allowed";
+    }
+    if (file.size > MAX_FILE_SIZE) {
+      return "File size must be under 5MB";
+    }
+    return null;
+  };
+
+  const handleFileSelect = (file) => {
+    const errorMsg = validateFile(file);
+    if (errorMsg) {
+      setError(errorMsg);
+      setFile(null);
+      setPreview(null);
+      return;
+    }
+    setError(null);
+    setFile(file);
+    setPreview(URL.createObjectURL(file));
+  };
+
+  const handleImageChange = (e) => {
+    const file = e.target.files?.[0];
+    if (file) handleFileSelect(file);
+  };
+
+  const handleDrop = (e) => {
+    e.preventDefault();
+    const file = e.dataTransfer.files?.[0];
+    if (file) handleFileSelect(file);
+  };
+
+  const submitHandler = () => {
+    if (!file) {
+      setError("Please select an image before submitting.");
+      return;
+    }
+
+    const formData = new FormData();
+    formData.append("image", file);
+      
+    asyncGenerateCaption(formData)
+    
+  };
+
   return (
     <div className="roast-generator">
-      {/* Header */}
       <div className="roast-generator__header">
-        <div className="roast-generator__back-icon">
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            width="24px"
-            height="24px"
-            fill="currentColor"
-            viewBox="0 0 256 256"
-          >
-            <path d="M224,128a8,8,0,0,1-8,8H59.31l58.35,58.34a8,8,0,0,1-11.32,11.32l-72-72a8,8,0,0,1,0-11.32l72-72a8,8,0,0,1,11.32,11.32L59.31,120H216A8,8,0,0,1,224,128Z"></path>
-          </svg>
-        </div>
         <h2 className="roast-generator__title">Roast Generator</h2>
       </div>
 
-      {/* Heading */}
-      <h2 className="roast-generator__main-title">
-        Drag &amp; Drop Your Image
-      </h2>
-      <p className="roast-generator__subtitle">
-        Our AI will generate a savage roast caption instantly.
-      </p>
+      <div className="roast-generator__content">
+        <h2 className="roast-generator__main-title">
+          Give{" "}
+          <span style={{ color: "#39E079", fontSize: "clamp(1.9rem, 2vw, 2.1rem)" }}>
+            Your Image
+          </span>
+        </h2>
+        <p className="roast-generator__subtitle">and See the magic</p>
+      </div>
 
-      {/* Dropzone */}
       <div className="roast-generator__dropzone-wrapper">
-        <div className="roast-generator__dropzone">
+        <div
+          className="roast-generator__dropzone"
+          onDragOver={(e) => e.preventDefault()}
+          onDrop={handleDrop}
+        >
           <div className="roast-generator__dropzone-texts">
             <p className="dropzone-title">Drop your image here</p>
-            <p className="dropzone-subtitle">Or browse your files</p>
+            <p className="dropzone-or">Or</p>
+            <p className="dropzone-subtitle">Browse your files</p>
           </div>
-          <button className="dropzone-btn">Browse Files</button>
+
+          <div className="roast-generator__capture-btn">
+            <button
+              type="button"
+              className="post-btn desktop-only"
+              onClick={() => desktopInputRef.current.click()}
+            >
+              Choose Image
+            </button>
+            <input
+              ref={desktopInputRef}
+              type="file"
+              accept="image/*"
+              hidden
+              onChange={handleImageChange}
+            />
+
+            <button
+              type="button"
+              className="post-btn mobile-only"
+              onClick={() => galleryInputRef.current.click()}
+            >
+              Gallery
+            </button>
+            <input
+              ref={galleryInputRef}
+              type="file"
+              accept="image/*"
+              hidden
+              onChange={handleImageChange}
+            />
+          </div>
         </div>
       </div>
 
-      {/* Footer Button */}
+      {error && <p style={{ color: "red", marginTop: "10px" }}>{error}</p>}
+
+      {preview && (
+        <div style={{ marginTop: "20px", textAlign: "center" }}>
+          <img
+            src={preview}
+            alt="preview"
+            style={{
+              width: "200px",
+              height: "fit-content",
+              objectFit: "contain",
+              borderRadius: "12px",
+            }}
+          />
+        </div>
+      )}
+
       <div className="roast-generator__footer">
-        <button className="post-btn">Post Roast</button>
-        <div className="footer-space"></div>
+        <button className="post-btn" type="submit" onClick={submitHandler}>
+          Generate magic
+        </button>
       </div>
     </div>
   );
