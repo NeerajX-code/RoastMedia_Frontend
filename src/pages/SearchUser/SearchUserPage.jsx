@@ -5,6 +5,7 @@ import { asyncGetUsers } from "../../store/Actions/searchActions";
 import { clearSearch } from "../../store/Reducers/searchReducer";
 import { useState } from "react";
 import { useEffect } from "react";
+import SearchUserCard from "../../components/SearchUserCard/SearchUserCard";
 
 const SearchUserPage = () => {
   const { results, query } = useSelector((state) => state.searchReducer);
@@ -76,7 +77,7 @@ const SearchUserPage = () => {
       {/* User grid */}
       <div className="user-grid">
         {results?.map((user, i) => (
-          <div key={i} className="user-card" style={{ backgroundImage: `url(${user.avatarUrl})` }}></div>
+          <SearchUserCard key={i} user={user} />
         ))}
       </div>
     </div>

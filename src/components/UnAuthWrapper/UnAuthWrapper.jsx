@@ -1,24 +1,16 @@
-import { useEffect } from "react";
 import { useSelector } from "react-redux";
-import { useNavigate } from "react-router";
-import Loading from "../Loader/Loading";
+import { Navigate } from "react-router-dom";
 
 const UnAuthWrapper = ({ children }) => {
-    const { token } = useSelector((state) => state.authReducer);
-    const navigate = useNavigate();
+  const { token } = useSelector((state) => state.authReducer);
 
-    useEffect(() => {
-        if (token) {
-            // agar token hai to register/login pages pe na jane do
-            navigate("/");
-        }
-    }, [token, navigate]);
+  if (token) {
+    // agar token hai to register/login pages pe na jane do
+    return <Navigate to="/Profile" replace />;
+  }
 
-    if (token) {
-        return <Loading />; // jab tak navigate ho raha hai, kuch render na karo
-    }
-
-    return children; // jab token nahi hai tabhi ye dikhega
+  // jab token nahi hai tabhi children dikhega
+  return children;
 };
 
 export default UnAuthWrapper;

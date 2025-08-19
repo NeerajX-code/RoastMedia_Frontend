@@ -7,13 +7,14 @@ const initialState = {
     loading: false,
     error: null,
     successMessage: null,
-    token: Cookies.get("token") || null
+    token:Cookies.get("token") || null
 };
 
 const authSlice = createSlice({
     name: "auth",
     initialState,
-    reducers: {},
+    reducers: {
+    },
     extraReducers: (builder) => {
         builder
             // Pending for both register and login
@@ -31,6 +32,7 @@ const authSlice = createSlice({
                 isAnyOf(asyncRegisterUser.fulfilled, asyncLoginUser.fulfilled),
                 (state, action) => {
                     state.loading = false;
+                    state.token = action.payload;
                     state.successMessage =
                         action.type === asyncRegisterUser.fulfilled.type
                             ? "User registered successfully!"
@@ -51,5 +53,7 @@ const authSlice = createSlice({
             );
     },
 });
+
+export const { setToken } = authSlice.actions;
 
 export default authSlice.reducer;

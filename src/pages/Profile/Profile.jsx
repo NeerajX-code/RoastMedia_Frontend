@@ -55,7 +55,7 @@ const Profile = () => {
 
         <div className="proifle__data"></div>
         <div className="profile__info">
-          <div className="profile__avatar" style={{ backgroundImage: `url(${user?.avatarUrl})` }}></div>
+          <div className="profile__avatar" style={{ backgroundImage: `url(${user?.avatarUrl})` }}></div>
 
           <div className="user_info">
             <p className="profile__name">{user?.displayName}</p>
