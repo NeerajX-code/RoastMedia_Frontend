@@ -60,7 +60,6 @@ const Post = ({ onSubmit }) => {
 
     const formData = new FormData();
     formData.append("image", file);
-      
     asyncGenerateCaption(formData)
     
   };
