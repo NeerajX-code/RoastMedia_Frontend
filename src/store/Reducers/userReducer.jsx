@@ -1,17 +1,22 @@
 import { createSlice } from '@reduxjs/toolkit'
-import { getUserProfile } from '../Actions/userActions';
+import { getUserProfile, updateUserDetails } from '../Actions/userActions';
 
 const initialState = {
   user: null,
   loading: false,
   error: null,
+  updateSuccess: null,
 }
 
 export const userSlice = createSlice({
   name: 'user',
   initialState,
-  reducers: {},
+  reducers: {
+  },
   extraReducers: (builder) => {
+
+    // Get User Profile
+
     builder
       .addCase(getUserProfile.pending, (state) => {
         state.loading = true;
@@ -26,27 +31,23 @@ export const userSlice = createSlice({
         state.error = action.payload;
       })
 
-    // ---------------------------
-    // // Register Thunk
-    // // ---------------------------
+    // Update User Details
 
-    // .addCase(asyncRegisterUser.pending, (state) => {
-    //   state.registerLoading = true;
-    //   state.error = null;
-    //   state.successMessage = null; // reset
-    // })
-
-    // .addCase(asyncRegisterUser.fulfilled, (state) => {
-    //   state.registerLoading = false;
-    //   state.successMessage = "User registered successfully!";
-    // })
-
-    // .addCase(asyncRegisterUser.rejected, (state, action) => {
-    //   state.registerLoading = false;
-    //   state.error = action.payload;
-    // });
+      .addCase(updateUserDetails.pending, (state) => {
+        state.loading = true;
+        state.error = null;
+        state.updateSuccess = null;
+      })
+      .addCase(updateUserDetails.fulfilled, (state, action) => {
+        state.loading = false;
+        state.user = action.payload;
+        state.updateSuccess = "Profile updated successfully!";
+      })
+      .addCase(updateUserDetails.rejected, (state, action) => {
+        state.loading = false;
+        state.error = action.payload;
+      });
   }
 })
-
 
 export default userSlice.reducer;

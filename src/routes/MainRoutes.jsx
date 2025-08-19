@@ -2,7 +2,8 @@ import React from 'react'
 import { Routes, Route } from 'react-router-dom'
 import Home from '../pages/Home/Home'
 import Post from '../pages/Post/Post'
-import Profile from '../pages/Profile/Profile.'
+import Profile from '../pages/Profile/Profile'
+import EditUserDetailsPage from '../pages/EditUserDetails/EditUserDetails'
 import SearchUserPage from '../pages/SearchUser/SearchUserPage'
 import NotificationPage from '../pages/Notification/NotificationPage'
 import Register from '../pages/Register/Register'
@@ -13,27 +14,51 @@ import UnAuthWrapper from '../components/UnAuthWrapper/UnAuthWrapper'
 const MainRoutes = () => {
     return (
         <Routes>
-            <Route path="/" element={<Home />} />
+            <Route path="/" element={
+                <Home />
+            } />
+
             <Route path='/Post' element={
                 <AuthWrapper>
                     <Post />
                 </AuthWrapper>
             } />
+
             <Route path='/Profile' element={
                 <AuthWrapper>
                     <Profile />
                 </AuthWrapper>
             } />
-            <Route path='/Search' element={<SearchUserPage />} />
+
+              <Route path='/Edit-user-profile' element={
+                <AuthWrapper>
+                    <EditUserDetailsPage />
+                </AuthWrapper>
+            } />
+
+            <Route path='/Search' element={
+                <SearchUserPage />
+            } />
+
             <Route path='/Notification' element={
                 <AuthWrapper>
                     <NotificationPage />
-                </AuthWrapper>} />
+                </AuthWrapper>
+            } />
+
             <Route path="/Register" element={
                 <UnAuthWrapper>
                     <Register />
-                </UnAuthWrapper>} />
-            <Route path='/Login' element={<UnAuthWrapper><Login /></UnAuthWrapper>} />
+                </UnAuthWrapper>
+            } />
+
+            <Route path='/Login' element={
+                <UnAuthWrapper>
+                    <Login />
+                </UnAuthWrapper>
+            } />
+
+
         </Routes>
     )
 }
