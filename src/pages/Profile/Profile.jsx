@@ -13,14 +13,21 @@ const Profile = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate()
 
-  useEffect(() => {
+  useEffect(async () => {
     if (!user) {
-      dispatch(getUserProfile());
+      await dispatch(getUserProfile());
 
-      setTimeout(() => {
-        dispatch(getUserPosts(user?.userId?._id));
-      }, 500);
+      if (user) {
+
+        setTimeout(() => {
+          dispatch(getUserPosts(user?.userId?._id));
+        }, 500);
+      }
+
+      //  https://roastmedia-backend.onrender.com/api/post/get/posts/user/undefined 
     }
+
+
     if (user) {
       console.log(user);
     }
@@ -83,7 +90,7 @@ const Profile = () => {
         </div>
 
         {postsLoading ? (
-          <div style={{flex:"1", padding:"4rem 1rem",textAlign:"center"}}>
+          <div style={{ flex: "1", padding: "4rem 1rem", textAlign: "center" }}>
             <p>Posts Fetching...</p>
           </div>
         ) : posts?.length > 0 ? (
@@ -93,7 +100,7 @@ const Profile = () => {
             ))}
           </div>
         ) : (
-          <p style={{width:"100%",padding:"4rem 1rem" , textAlign:"center"}}>No posts yet.</p>
+          <p style={{ width: "100%", padding: "4rem 1rem", textAlign: "center" }}>No posts yet.</p>
         )}
       </div>
 
