@@ -1,13 +1,19 @@
 import React, { useRef, useState, useEffect } from "react";
 import "./Post.css";
 import { asyncGenerateCaption } from "../../store/Actions/postActions";
+import { useDispatch } from "react-redux";
+import { clearCaption } from "../../store/Reducers/captionReducer";
 
 const MAX_FILE_SIZE = 5 * 1024 * 1024; // 5MB
 
 const Post = ({ onSubmit }) => {
+
+  const dispatch = useDispatch();
+
   const [file, setFile] = useState(null);
   const [preview, setPreview] = useState(null);
   const [error, setError] = useState(null);
+  const [personality, setPersonality] = useState("Desi_Uncle");
 
   const desktopInputRef = useRef(null);
   const galleryInputRef = useRef(null);
@@ -57,12 +63,18 @@ const Post = ({ onSubmit }) => {
       setError("Please select an image before submitting.");
       return;
     }
-
     const formData = new FormData();
     formData.append("image", file);
-    asyncGenerateCaption(formData)
-    
+    formData.append("personality", personality);
+    dispatch(asyncGenerateCaption(formData));
+
+
   };
+
+  const clearPreviewHandler = () => {
+    setPreview(null);
+    dispatch(clearCaption());
+  }
 
   return (
     <div className="roast-generator">
@@ -80,53 +92,58 @@ const Post = ({ onSubmit }) => {
         <p className="roast-generator__subtitle">and See the magic</p>
       </div>
 
-      <div className="roast-generator__dropzone-wrapper">
-        <div
-          className="roast-generator__dropzone"
-          onDragOver={(e) => e.preventDefault()}
-          onDrop={handleDrop}
-        >
-          <div className="roast-generator__dropzone-texts">
-            <p className="dropzone-title">Drop your image here</p>
-            <p className="dropzone-or">Or</p>
-            <p className="dropzone-subtitle">Browse your files</p>
-          </div>
+      {!preview &&
 
-          <div className="roast-generator__capture-btn">
-            <button
-              type="button"
-              className="post-btn desktop-only"
-              onClick={() => desktopInputRef.current.click()}
-            >
-              Choose Image
-            </button>
-            <input
-              ref={desktopInputRef}
-              type="file"
-              accept="image/*"
-              hidden
-              onChange={handleImageChange}
-            />
+        <div className="roast-generator__dropzone-wrapper">
+          <div
+            className="roast-generator__dropzone"
+            onDragOver={(e) => e.preventDefault()}
+            onDrop={handleDrop}
+          >
+            <div className="roast-generator__dropzone-texts">
+              <p className="dropzone-title">Drop your image here</p>
+              <p className="dropzone-or">Or</p>
+              <p className="dropzone-subtitle">Browse your files</p>
+            </div>
 
-            <button
-              type="button"
-              className="post-btn mobile-only"
-              onClick={() => galleryInputRef.current.click()}
-            >
-              Gallery
-            </button>
-            <input
-              ref={galleryInputRef}
-              type="file"
-              accept="image/*"
-              hidden
-              onChange={handleImageChange}
-            />
+            <div className="roast-generator__capture-btn">
+              <button
+                type="button"
+                className="post-btn desktop-only"
+                onClick={() => desktopInputRef.current.click()}
+              >
+                Choose Image
+              </button>
+              <input
+                ref={desktopInputRef}
+                type="file"
+                accept="image/*"
+                hidden
+                onChange={handleImageChange}
+              />
+
+              <button
+                type="button"
+                className="post-btn mobile-only"
+                onClick={() => galleryInputRef.current.click()}
+              >
+                Gallery
+              </button>
+              <input
+                ref={galleryInputRef}
+                type="file"
+                accept="image/*"
+                hidden
+                onChange={handleImageChange}
+              />
+            </div>
           </div>
         </div>
-      </div>
+      }
 
       {error && <p style={{ color: "red", marginTop: "10px" }}>{error}</p>}
+
+      <button onClick={clearPreviewHandler}>close</button>
 
       {preview && (
         <div style={{ marginTop: "20px", textAlign: "center" }}>
@@ -144,9 +161,39 @@ const Post = ({ onSubmit }) => {
       )}
 
       <div className="roast-generator__footer">
+        <select
+          className="dropdown"
+          value={personality}
+          onChange={(e) => setPersonality(e.target.value)}
+        >
+          <option value="Desi_Uncle">Desi Uncle</option>
+          <option value="Desi_Bua">Desi Bua</option>
+          <option value="Desi_Aunty">Desi Aunty</option>
+          <option value="Desi_Dost">Desi Dost</option>
+          <option value="Shayar_Banda">Shayar Banda</option>
+          <option value="Bambaiya_Tapori">Bambaiya Tapori</option>
+          <option value="Gyaani_Baba">Gyaani Baba</option>
+          <option value="Petty_Aunty">Petty Aunty</option>
+          <option value="Delhi_Launda">Delhi Launda</option>
+          <option value="Punjabi_Paji">Punjabi Paji</option>
+          <option value="South_Anna">South Anna</option>
+          <option value="Gujju_Ben">Gujju Ben</option>
+          <option value="Tech_Chomu">Tech Chomu</option>
+          <option value="Crypto_Fraud">Crypto Fraud</option>
+          <option value="TikTokiya">TikTokiya</option>
+          <option value="Bollywood_Drama">Bollywood Drama</option>
+          <option value="Tharki_Chacha">Tharki Chacha</option>
+          <option value="Hostel_Dost">Hostel Dost</option>
+          <option value="Shayar_Bewda">Shayar Bewda</option>
+          <option value="Petty_Chaiwala">Petty Chaiwala</option>
+          <option value="Thug_Dadi">Thug Dadi</option>
+          <option value="Rickshaw_Wala">Rickshaw Wala</option>
+        </select>
         <button className="post-btn" type="submit" onClick={submitHandler}>
           Generate magic
         </button>
+
+        <button className="create_post-btn">Post</button>
       </div>
     </div>
   );
