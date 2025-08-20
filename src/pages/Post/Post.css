@@ -95,8 +95,32 @@
   align-items: center;
   gap: clamp(0.5rem, 1vw, 0.75rem);
   padding: clamp(0.5rem, 2vw, 0.75rem) clamp(0.75rem, 2vw, 1rem);
+  border-top: 2px solid rgb(91, 88, 88);
 }
-.roast-generator .post-btn {
+.roast-generator .choose-btn {
+  align-items: center;
+  justify-content: center;
+  min-width: 84px;
+  max-width: 480px;
+  height: clamp(2.5rem, 4vw, 3rem);
+  padding: 0 clamp(1rem, 2.5vw, 1.25rem);
+  background-color: #39e079;
+  color: #122118;
+  font-size: clamp(0.9rem, 1.5vw, 1rem);
+  font-weight: 700;
+  border-radius: 9999px;
+  cursor: pointer;
+  border: none;
+  transition: transform 0.25s ease, background 0.25s ease;
+}
+.roast-generator .choose-btn:hover {
+  transform: translateY(-2px);
+  background-color: #2fc56a;
+}
+.roast-generator .choose-btn:active {
+  transform: scale(0.96);
+}
+.roast-generator .generate-btn {
   display: inline-flex;
   align-items: center;
   justify-content: center;
@@ -113,11 +137,11 @@
   border: none;
   transition: transform 0.25s ease, background 0.25s ease;
 }
-.roast-generator .post-btn:hover {
+.roast-generator .generate-btn:hover {
   transform: translateY(-2px);
   background-color: #2fc56a;
 }
-.roast-generator .post-btn:active {
+.roast-generator .generate-btn:active {
   transform: scale(0.96);
 }
 .roast-generator .mobile-only {
@@ -126,42 +150,63 @@
 .roast-generator .desktop-only {
   display: inline-block;
 }
-.roast-generator .dropdown {
-  width: clamp(150px, 40vw, 180px);
-  padding: 10px 14px;
-  border: 2px solid #e63946;
-  border-radius: 50px;
-  background: #fff;
-  font-size: 15px;
-  font-weight: 500;
-  color: #333;
-  cursor: pointer;
+.roast-generator .preview-wrapper {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+.roast-generator .preview-wrapper button {
+  width: -moz-fit-content;
+  width: fit-content;
+}
+.roast-generator .clear-preview {
+  background-color: rgb(57, 56, 56);
+  border: none;
   outline: none;
-  transition: all 0.25s ease;
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+  color: white;
+  border-radius: 50%;
+  padding: clamp(6px, 1vw, 10px);
+  display: flex;
+  cursor: pointer;
 }
-.roast-generator .dropdown:hover {
-  border-color: #d62828;
-  box-shadow: 0 6px 14px rgba(230, 57, 70, 0.2);
-}
-.roast-generator .dropdown:focus {
-  border-color: #d62828;
-  box-shadow: 0 0 0 4px rgba(230, 57, 70, 0.25);
+.roast-generator .dropdown {
+  width: clamp(140px, 28vw, 185px);
+  padding: clamp(8px, 1vw, 10px) clamp(10px, 2vw, 20px);
+  border-radius: 50px;
+  background: #1b1b1b;
+  color: #ebe1e1;
+  font-size: clamp(14px, 2vw, 17px);
+  font-weight: 500;
+  cursor: pointer;
+  border: 2px solid #39e67b;
+  outline: none;
+  -webkit-appearance: none;
+     -moz-appearance: none;
+          appearance: none;
+  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' fill='%2339e67b' viewBox='0 0 24 24'><path d='M6 9l6 6 6-6'/></svg>");
+  background-repeat: no-repeat;
+  background-position: right clamp(10px, 1.5vw, 20px) center;
+  background-size: clamp(16px, 2vw, 22px);
 }
 .roast-generator .dropdown option {
-  padding: 10px;
-  font-size: 14px;
+  padding: 14px;
+  font-size: 15px;
   font-weight: 500;
-  background: #fff;
-  color: #333;
+  background: #101010;
+  color: rgba(237, 235, 235, 0.8392156863);
 }
 .roast-generator .create_post-btn {
   border: none;
-  background-color: blue;
-  padding: 1rem;
-  border-radius: 50%;
+  background-color: #1d9bf0;
+  padding: clamp(10px, 1.2vw, 12px) clamp(14px, 2vw, 18px);
+  border-radius: 30px;
+  font-size: clamp(14px, 1.6vw, 18px);
+  font-weight: 500;
+  color: rgba(245, 240, 240, 0.9647058824);
+  cursor: pointer;
 }
-@media (max-width: 600px) {
+@media (max-width: 800px) {
   .roast-generator .mobile-only {
     display: inline-flex;
   }
@@ -176,5 +221,13 @@
   }
   .roast-generator .dropzone-subtitle {
     font-size: 1rem;
+  }
+  .roast-generator .create_post-btn {
+    padding: clamp(8px, 1.2vw, 10px) clamp(18px, 2vw, 20px);
+    font-weight: 400;
+    font-size: clamp(18px, 1.6vw, 22px);
+  }
+  .roast-generator .create_post-btn span {
+    display: none;
   }
 }/*# sourceMappingURL=Post.css.map */

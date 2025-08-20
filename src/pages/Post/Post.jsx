@@ -3,11 +3,12 @@ import "./Post.css";
 import { asyncGenerateCaption } from "../../store/Actions/postActions";
 import { useDispatch } from "react-redux";
 import { clearCaption } from "../../store/Reducers/captionReducer";
+import { ChevronDown, X } from "lucide-react";
 
 const MAX_FILE_SIZE = 5 * 1024 * 1024; // 5MB
+const allowedTypes = ["image/jpeg", "image/png", "image/gif", "image/webp"];
 
-const Post = ({ onSubmit }) => {
-
+const Post = () => {
   const dispatch = useDispatch();
 
   const [file, setFile] = useState(null);
@@ -25,9 +26,10 @@ const Post = ({ onSubmit }) => {
   }, [preview]);
 
   const validateFile = (file) => {
-    if (!file.type.startsWith("image/")) {
-      return "Only image files are allowed";
+    if (!allowedTypes.includes(file.type)) {
+      return "Only image files (JPG, PNG, GIF, WEBP) are allowed";
     }
+
     if (file.size > MAX_FILE_SIZE) {
       return "File size must be under 5MB";
     }
@@ -63,12 +65,11 @@ const Post = ({ onSubmit }) => {
       setError("Please select an image before submitting.");
       return;
     }
+
     const formData = new FormData();
     formData.append("image", file);
     formData.append("personality", personality);
     dispatch(asyncGenerateCaption(formData));
-
-
   };
 
   const clearPreviewHandler = () => {
@@ -93,7 +94,6 @@ const Post = ({ onSubmit }) => {
       </div>
 
       {!preview &&
-
         <div className="roast-generator__dropzone-wrapper">
           <div
             className="roast-generator__dropzone"
@@ -109,7 +109,7 @@ const Post = ({ onSubmit }) => {
             <div className="roast-generator__capture-btn">
               <button
                 type="button"
-                className="post-btn desktop-only"
+                className="choose-btn desktop-only"
                 onClick={() => desktopInputRef.current.click()}
               >
                 Choose Image
@@ -124,7 +124,7 @@ const Post = ({ onSubmit }) => {
 
               <button
                 type="button"
-                className="post-btn mobile-only"
+                className="choose-btn mobile-only"
                 onClick={() => galleryInputRef.current.click()}
               >
                 Gallery
@@ -136,65 +136,68 @@ const Post = ({ onSubmit }) => {
                 hidden
                 onChange={handleImageChange}
               />
+
+              {error && <p style={{ color: "red", marginTop: "10px" }}>{error}</p>}
             </div>
           </div>
         </div>
       }
 
-      {error && <p style={{ color: "red", marginTop: "10px" }}>{error}</p>}
-
-      <button onClick={clearPreviewHandler}>close</button>
-
       {preview && (
-        <div style={{ marginTop: "20px", textAlign: "center" }}>
-          <img
-            src={preview}
-            alt="preview"
-            style={{
-              width: "200px",
-              height: "fit-content",
-              objectFit: "contain",
-              borderRadius: "12px",
-            }}
-          />
+        <div className="bottom">
+          <div className="preview-wrapper">
+            <button className="clear-preview" onClick={clearPreviewHandler}><X /></button>
+
+            <img
+              src={preview}
+              alt="preview"
+              style={{
+                width: "300px",
+                height: "250px",
+                objectFit: "contain",
+                borderRadius: "12px",
+              }}
+            />
+          </div>
+
+          <div className="roast-generator__footer">
+            <select
+              className="dropdown"
+              value={personality}
+              onChange={(e) => setPersonality(e.target.value)}
+            >
+              <option value="Desi_Uncle">Desi Uncle</option>
+              <option value="Desi_Bua">Desi Bua</option>
+              <option value="Desi_Aunty">Desi Aunty</option>
+              <option value="Desi_Dost">Desi Dost</option>
+              <option value="Shayar_Banda">Shayar Banda</option>
+              <option value="Bambaiya_Tapori">Bambaiya Tapori</option>
+              <option value="Gyaani_Baba">Gyaani Baba</option>
+              <option value="Petty_Aunty">Petty Aunty</option>
+              <option value="Delhi_Launda">Delhi Launda</option>
+              <option value="Punjabi_Paji">Punjabi Paji</option>
+              <option value="South_Anna">South Anna</option>
+              <option value="Gujju_Ben">Gujju Ben</option>
+              <option value="Tech_Chomu">Tech Chomu</option>
+              <option value="Crypto_Fraud">Crypto Fraud</option>
+              <option value="TikTokiya">TikTokiya</option>
+              <option value="Bollywood_Drama">Bollywood Drama</option>
+              <option value="Tharki_Chacha">Tharki Chacha</option>
+              <option value="Hostel_Dost">Hostel Dost</option>
+              <option value="Shayar_Bewda">Shayar Bewda</option>
+              <option value="Petty_Chaiwala">Petty Chaiwala</option>
+              <option value="Thug_Dadi">Thug Dadi</option>
+              <option value="Rickshaw_Wala">Rickshaw Wala</option>
+            </select>
+
+            <button className="generate-btn" type="submit" onClick={submitHandler}>
+              Generate
+            </button>
+
+            <button className="create_post-btn"><span>Create</span> Post</button>
+          </div>
         </div>
       )}
-
-      <div className="roast-generator__footer">
-        <select
-          className="dropdown"
-          value={personality}
-          onChange={(e) => setPersonality(e.target.value)}
-        >
-          <option value="Desi_Uncle">Desi Uncle</option>
-          <option value="Desi_Bua">Desi Bua</option>
-          <option value="Desi_Aunty">Desi Aunty</option>
-          <option value="Desi_Dost">Desi Dost</option>
-          <option value="Shayar_Banda">Shayar Banda</option>
-          <option value="Bambaiya_Tapori">Bambaiya Tapori</option>
-          <option value="Gyaani_Baba">Gyaani Baba</option>
-          <option value="Petty_Aunty">Petty Aunty</option>
-          <option value="Delhi_Launda">Delhi Launda</option>
-          <option value="Punjabi_Paji">Punjabi Paji</option>
-          <option value="South_Anna">South Anna</option>
-          <option value="Gujju_Ben">Gujju Ben</option>
-          <option value="Tech_Chomu">Tech Chomu</option>
-          <option value="Crypto_Fraud">Crypto Fraud</option>
-          <option value="TikTokiya">TikTokiya</option>
-          <option value="Bollywood_Drama">Bollywood Drama</option>
-          <option value="Tharki_Chacha">Tharki Chacha</option>
-          <option value="Hostel_Dost">Hostel Dost</option>
-          <option value="Shayar_Bewda">Shayar Bewda</option>
-          <option value="Petty_Chaiwala">Petty Chaiwala</option>
-          <option value="Thug_Dadi">Thug Dadi</option>
-          <option value="Rickshaw_Wala">Rickshaw Wala</option>
-        </select>
-        <button className="post-btn" type="submit" onClick={submitHandler}>
-          Generate magic
-        </button>
-
-        <button className="create_post-btn">Post</button>
-      </div>
     </div>
   );
 };
