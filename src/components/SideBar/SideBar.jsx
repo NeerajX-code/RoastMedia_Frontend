@@ -1,11 +1,29 @@
 import { NavLink, useNavigate } from "react-router-dom";
 import "./Sidebar.css";
-import { Bell, Ellipsis, EllipsisVertical, Home, Search, UserRound } from "lucide-react";
+import { Bell, CurlyBraces, Ellipsis, EllipsisVertical, Home, Search, UserRound } from "lucide-react";
+import { useDispatch, useSelector } from "react-redux";
+import Cookies from "js-cookie";
+import { useState } from "react";
+import { clearUser } from "../../store/Reducers/userReducer";
 
 export default function Sidebar() {
-
+  const { user } = useSelector((state) => state.userReducer);
   const navigate = useNavigate();
-  
+  const dispatch = useDispatch();
+  const [showMenu, setShowMenu] = useState(false);
+
+  const toggleMenu = () => {
+    setShowMenu((prev) => !prev);
+  };
+
+
+  const handleLogout = () => {
+    console.log("User logged out!");
+    Cookies.remove("token");
+    dispatch(clearUser());
+    navigate("/");
+  };
+
   return (
     <nav className="sidebar">
       <div className="sidebar__top">
@@ -35,14 +53,28 @@ export default function Sidebar() {
 
       <button onClick={() => navigate("/Post")} className="sidebar_post-btn">Post</button>
 
-      <div className="sidebar__profile">
-        <img src="/profile.jpg" alt="Profile" className="profile-img" />
-        <div className="profile-info">
-          <strong>Neeraj Rathore</strong>
-          <span>@Neeraj047975225</span>
+      {user && (
+        <div className="sidebar__profile">
+          <img src={user?.avatarUrl} style={{ objectFit: "cover" }} alt="Profile" className="profile-img" />
+          <div className="profile-info">
+            <strong>{user?.displayName}</strong>
+            <span>@{user?.userId?.username}</span>
+          </div>
+          <span className="dots" onClick={toggleMenu}><Ellipsis /></span>
+          {showMenu && (
+            <div className="logout_menu">
+              <button onClick={handleLogout}>Logout</button>
+            </div>
+          )}
         </div>
-        <span className="dots"><Ellipsis /></span>
-      </div>
+      )}
+
+      {!user && (
+        <div className="sideBar_auth">
+          <button onClick={() => navigate("/Register")}>Register</button>
+          <button onClick={() => navigate("/Login")}>Login</button>
+        </div>
+      )}
     </nav>
   );
 }
