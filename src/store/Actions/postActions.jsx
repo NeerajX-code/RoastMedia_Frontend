@@ -7,6 +7,7 @@ export const asyncGenerateCaption = createAsyncThunk(
     async (formdata, { rejectWithValue }) => {
         try {
             const { data } = await axios.post('/api/post/generateCaption', formdata);
+            console.log(data);
             return data;
         } catch (error) {
             console.log(error);

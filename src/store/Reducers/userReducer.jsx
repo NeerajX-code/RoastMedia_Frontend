@@ -1,17 +1,21 @@
 import { createSlice } from '@reduxjs/toolkit'
-import { getUserProfile, updateUserDetails } from '../Actions/userActions';
+import { getUserProfile, updateUserDetails, getUserPosts } from '../Actions/userActions';
 
 const initialState = {
   user: null,
-  loading: false,
-  error: null,
-  updateSuccess: null,
+  profileLoading: false,
+  postsLoading: false,
+  profileError: null,
+  postsError: null,
 }
 
 export const userSlice = createSlice({
   name: 'user',
   initialState,
   reducers: {
+    clearUser(state) {
+      state.user = null
+    }
   },
   extraReducers: (builder) => {
 
@@ -19,35 +23,49 @@ export const userSlice = createSlice({
 
     builder
       .addCase(getUserProfile.pending, (state) => {
-        state.loading = true;
-        state.error = null;
+        state.profileLoading = true;
+        state.profileError = null;
       })
       .addCase(getUserProfile.fulfilled, (state, action) => {
-        state.loading = false;
+        state.profileLoading = false;
         state.user = action.payload;
       })
       .addCase(getUserProfile.rejected, (state, action) => {
-        state.loading = false;
-        state.error = action.payload;
+        state.profileLoading = false;
+        state.profileError = action.payload;
       })
 
-    // Update User Details
+      // Update User Details
 
       .addCase(updateUserDetails.pending, (state) => {
-        state.loading = true;
-        state.error = null;
-        state.updateSuccess = null;
+        state.profileLoading = true;
+        state.profileError = null;
       })
       .addCase(updateUserDetails.fulfilled, (state, action) => {
-        state.loading = false;
+        state.profileLoading = false;
         state.user = action.payload;
-        state.updateSuccess = "Profile updated successfully!";
       })
       .addCase(updateUserDetails.rejected, (state, action) => {
-        state.loading = false;
-        state.error = action.payload;
-      });
+        state.profileLoading = false;
+        state.profileError = action.payload;
+      })
+
+      .addCase(getUserPosts.pending, (state) => {
+        state.postsLoading = true;
+        state.postsError = null;
+      })
+      .addCase(getUserPosts.fulfilled, (state, action) => {
+        state.postsLoading = false;
+        state.posts = action.payload;
+      })
+      .addCase(getUserPosts.rejected, (state, action) => {
+        state.postsLoading = false;
+        state.postsError = action.payload;
+      })
+
   }
 })
+
+export const {clearUser} = userSlice.actions;
 
 export default userSlice.reducer;

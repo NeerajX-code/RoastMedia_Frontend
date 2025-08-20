@@ -1,6 +1,6 @@
 import React from 'react'
 import "./Profile.css";
-import { useParams } from 'react-router';
+import { useNavigate, useParams } from 'react-router';
 import { useDispatch, useSelector } from 'react-redux';
 import { useEffect } from 'react';
 import Loading from '../../components/Loader/Loading';
@@ -13,6 +13,7 @@ const OtherProfile = () => {
     const { id } = useParams();
     const { user, posts, profileLoading, postsLoading } = useSelector((state) => state.OtherProfileReducer);
     const dispatch = useDispatch();
+    const navigate = useNavigate();
 
     useEffect(() => {
         dispatch(getOtherUserProfile(id));
@@ -36,7 +37,7 @@ const OtherProfile = () => {
             <div className="profile">
                 {/* Header */}
                 <div className="profile__nav">
-                    <div className="profile__back-btn">
+                    <div className="profile__back-btn" onClick={() => navigate("/")}>
                         <ArrowLeft size={30} />
                     </div>
                     <h2 className="profile__username">{user?.displayName}</h2>
@@ -68,7 +69,7 @@ const OtherProfile = () => {
 
                     {/* Bio */}
                     <p className="profile__bio">
-                        I'm Liam, the AI Roast Master. I use AI to generate savage captions for your photos. Upload your pics and let the roasts begin!
+                      {user?.bio}
                     </p>
 
                     {/* Tabs */}
@@ -76,7 +77,7 @@ const OtherProfile = () => {
                         <a href="#" className="active">Posts</a>
                     </div>
                     {postsLoading ? (
-                        <div>
+                        <div style={{ flex: "1", padding: "4rem 1rem", textAlign: "center" }}>
                             <p>Posts Fetching...</p>
                         </div>
                     ) : posts?.length > 0 ? (
@@ -86,12 +87,9 @@ const OtherProfile = () => {
                             ))}
                         </div>
                     ) : (
-                        <p>No posts yet.</p>
+                        <p style={{ width: "100%", padding: "4rem 1rem", textAlign: "center" }}>No posts yet.</p>
                     )}
                 </div>
-
-
-
 
             </div>
         )
