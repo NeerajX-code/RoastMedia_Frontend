@@ -29,7 +29,7 @@ const Profile = () => {
   ];
 
   if (loading) return (
-    <Loading />
+   <Loading />
   )
 
    const handleEditProfile = () => {
