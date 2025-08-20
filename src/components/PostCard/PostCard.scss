@@ -6,7 +6,7 @@
     border: 1px solid rgba(255, 255, 255, 0.252);
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
 
-    a{
+    a {
         text-decoration: none;
     }
 
@@ -22,7 +22,7 @@
 
             img {
                 width: clamp(40px, 5vw, 60px);
-                height: clamp(40px,5vw,60px);
+                height: clamp(40px, 5vw, 60px);
                 border-radius: 50%;
                 overflow: hidden;
                 object-fit: cover;
@@ -40,10 +40,9 @@
                     font-weight: 700;
                     font-size: clamp(0.8rem, 1.5vw, 1.5rem);
                     background: linear-gradient(90deg, #22c55e, #16a34a, #15803d);
-                    -webkit-background-clip: text;
+                    background-clip: text;
                     -webkit-text-fill-color: transparent;
                 }
-
                 p {
                     color: rgba(255, 255, 255, 0.873);
                 }

@@ -35,14 +35,13 @@ const OtherProfile = () => {
         return (
             <div className="profile">
                 {/* Header */}
-                <div className="profile__header">
-                    <div className="profile__nav">
-                        <div className="profile__back-btn">
-                            <ArrowLeft size={30} />
-                        </div>
-                        <h2 className="profile__username">{user?.displayName}</h2>
+                <div className="profile__nav">
+                    <div className="profile__back-btn">
+                        <ArrowLeft size={30} />
                     </div>
-
+                    <h2 className="profile__username">{user?.displayName}</h2>
+                </div>
+                <div className="info_wrapper">
                     {/* Profile Info */}
                     <div className="profile__info">
                         <div className="profile__avatar" style={{ backgroundImage: `url(${user?.avatarUrl})` }}></div>
@@ -76,22 +75,23 @@ const OtherProfile = () => {
                     <div className="profile__tabs">
                         <a href="#" className="active">Posts</a>
                     </div>
+                    {postsLoading ? (
+                        <div>
+                            <p>Posts Fetching...</p>
+                        </div>
+                    ) : posts?.length > 0 ? (
+                        <div className="profile__posts">
+                            {posts.map((post, i) => (
+                                <UserPostCard key={i} post={post} />
+                            ))}
+                        </div>
+                    ) : (
+                        <p>No posts yet.</p>
+                    )}
                 </div>
 
 
-                {postsLoading ? (
-                    <div>
-                        <p>Posts Fetching...</p>
-                    </div>
-                ) : posts?.length > 0 ? (
-                    <div className="profile__posts">
-                        {posts.map((post, i) => (
-                            <UserPostCard key={i} post={post} />
-                        ))}
-                    </div>
-                ) : (
-                    <p>No posts yet.</p>
-                )}
+
 
             </div>
         )

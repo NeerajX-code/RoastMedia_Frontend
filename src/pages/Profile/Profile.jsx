@@ -32,7 +32,7 @@ const Profile = () => {
    <Loading />
   )
 
-   const handleEditProfile = () => {
+  const handleEditProfile = () => {
     navigate("/Edit-user-profile");
   };
 
@@ -42,62 +42,54 @@ const Profile = () => {
 
   return (
     <div className="profile">
-      <div className="profile__header">
         <div className="profile__nav">
           <div className="profile__back-btn">
-            <ArrowLeft size={30}  onClick={handleBackBtn}/>
+            <ArrowLeft size={30} onClick={handleBackBtn} />
           </div>
 
           <h2 className="profile__username">{user?.displayName}</h2>
 
-         <SquarePen className="profile__edit-btn" onClick={handleEditProfile} />
+          <SquarePen className="profile__edit-btn" onClick={handleEditProfile} />
         </div>
 
-        <div className="proifle__data"></div>
-        <div className="profile__info">
-          <div className="profile__avatar" style={{ backgroundImage: `url(${user?.avatarUrl})` }}></div>
+        <div className="info_wrapper">
+          <div className="profile__info">
+            <div className="profile__avatar" style={{ backgroundImage: `url(${user?.avatarUrl})` }}></div>
 
-          <div className="user_info">
-            <p className="profile__name">{user?.displayName}</p>
-            <p className="profile__role">{user?.userId?.username}</p>
-            <p className="profile__joined">Joined 2021</p>
+            <div className="user_info">
+              <p className="profile__name">{user?.displayName}</p>
+              <p className="profile__role">{user?.userId?.username}</p>
+              <p className="profile__joined">Joined 2021</p>
+            </div>
+          </div>
+
+          <div className="profile__stats">
+            <div className="stat">
+              <p className="stat__number">{user?.
+                followersCount} </p>
+              <p className="stat__label">Followers</p>
+            </div>
+            <div className="stat">
+              <p className="stat__number">{user?.followingCount}</p>
+              <p className="stat__label">Following</p>
+            </div>
+          </div>
+
+          <p className="profile__bio">
+            {user?.bio}
+          </p>
+
+          <div className="profile__tabs">
+            <a href="#" className="active">Posts</a>
+          </div>
+
+          <div className="profile__posts">
+            {posts.map((url, i) => (
+              <div key={i} className="post" style={{ backgroundImage: `url("${url}")` }}></div>
+            ))}
           </div>
         </div>
 
-        <div className="profile__stats">
-          <div className="stat">
-            <p className="stat__number">{user?.
-              followersCount} </p>
-            <p className="stat__label">Followers</p>
-          </div>
-          <div className="stat">
-            <p className="stat__number">{user?.followingCount}</p>
-            <p className="stat__label">Following</p>
-          </div>
-        </div>
-
-        <p className="profile__bio">
-          I'm Liam, the AI Roast Master. I use AI to generate savage captions for your photos. Upload your pics and let the roasts begin!
-        </p>
-
-        <div className="profile__tabs">
-          <a href="#" className="active">Posts</a>
-        </div>
-      </div>
-
-      <div className="profile__posts">
-        {posts.map((url, i) => (
-          <div key={i} className="post" style={{ backgroundImage: `url("${url}")` }}></div>
-        ))}
-      </div>
-
-      <div className="profile__bottom-nav">
-        <a href="#"><i className="icon home"></i></a>
-        <a href="#"><i className="icon search"></i></a>
-        <a href="#"><i className="icon add"></i></a>
-        <a href="#"><i className="icon heart"></i></a>
-        <a href="#"><i className="icon user"></i></a>
-      </div>
     </div>
   );
 };

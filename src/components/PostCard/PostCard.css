@@ -36,6 +36,7 @@
   font-size: clamp(0.8rem, 1.5vw, 1.5rem);
   background: linear-gradient(90deg, #22c55e, #16a34a, #15803d);
   -webkit-background-clip: text;
+          background-clip: text;
   -webkit-text-fill-color: transparent;
 }
 .post_top_userDetails .userDetails_left p {

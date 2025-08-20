@@ -91,7 +91,7 @@
 }
 .roast-generator__footer {
   display: flex;
-  flex-direction: column;
+  justify-content: space-between;
   align-items: center;
   gap: clamp(0.5rem, 1vw, 0.75rem);
   padding: clamp(0.5rem, 2vw, 0.75rem) clamp(0.75rem, 2vw, 1rem);
@@ -125,6 +125,41 @@
 }
 .roast-generator .desktop-only {
   display: inline-block;
+}
+.roast-generator .dropdown {
+  width: clamp(150px, 40vw, 180px);
+  padding: 10px 14px;
+  border: 2px solid #e63946;
+  border-radius: 50px;
+  background: #fff;
+  font-size: 15px;
+  font-weight: 500;
+  color: #333;
+  cursor: pointer;
+  outline: none;
+  transition: all 0.25s ease;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+}
+.roast-generator .dropdown:hover {
+  border-color: #d62828;
+  box-shadow: 0 6px 14px rgba(230, 57, 70, 0.2);
+}
+.roast-generator .dropdown:focus {
+  border-color: #d62828;
+  box-shadow: 0 0 0 4px rgba(230, 57, 70, 0.25);
+}
+.roast-generator .dropdown option {
+  padding: 10px;
+  font-size: 14px;
+  font-weight: 500;
+  background: #fff;
+  color: #333;
+}
+.roast-generator .create_post-btn {
+  border: none;
+  background-color: blue;
+  padding: 1rem;
+  border-radius: 50%;
 }
 @media (max-width: 600px) {
   .roast-generator .mobile-only {
