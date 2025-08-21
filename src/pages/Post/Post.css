@@ -3,13 +3,13 @@
   display: flex;
   flex-direction: column;
   flex: 1;
-  justify-content: space-between;
   background-color: #101010;
   border-inline: 1px solid rgba(255, 255, 255, 0.396);
   overflow-x: hidden;
   font-family: "Plus Jakarta Sans", "Noto Sans", sans-serif;
 }
 .roast-generator__header {
+  flex: 0 0 auto;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -89,7 +89,18 @@
   justify-content: center;
   gap: clamp(0.75rem, 2.5vw, 1.2rem);
 }
+.roast-generator .bottom {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+.roast-generator .captions {
+  flex: 0 0 auto;
+  color: white;
+  padding: clamp(0.5rem, 1vw, 1rem) clamp(0.8rem, 1vw, 1.2rem);
+}
 .roast-generator__footer {
+  flex: 0 0 auto;
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -151,7 +162,9 @@
   display: inline-block;
 }
 .roast-generator .preview-wrapper {
+  flex: 1;
   display: flex;
+  gap: clamp(0.8rem, 1vw, 1rem);
   flex-direction: column;
   justify-content: center;
   align-items: center;
@@ -159,6 +172,9 @@
 .roast-generator .preview-wrapper button {
   width: -moz-fit-content;
   width: fit-content;
+}
+.roast-generator .preview-wrapper img {
+  width: 90%;
 }
 .roast-generator .clear-preview {
   background-color: rgb(57, 56, 56);

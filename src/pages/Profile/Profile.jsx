@@ -13,23 +13,17 @@ const Profile = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate()
 
-  useEffect(async () => {
+  useEffect(() => {
+    // load profile if not present
     if (!user) {
-      await dispatch(getUserProfile());
-
-      if (user) {
-
-        setTimeout(() => {
-          dispatch(getUserPosts(user?.userId?._id));
-        }, 500);
-      }
-
-      //  https://roastmedia-backend.onrender.com/api/post/get/posts/user/undefined 
+      dispatch(getUserProfile());
     }
+  }, [dispatch, user]);
 
-
-    if (user) {
-      console.log(user);
+  useEffect(() => {
+    // once user is available, fetch posts
+    if (user?._id) {
+      dispatch(getUserPosts(user._id));
     }
   }, [dispatch, user]);
 

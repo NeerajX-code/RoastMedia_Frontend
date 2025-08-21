@@ -3,13 +3,13 @@
   display: flex;
   flex-direction: column;
   flex: 1;
-  justify-content: space-between;
   background-color: #101010;
   border-inline: 1px solid rgba(255, 255, 255, 0.396);
   overflow-x: hidden;
   font-family: "Plus Jakarta Sans", "Noto Sans", sans-serif;
 
   &__header {
+    flex: 0 0 auto;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -103,7 +103,20 @@
     gap: clamp(0.75rem, 2.5vw, 1.2rem);
   }
 
+  .bottom{
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .captions{
+    flex: 0 0 auto;
+    color: white;
+    padding: clamp(0.5rem,1vw,1rem) clamp(0.8rem,1vw,1.2rem);
+  }
+
   &__footer {
+    flex: 0 0 auto;
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -175,13 +188,18 @@
   }
 
   .preview-wrapper {
+    flex: 1;
     display: flex;
+    gap: clamp(0.8rem,1vw,1rem);
     flex-direction: column;
     justify-content: center;
     align-items: center;
 
     button{
       width: fit-content;
+    }
+    img{
+      width: 90%;
     }
   }
 

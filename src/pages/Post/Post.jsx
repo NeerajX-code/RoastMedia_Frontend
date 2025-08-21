@@ -1,7 +1,7 @@
 import React, { useRef, useState, useEffect } from "react";
 import "./Post.css";
 import { asyncGenerateCaption } from "../../store/Actions/postActions";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { clearCaption } from "../../store/Reducers/captionReducer";
 import { ChevronDown, X } from "lucide-react";
 
@@ -9,7 +9,9 @@ const MAX_FILE_SIZE = 5 * 1024 * 1024; // 5MB
 const allowedTypes = ["image/jpeg", "image/png", "image/gif", "image/webp"];
 
 const Post = () => {
+  const { captions } = useSelector((state) => state.CaptionReducer);
   const dispatch = useDispatch();
+
 
   const [file, setFile] = useState(null);
   const [preview, setPreview] = useState(null);
@@ -83,15 +85,17 @@ const Post = () => {
         <h2 className="roast-generator__title">Roast Generator</h2>
       </div>
 
-      <div className="roast-generator__content">
-        <h2 className="roast-generator__main-title">
-          Give{" "}
-          <span style={{ color: "#39E079", fontSize: "clamp(1.9rem, 2vw, 2.1rem)" }}>
-            Your Image
-          </span>
-        </h2>
-        <p className="roast-generator__subtitle">and See the magic</p>
-      </div>
+      {!preview && (
+        <div className="roast-generator__content">
+          <h2 className="roast-generator__main-title">
+            Give{" "}
+            <span style={{ color: "#39E079", fontSize: "clamp(1.9rem, 2vw, 2.1rem)" }}>
+              Your Image
+            </span>
+          </h2>
+          <p className="roast-generator__subtitle">and See the magic</p>
+        </div>
+      )}
 
       {!preview &&
         <div className="roast-generator__dropzone-wrapper">
@@ -152,13 +156,17 @@ const Post = () => {
               src={preview}
               alt="preview"
               style={{
-                width: "300px",
-                height: "250px",
-                objectFit: "contain",
                 borderRadius: "12px",
               }}
             />
           </div>
+
+          {captions.length > 0 && (
+            <div className="captions">
+              {captions[captions.length - 1]?.response}
+            </div>
+          )}
+
 
           <div className="roast-generator__footer">
             <select
