@@ -60,8 +60,6 @@ const MainRoutes = () => {
                     <Login />
                 </UnAuthWrapper>
             } />
-
-
         </Routes>
     )
 }

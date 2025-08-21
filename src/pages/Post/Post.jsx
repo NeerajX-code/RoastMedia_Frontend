@@ -3,20 +3,26 @@ import "./Post.css";
 import { asyncGenerateCaption } from "../../store/Actions/postActions";
 import { useDispatch, useSelector } from "react-redux";
 import { clearCaption } from "../../store/Reducers/captionReducer";
-import { ChevronDown, X } from "lucide-react";
+import { X } from "lucide-react";
+import PreviousComments from '../Post/PreviousComments/PreviousComments'
+import Loading from "../../components/Loader/Loading";
+
 
 const MAX_FILE_SIZE = 5 * 1024 * 1024; // 5MB
 const allowedTypes = ["image/jpeg", "image/png", "image/gif", "image/webp"];
 
 const Post = () => {
-  const { captions } = useSelector((state) => state.CaptionReducer);
+  const { captions , loading } = useSelector((state) => state.CaptionReducer);
   const dispatch = useDispatch();
-
 
   const [file, setFile] = useState(null);
   const [preview, setPreview] = useState(null);
   const [error, setError] = useState(null);
   const [personality, setPersonality] = useState("Desi_Uncle");
+  const [showComments, setShowComments] = useState(false);
+  const [showCurrentCaption, setShowCurrentCaption] = useState(null)
+
+console.log(showCurrentCaption);
 
   const desktopInputRef = useRef(null);
   const galleryInputRef = useRef(null);
@@ -26,6 +32,12 @@ const Post = () => {
       if (preview) URL.revokeObjectURL(preview);
     };
   }, [preview]);
+
+  useEffect(() => {
+  if (captions.length > 0) {
+    setShowCurrentCaption(captions[captions.length - 1].response);
+  }
+}, [captions]);
 
   const validateFile = (file) => {
     if (!allowedTypes.includes(file.type)) {
@@ -74,9 +86,17 @@ const Post = () => {
     dispatch(asyncGenerateCaption(formData));
   };
 
+  const previousCaptionsHandler = () => {
+    setShowComments(toggle => !toggle)
+  }
+
   const clearPreviewHandler = () => {
     setPreview(null);
     dispatch(clearCaption());
+  }
+
+  if(loading){
+    return <Loading />
   }
 
   return (
@@ -149,6 +169,17 @@ const Post = () => {
 
       {preview && (
         <div className="bottom">
+
+          <div>
+            <button onClick={previousCaptionsHandler} className="previous-comments">
+              {showComments ? <X /> : "Previous Captions"}
+            </button>
+
+            {showComments && <PreviousComments setShowCurrentCaption={setShowCurrentCaption}/>}
+
+          </div>
+
+
           <div className="preview-wrapper">
             <button className="clear-preview" onClick={clearPreviewHandler}><X /></button>
 
@@ -157,16 +188,19 @@ const Post = () => {
               alt="preview"
               style={{
                 borderRadius: "12px",
+                width: "100%",
+                height: "100%",
+                maxHeight: "300px",
+                objectFit: "contain"
               }}
             />
           </div>
 
           {captions.length > 0 && (
             <div className="captions">
-              {captions[captions.length - 1]?.response}
+            {showCurrentCaption || "There is no comment."}
             </div>
           )}
-
 
           <div className="roast-generator__footer">
             <select
