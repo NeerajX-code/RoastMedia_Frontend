@@ -1,6 +1,6 @@
 import React, { useRef, useState, useEffect } from "react";
 import "./Post.css";
-import { asyncGenerateCaption } from "../../store/Actions/postActions";
+import { asyncGenerateCaption, asyncPostCreate } from "../../store/Actions/postActions";
 import { useDispatch, useSelector } from "react-redux";
 import { clearCaption } from "../../store/Reducers/captionReducer";
 import { X } from "lucide-react";
@@ -12,7 +12,7 @@ const MAX_FILE_SIZE = 5 * 1024 * 1024; // 5MB
 const allowedTypes = ["image/jpeg", "image/png", "image/gif", "image/webp"];
 
 const Post = () => {
-  const { captions , loading } = useSelector((state) => state.CaptionReducer);
+  const { captions, loading } = useSelector((state) => state.CaptionReducer);
   const dispatch = useDispatch();
 
   const [file, setFile] = useState(null);
@@ -21,8 +21,6 @@ const Post = () => {
   const [personality, setPersonality] = useState("Desi_Uncle");
   const [showComments, setShowComments] = useState(false);
   const [showCurrentCaption, setShowCurrentCaption] = useState(null)
-
-console.log(showCurrentCaption);
 
   const desktopInputRef = useRef(null);
   const galleryInputRef = useRef(null);
@@ -34,10 +32,10 @@ console.log(showCurrentCaption);
   }, [preview]);
 
   useEffect(() => {
-  if (captions.length > 0) {
-    setShowCurrentCaption(captions[captions.length - 1].response);
-  }
-}, [captions]);
+    if (captions.length > 0) {
+      setShowCurrentCaption(captions[captions.length - 1].response);
+    }
+  }, [captions]);
 
   const validateFile = (file) => {
     if (!allowedTypes.includes(file.type)) {
@@ -86,6 +84,19 @@ console.log(showCurrentCaption);
     dispatch(asyncGenerateCaption(formData));
   };
 
+  const createPostHandler = () => {
+    if (!file || !showCurrentCaption) {
+      setError("Please give content before submitting.");
+      console.log(error);
+      return;
+    }
+
+    const formData = new FormData();
+    formData.append("image", file);
+    formData.append("showCurrentCaption", showCurrentCaption);
+    dispatch(asyncPostCreate(formData))
+  }
+
   const previousCaptionsHandler = () => {
     setShowComments(toggle => !toggle)
   }
@@ -95,7 +106,7 @@ console.log(showCurrentCaption);
     dispatch(clearCaption());
   }
 
-  if(loading){
+  if (loading) {
     return <Loading />
   }
 
@@ -175,10 +186,9 @@ console.log(showCurrentCaption);
               {showComments ? <X /> : "Previous Captions"}
             </button>
 
-            {showComments && <PreviousComments setShowCurrentCaption={setShowCurrentCaption}/>}
+            {showComments && <PreviousComments setShowCurrentCaption={setShowCurrentCaption} />}
 
           </div>
-
 
           <div className="preview-wrapper">
             <button className="clear-preview" onClick={clearPreviewHandler}><X /></button>
@@ -198,7 +208,7 @@ console.log(showCurrentCaption);
 
           {captions.length > 0 && (
             <div className="captions">
-            {showCurrentCaption || "There is no comment."}
+              {showCurrentCaption || "There is no comment."}
             </div>
           )}
 
@@ -236,7 +246,7 @@ console.log(showCurrentCaption);
               Generate
             </button>
 
-            <button className="create_post-btn"><span>Create</span> Post</button>
+            <button className="create_post-btn" onClick={createPostHandler}><span>Create</span> Post</button>
           </div>
         </div>
       )}
