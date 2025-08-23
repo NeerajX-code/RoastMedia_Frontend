@@ -4,24 +4,21 @@ import Navbar from './components/Navbar/Navbar'
 import "./App.css"
 import Sidebar from './components/SideBar/SideBar'
 import Cookies from "js-cookie";
-import { useState } from 'react'
 import { useEffect } from 'react'
-import { useDispatch } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import { getUserProfile } from './store/Actions/userActions'
 
 const App = () => {
 
   const dispatch = useDispatch();
-
+  const { user } = useSelector((state) => state.userReducer);
 
   useEffect(() => {
-    const token = Cookies.get("token");
-    console.log(process.env.NODE_ENV)
-    if (token) {
-      console.log(token);
-      dispatch(getUserProfile())
+    // Page load pe ya user null hai → profile fetch karo
+    if (!user) {
+      dispatch(getUserProfile());
     }
-  }, [dispatch])
+  }, [dispatch, user]); // user bhi dependency me add karo
 
 
   return (

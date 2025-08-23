@@ -1,11 +1,13 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "../../utils/axios.config";
+import { setAuthentication } from "../Reducers/authReducer";
 
 export const getUserProfile = createAsyncThunk(
      "user/getUserProfile",
-     async (_, { rejectWithValue }) => {
+     async (_, {dispatch , rejectWithValue }) => {
           try {
                const { data } = await axios.get("/api/user/profile");
+               dispatch(setAuthentication());
                return data.userProfile;
           } catch (error) {
                return rejectWithValue(error.response?.data?.message || "Failed to load profile");
