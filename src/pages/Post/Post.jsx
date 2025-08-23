@@ -12,6 +12,7 @@ const allowedTypes = ["image/jpeg", "image/png", "image/gif", "image/webp"];
 
 const Post = () => {
   const { captions, loading, captionError } = useSelector((state) => state.CaptionReducer);
+  const { createPostLoading } = useSelector(state => state.PostReducer)
   const dispatch = useDispatch();
 
   const [file, setFile] = useState(null);
@@ -105,11 +106,7 @@ const Post = () => {
     dispatch(clearCaption());
   }
 
-  if (loading) {
-    return <Loading />
-  }
-
-  if (loading) {
+  if (loading || createPostLoading) {
     return <Loading />
   }
 
