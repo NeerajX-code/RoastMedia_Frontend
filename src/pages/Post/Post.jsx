@@ -1,6 +1,6 @@
 import React, { useRef, useState, useEffect } from "react";
 import "./Post.css";
-import { asyncGenerateCaption } from "../../store/Actions/postActions";
+import { asyncGenerateCaption, asyncPostCreate } from "../../store/Actions/postActions";
 import { useDispatch, useSelector } from "react-redux";
 import { clearCaption, clearError } from "../../store/Reducers/captionReducer";
 import { ChevronDown, X } from "lucide-react";
@@ -14,11 +14,12 @@ const Post = () => {
   const { captions, loading, captionError } = useSelector((state) => state.CaptionReducer);
   const dispatch = useDispatch();
 
-
   const [file, setFile] = useState(null);
   const [preview, setPreview] = useState(null);
   const [error, setError] = useState(null);
   const [personality, setPersonality] = useState("Desi_Uncle");
+  const [showComments, setShowComments] = useState(false);
+  const [showCurrentCaption, setShowCurrentCaption] = useState(null)
 
   const desktopInputRef = useRef(null);
   const galleryInputRef = useRef(null);
@@ -28,6 +29,12 @@ const Post = () => {
       if (preview) URL.revokeObjectURL(preview);
     };
   }, [preview]);
+
+  useEffect(() => {
+    if (captions.length > 0) {
+      setShowCurrentCaption(captions[captions.length - 1].response);
+    }
+  }, [captions]);
 
   const validateFile = (file) => {
     if (!allowedTypes.includes(file.type)) {
@@ -76,9 +83,30 @@ const Post = () => {
     dispatch(asyncGenerateCaption(formData));
   };
 
+  const createPostHandler = () => {
+    if (!file || !showCurrentCaption) {
+      setError("Please give content before submitting.");
+      console.log(error);
+      return;
+    }
+
+    const formData = new FormData();
+    formData.append("image", file);
+    formData.append("showCurrentCaption", showCurrentCaption);
+    dispatch(asyncPostCreate(formData))
+  }
+
+  const previousCaptionsHandler = () => {
+    setShowComments(toggle => !toggle)
+  }
+
   const clearPreviewHandler = () => {
     setPreview(null);
     dispatch(clearCaption());
+  }
+
+  if (loading) {
+    return <Loading />
   }
 
   if (loading) {
@@ -157,6 +185,16 @@ const Post = () => {
 
       {preview && (
         <div className="bottom">
+
+          <div>
+            <button onClick={previousCaptionsHandler} className="previous-comments">
+              {showComments ? <X /> : "Previous Captions"}
+            </button>
+
+            {showComments && <PreviousComments setShowCurrentCaption={setShowCurrentCaption} />}
+
+          </div>
+
           <div className="preview-wrapper">
             <button className="clear-preview" onClick={clearPreviewHandler}><X /></button>
 
@@ -165,13 +203,17 @@ const Post = () => {
               alt="preview"
               style={{
                 borderRadius: "12px",
+                width: "100%",
+                height: "100%",
+                maxHeight: "300px",
+                objectFit: "contain"
               }}
             />
           </div>
 
           {captions.length > 0 && (
             <div className="captions">
-              {captions[captions.length - 1]?.response}
+              {showCurrentCaption || "There is no comment."}
             </div>
           )}
 
@@ -209,7 +251,7 @@ const Post = () => {
               Generate
             </button>
 
-            <button className="create_post-btn"><span>Create</span> Post</button>
+            <button className="create_post-btn" onClick={createPostHandler}><span>Create</span> Post</button>
           </div>
 
         </div>

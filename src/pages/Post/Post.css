@@ -94,6 +94,30 @@
   display: flex;
   flex-direction: column;
 }
+.roast-generator .previous-comments {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: -moz-fit-content;
+  width: fit-content;
+  height: clamp(2.5rem, 4vw, 3rem);
+  padding: 0 clamp(1rem, 2.5vw, 1.25rem);
+  background-color: #39e079;
+  color: #122118;
+  font-size: clamp(0.9rem, 1.5vw, 1rem);
+  font-weight: 700;
+  border-radius: 9999px;
+  cursor: pointer;
+  border: none;
+  transition: transform 0.25s ease, background 0.25s ease;
+}
+.roast-generator .previous-comments:hover {
+  transform: translateY(-2px);
+  background-color: #2fc56a;
+}
+.roast-generator .previous-comments:active {
+  transform: scale(0.96);
+}
 .roast-generator .captions {
   flex: 0 0 auto;
   color: white;
