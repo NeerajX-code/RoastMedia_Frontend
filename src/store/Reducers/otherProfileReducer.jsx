@@ -8,6 +8,7 @@ const initialState = {
   postsLoading: false,
   profileError: null,
   postsError: null,
+  successMessage: null
 };
 
 export const otherUserSlice = createSlice({
@@ -20,6 +21,12 @@ export const otherUserSlice = createSlice({
       state.profileError = null;
       state.postsError = null;
     },
+    clearProfileError(state) {
+      state.profileError = null;
+    },
+    clearPostsError(state) {
+      state.postsError = null;
+    }
   },
   extraReducers: (builder) => {
     builder
@@ -45,6 +52,7 @@ export const otherUserSlice = createSlice({
       .addCase(getOtherUserPosts.fulfilled, (state, action) => {
         state.postsLoading = false;
         state.posts = action.payload;
+        state.successMessage = "Posts Fetch Successfully."
       })
       .addCase(getOtherUserPosts.rejected, (state, action) => {
         state.postsLoading = false;
@@ -53,6 +61,6 @@ export const otherUserSlice = createSlice({
   },
 });
 
-export const { clearOtherProfileData } = otherUserSlice.actions;
+export const { clearOtherProfileData, clearProfileError, clearPostsError } = otherUserSlice.actions;
 
 export default otherUserSlice.reducer;

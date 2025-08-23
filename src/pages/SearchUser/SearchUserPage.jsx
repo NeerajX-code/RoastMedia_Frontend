@@ -2,13 +2,15 @@ import React from "react";
 import "./SearchUserPage.css";
 import { useSelector, useDispatch } from "react-redux";
 import { asyncGetUsers } from "../../store/Actions/searchActions";
-import { clearSearch } from "../../store/Reducers/searchReducer";
+import { clearSearch, clearError } from "../../store/Reducers/searchReducer";
 import { useState } from "react";
 import { useEffect } from "react";
 import SearchUserCard from "../../components/SearchUserCard/SearchUserCard";
+import ErrorCard from "../../components/ErrorCard/ErrorCard";
+import Loading from "../../components/Loader/Loading";
 
 const SearchUserPage = () => {
-  const { results, query } = useSelector((state) => state.searchReducer);
+  const { results, query, loading, error } = useSelector((state) => state.searchReducer);
   const [squery, setQuery] = useState(query || "");
   const dispatch = useDispatch();
 
@@ -20,7 +22,7 @@ const SearchUserPage = () => {
       } else {
         dispatch(clearSearch()); // Agar input empty hai toh results clear ho jayein
       }
-    }, 500); 
+    }, 500);
 
     return () => {
       clearTimeout(handler);
@@ -38,8 +40,9 @@ const SearchUserPage = () => {
     setQuery("");
   };
 
+
   return (
-    <div className="search-user-page">
+    <div className="search-user-page" style={{ position: "relative" }}>
       {/* Search bar */}
       <div className="search-bar">
         <div className="search-icon">
@@ -68,9 +71,11 @@ const SearchUserPage = () => {
         )}
       </div>
 
+      {error && <ErrorCard message={error} loading={loading} clearAction={clearError} isvisible={true} />}
+
       {/* Tabs */}
       <div className="tabs">
-        <a href="#"  className="active">Top</a>
+        <a href="#" className="active">Top</a>
         <a href="#">Users</a>
       </div>
 

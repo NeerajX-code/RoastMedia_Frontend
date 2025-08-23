@@ -6,17 +6,22 @@ import Sidebar from './components/SideBar/SideBar'
 import Cookies from "js-cookie";
 import { useState } from 'react'
 import { useEffect } from 'react'
+import { useDispatch } from 'react-redux'
+import { getUserProfile } from './store/Actions/userActions'
 
 const App = () => {
 
-  const [Cookie, setCookie] = useState(null);
+  const dispatch = useDispatch();
+
 
   useEffect(() => {
-    if (!Cookie) {
-      setCookie(Cookies.get('token'));
+    const token = Cookies.get("token");
+    console.log(process.env.NODE_ENV)
+    if (token) {
+      console.log(token);
+      dispatch(getUserProfile())
     }
-    if (Cookie) console.log(Cookie);
-  }, [])
+  }, [dispatch])
 
 
   return (

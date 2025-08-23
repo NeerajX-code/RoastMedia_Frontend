@@ -9,7 +9,19 @@ export const getHomePosts = createAsyncThunk(
                console.log(data);
                return data.posts;
           } catch (error) {
-               return rejectWithValue(error.response?.data?.message || "Failed to load profile");
+               return rejectWithValue(error.response?.data?.message || "Failed to load Posts");
+          }
+     }
+);
+
+export const asyncHomePostToggleLike = createAsyncThunk(
+     "HomePost/asyncHomePostToggleLike",
+     async (id, { rejectWithValue }) => {
+          try {
+               const { data } = await axios.patch(`/api/post/like/${id}`);
+               return { postId: id, ...data };
+          } catch (error) {
+               return rejectWithValue(error.response?.data?.message || "Something went wrong.");
           }
      }
 );

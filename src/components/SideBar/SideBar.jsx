@@ -1,10 +1,11 @@
 import { NavLink, useNavigate } from "react-router-dom";
 import "./Sidebar.css";
-import { Bell, CurlyBraces, Ellipsis, EllipsisVertical, Home, Search, UserRound } from "lucide-react";
+import { Bell, Ellipsis, Home, Search, UserRound } from "lucide-react";
 import { useDispatch, useSelector } from "react-redux";
-import Cookies from "js-cookie";
 import { useState } from "react";
 import { clearUser } from "../../store/Reducers/userReducer";
+import { asyncLogoutUser } from "../../store/Actions/authActions";
+import { getHomePosts } from "../../store/Actions/HomePostActions";
 
 export default function Sidebar() {
   const { user } = useSelector((state) => state.userReducer);
@@ -18,10 +19,12 @@ export default function Sidebar() {
 
 
   const handleLogout = () => {
-    console.log("User logged out!");
-    Cookies.remove("token");
-    dispatch(clearUser());
-    navigate("/");
+    dispatch(asyncLogoutUser()).then(() => {
+      dispatch(clearUser());
+      dispatch(getHomePosts());
+      navigate("/");
+      setShowMenu(false);
+    });
   };
 
   return (

@@ -4,7 +4,7 @@ import Cookies from "js-cookie";
 
 const initialState = {
   loading: false,
-  error: null,
+  captionError: null,
   captions: [],
   token: Cookies.get("token") || null,
 };
@@ -13,16 +13,19 @@ const captionSlice = createSlice({
   name: "caption",
   initialState,
   reducers: {
-    clearCaption(state) {
+    clearCaption: (state) => {
       state.captions = [];
-      state.error = null;
+      state.captionError = null;
+    },
+    clearError: (state) => {
+      state.captionError = null;
     }
   },
   extraReducers: (builder) => {
     builder
       .addCase(asyncGenerateCaption.pending, (state) => {
         state.loading = true;
-        state.error = null;
+        state.captionError = null;
       })
       .addCase(asyncGenerateCaption.fulfilled, (state, action) => {
         state.loading = false;
@@ -30,11 +33,11 @@ const captionSlice = createSlice({
       })
       .addCase(asyncGenerateCaption.rejected, (state, action) => {
         state.loading = false;
-        state.error = action.payload;
+        state.captionError = action.payload;
       });
   },
 });
 
-export const {clearCaption} = captionSlice.actions;
+export const { clearCaption, clearError } = captionSlice.actions;
 
 export default captionSlice.reducer;

@@ -1,8 +1,13 @@
 import { Heart, Combine, Share2, Bookmark } from "lucide-react";
 import "./PostCard.css";
 import { NavLink } from "react-router";
+import { useDispatch } from "react-redux";
+import { asyncHomePostToggleLike } from "../../store/Actions/HomePostActions";
 
 const PostCard = ({ post }) => {
+
+    const dispatch = useDispatch();
+
 
     function escapeHTML(str) {
         return str
@@ -17,20 +22,20 @@ const PostCard = ({ post }) => {
         <div className="post">
 
             <NavLink to={`/other/profile/${post.userData._id}`}>
-            <div className="post_top">
-                <div className="post_top_userImg">
-                    <img src={post.profileData?.avatarUrl} alt="" />
-                </div>
-                <div className="post_top_userDetails">
-                    <div className="userDetails_left">
-                        <h2>{post.profileData?.displayName}</h2>
-                        <p>@{post.userData?.username}</p>
+                <div className="post_top">
+                    <div className="post_top_userImg">
+                        <img src={post.profileData?.avatarUrl} alt="" />
                     </div>
-                    <div className="userDetails_right">
-                        <p>{post.createdAt}</p>
+                    <div className="post_top_userDetails">
+                        <div className="userDetails_left">
+                            <h2>{post.profileData?.displayName}</h2>
+                            <p>@{post.userData?.username}</p>
+                        </div>
+                        <div className="userDetails_right">
+                            <p>{post.createdAt}</p>
+                        </div>
                     </div>
                 </div>
-            </div>
             </NavLink>
             <div
                 className="post__image">
@@ -40,7 +45,13 @@ const PostCard = ({ post }) => {
                 <h2 className="post__username">{post.username}</h2>
                 <p className="post__caption">{post.caption.replace(/[*"]+/g, "")}</p>
                 <div className="post__actions">
-                    <button><Heart /> <span>{post.likesCount}</span></button>
+                    <button onClick={() => dispatch(asyncHomePostToggleLike(post._id))}>
+                        <Heart
+                            stroke={!post.isLiked ? "white" : "none"}
+                            fill={post.isLiked ? "red" : "none"}
+                        />
+                        <span>{post.likesCount}</span>
+                    </button>
                     <button><Combine /> <span>{post.comments}</span></button>
                     <button><Share2 /> <span>{post.shares}</span></button>
                     <button><Bookmark /> <span>{post.bookmarks}</span></button>

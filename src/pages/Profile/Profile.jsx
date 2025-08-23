@@ -7,9 +7,10 @@ import { ArrowLeft, SquarePen } from "lucide-react";
 import Loading from "../../components/Loader/Loading";
 import EditUserDetails from "../EditUserDetails/EditUserDetails";
 import { useNavigate } from "react-router-dom";
+import ErrorCard from "../../components/ErrorCard/ErrorCard";
 
 const Profile = () => {
-  const { user, posts, profileLoading, postsLoading } = useSelector((state) => state.userReducer);
+  const { user, posts, profileLoading, profileError, postsLoading, successMessage, postsError } = useSelector((state) => state.userReducer);
   const dispatch = useDispatch();
   const navigate = useNavigate()
 
@@ -22,7 +23,7 @@ const Profile = () => {
 
   useEffect(() => {
     // once user is available, fetch posts
-    if (user?._id) {
+    if (user?._id && !successMessage) {
       dispatch(getUserPosts(user._id));
     }
   }, [dispatch, user]);
@@ -41,7 +42,7 @@ const Profile = () => {
   };
 
   return (
-    <div className="profile">
+    <div className="profile" style={{ position: 'relative' }}>
       <div className="profile__nav">
         <div className="profile__back-btn">
           <ArrowLeft size={30} onClick={handleBackBtn} />
@@ -51,6 +52,8 @@ const Profile = () => {
 
         <SquarePen className="profile__edit-btn" onClick={handleEditProfile} />
       </div>
+
+      {profileError && <ErrorCard message={profileError} action={() => dispatch(getUserPosts(user._id))} loading={profileLoading} />}
 
       <div className="info_wrapper">
         <div className="profile__info">

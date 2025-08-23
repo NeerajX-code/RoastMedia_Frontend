@@ -1,5 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit'
-import { getHomePosts } from '../Actions/HomePostActions';
+import { asyncHomePostToggleLike, getHomePosts } from '../Actions/HomePostActions';;
 
 const initialState = {
     posts: [],
@@ -25,6 +25,35 @@ export const HomePostSlice = createSlice({
                 state.loading = false;
                 state.error = action.payload;
             })
+            .addCase(asyncHomePostToggleLike.pending, (state, action) => {
+                // optimistic update
+                const postId = action.meta.arg;
+                const post = state.posts.find(p => p._id === postId);
+                if (post) {
+                    post.isLiked = !post.isLiked;
+                    post.likesCount += post.isLiked ? 1 : -1;
+                }
+            })
+            .addCase(asyncHomePostToggleLike.fulfilled, (state, action) => {
+                const { postId, likesCount, isLiked } = action.payload;
+                const post = state.posts.find(p => p._id === postId);
+                if (post) {
+                    // 👇 Final sync with backend
+                    post.isLiked = isLiked;
+                    post.likesCount = likesCount;
+                }
+            })
+            .addCase(asyncHomePostToggleLike.rejected, (state, action) => {
+                const postId = action.meta.arg;
+                const post = state.posts.find(p => p._id === postId);
+                if (post) {
+                    // 👇 Rollback if request failed
+                    post.isLiked = !post.isLiked;
+                    post.likesCount += post.isLiked ? 1 : -1;
+                }
+                state.error = action.payload;
+            });
+
     }
 })
 

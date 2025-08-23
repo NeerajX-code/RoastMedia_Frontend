@@ -1,16 +1,17 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { useForm } from "react-hook-form";
 import "./Register.css";
 import { asyncRegisterUser } from "../../store/Actions/authActions";
 import { useDispatch, useSelector } from "react-redux"
-import { useEffect } from "react";
 import { ArrowLeft } from "lucide-react";
 import { NavLink, useNavigate } from "react-router-dom";
+import { clearError } from "../../store/Reducers/authReducer"
 import Loading from "../../components/Loader/Loading";
+import ErrorCard from "../../components/ErrorCard/ErrorCard";
 
 export default function Register() {
 
-    const { loading, error } = useSelector((state) => state.authReducer);
+    const { loading, isAuthenticated, error } = useSelector((state) => state.authReducer);
     const navigate = useNavigate();
 
     const {
@@ -27,16 +28,26 @@ export default function Register() {
         dispatch(asyncRegisterUser(data));
     };
 
+    useEffect(() => {
+        if (isAuthenticated) {
+            console.log(isAuthenticated);
+            navigate("/Profile");
+        }
+    }, [isAuthenticated, navigate]);
+
+
     if (loading) return (
         <Loading />
     )
 
-    else return (
-        <div className="register-page">
+    return (
+        <div className="register-page" style={{ position: "relative" }}>
             <div className="register-header">
                 <h2 className="login-logo">RoastMe</h2>
                 <ArrowLeft className="login-backbtn" size={36} />
             </div>
+
+            {error && <ErrorCard message={error} action={() => dispatch(asyncRegisterUser())} clearAction={clearError} loading={loading} isvisible={true} />}
 
             <div className="form">
                 <h1>Become our Family</h1>

@@ -4,13 +4,15 @@ import { useForm } from 'react-hook-form'
 import "./EditUserDetails.css";
 import { useDispatch, useSelector } from "react-redux";
 import { ChevronLeft } from "lucide-react";
+import { clearError } from "../../store/Reducers/userReducer";
 import { getUserProfile, updateUserDetails } from "../../store/Actions/userActions";
 import Loading from '../../components/Loader/Loading'
+import ErrorCard from "../../components/ErrorCard/ErrorCard";
 
 const EditUserDetails = () => {
     const navigate = useNavigate();
     const dispatch = useDispatch()
-    const { user, loading } = useSelector((state) => state.userReducer)
+    const { user, loading , profileError } = useSelector((state) => state.userReducer)
 
     const {
         register,
@@ -69,13 +71,15 @@ const EditUserDetails = () => {
     }
 
     return (
-        <div className="edit-user-page">
+        <div className="edit-user-page" style={{position:"relative"}}>
             <header className="header">
                 <ChevronLeft className="back-btn" onClick={handleBackBtn} />
                 <div className="profile-text">
                     <h2>Edit profile</h2>
                 </div>
             </header>
+
+            <ErrorCard message={profileError} loading={loading} clearAction={clearError} isvisible={true} />
 
             <main className="content">
                 <form onSubmit={handleSubmit(onSubmit)} className="form">

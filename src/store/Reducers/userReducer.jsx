@@ -3,24 +3,30 @@ import { getUserProfile, updateUserDetails, getUserPosts } from '../Actions/user
 
 const initialState = {
   user: null,
+  posts: [],
   profileLoading: false,
   postsLoading: false,
   profileError: null,
   postsError: null,
+  successMessage: null
 }
 
 export const userSlice = createSlice({
   name: 'user',
   initialState,
   reducers: {
-    clearUser(state) {
+    clearUser: (state) => {
       state.user = null
+      state.posts = []
+    },
+    clearError: (state) => {
+      state.profileError = null
+      state.postsError = null
     }
   },
   extraReducers: (builder) => {
 
     // Get User Profile
-
     builder
       .addCase(getUserProfile.pending, (state) => {
         state.profileLoading = true;
@@ -36,7 +42,6 @@ export const userSlice = createSlice({
       })
 
       // Update User Details
-
       .addCase(updateUserDetails.pending, (state) => {
         state.profileLoading = true;
         state.profileError = null;
@@ -50,6 +55,7 @@ export const userSlice = createSlice({
         state.profileError = action.payload;
       })
 
+      // Get User Posts
       .addCase(getUserPosts.pending, (state) => {
         state.postsLoading = true;
         state.postsError = null;
@@ -57,15 +63,14 @@ export const userSlice = createSlice({
       .addCase(getUserPosts.fulfilled, (state, action) => {
         state.postsLoading = false;
         state.posts = action.payload;
+        state.successMessage = "Posts Fetch Successfully."
       })
       .addCase(getUserPosts.rejected, (state, action) => {
         state.postsLoading = false;
         state.postsError = action.payload;
       })
-
   }
 })
 
-export const {clearUser} = userSlice.actions;
-
+export const { clearUser, clearError } = userSlice.actions;
 export default userSlice.reducer;

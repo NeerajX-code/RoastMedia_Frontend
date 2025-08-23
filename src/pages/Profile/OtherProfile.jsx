@@ -1,22 +1,24 @@
-import React from 'react'
 import "./Profile.css";
 import { useNavigate, useParams } from 'react-router';
 import { useDispatch, useSelector } from 'react-redux';
 import { useEffect } from 'react';
 import Loading from '../../components/Loader/Loading';
 import { ArrowLeft } from 'lucide-react';
-import { clearOtherProfileData } from "../../store/Reducers/otherProfileReducer";
+import { clearOtherProfileData, clearProfileError } from "../../store/Reducers/otherProfileReducer";
 import { getOtherUserPosts, getOtherUserProfile } from '../../store/Actions/otherProfileActions';
 import UserPostCard from '../../components/UserPostCard/UserPostCard';
+import ErrorCard from '../../components/ErrorCard/ErrorCard';
 
 const OtherProfile = () => {
     const { id } = useParams();
-    const { user, posts, profileLoading, postsLoading } = useSelector((state) => state.OtherProfileReducer);
+    const { user, posts, profileLoading, postsLoading, profileError } = useSelector((state) => state.OtherProfileReducer);
     const dispatch = useDispatch();
     const navigate = useNavigate();
 
     useEffect(() => {
         dispatch(getOtherUserProfile(id));
+
+
 
         let postTimer = setTimeout(() => {
             dispatch(getOtherUserPosts(id));
@@ -42,6 +44,9 @@ const OtherProfile = () => {
                     </div>
                     <h2 className="profile__username">{user?.displayName}</h2>
                 </div>
+
+                {profileError && <ErrorCard message={profileError} clearAction={clearProfileError} isvisible={true} />}
+
                 <div className="info_wrapper">
                     {/* Profile Info */}
                     <div className="profile__info">
@@ -69,7 +74,7 @@ const OtherProfile = () => {
 
                     {/* Bio */}
                     <p className="profile__bio">
-                      {user?.bio}
+                        {user?.bio}
                     </p>
 
                     {/* Tabs */}

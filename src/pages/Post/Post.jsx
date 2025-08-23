@@ -2,14 +2,16 @@ import React, { useRef, useState, useEffect } from "react";
 import "./Post.css";
 import { asyncGenerateCaption } from "../../store/Actions/postActions";
 import { useDispatch, useSelector } from "react-redux";
-import { clearCaption } from "../../store/Reducers/captionReducer";
+import { clearCaption, clearError } from "../../store/Reducers/captionReducer";
 import { ChevronDown, X } from "lucide-react";
+import ErrorCard from "../../components/ErrorCard/ErrorCard";
+import Loading from "../../components/Loader/Loading";
 
 const MAX_FILE_SIZE = 5 * 1024 * 1024; // 5MB
 const allowedTypes = ["image/jpeg", "image/png", "image/gif", "image/webp"];
 
 const Post = () => {
-  const { captions } = useSelector((state) => state.CaptionReducer);
+  const { captions, loading, captionError } = useSelector((state) => state.CaptionReducer);
   const dispatch = useDispatch();
 
 
@@ -79,6 +81,10 @@ const Post = () => {
     dispatch(clearCaption());
   }
 
+  if (loading) {
+    return <Loading />
+  }
+
   return (
     <div className="roast-generator">
       <div className="roast-generator__header">
@@ -96,6 +102,8 @@ const Post = () => {
           <p className="roast-generator__subtitle">and See the magic</p>
         </div>
       )}
+
+      <ErrorCard message={captionError} loading={loading} clearAction={clearError} />
 
       {!preview &&
         <div className="roast-generator__dropzone-wrapper">
@@ -167,7 +175,6 @@ const Post = () => {
             </div>
           )}
 
-
           <div className="roast-generator__footer">
             <select
               className="dropdown"
@@ -204,6 +211,7 @@ const Post = () => {
 
             <button className="create_post-btn"><span>Create</span> Post</button>
           </div>
+
         </div>
       )}
     </div>

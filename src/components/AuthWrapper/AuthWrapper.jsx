@@ -1,20 +1,25 @@
-import React, { useEffect } from 'react';
-import { useSelector } from 'react-redux';
-import { useNavigate } from 'react-router';
-import Loading from '../Loader/Loading';
+import React, { useEffect } from "react";
+import { useSelector } from "react-redux";
+import { useNavigate } from "react-router";
+import Loading from "../Loader/Loading";
+import Register from "../../pages/Register/Register";
 
 const AuthWrapper = ({ children }) => {
-  const { token } = useSelector((state) => state.authReducer);
+  const { isAuthenticated, loading } = useSelector((state) => state.authReducer);
   const navigate = useNavigate();
 
   useEffect(() => {
-    if (!token) {
+    if (!loading && !isAuthenticated) {
       navigate("/Register");
     }
-  }, [token, navigate]);
+  }, [isAuthenticated, loading]);
 
-  if (!token) {
-    return <Loading />; // jab tak navigate ho raha hai, kuch render mat karo
+  if (loading) {
+    return <Loading />; // jab tak auth check ho raha hai
+  }
+
+  if (!isAuthenticated) {
+    return <Register />; // navigate hone se pehle kuch render mat karo
   }
 
   return children;
