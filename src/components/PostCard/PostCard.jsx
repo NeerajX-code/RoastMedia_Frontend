@@ -1,22 +1,15 @@
 import { Heart, Combine, Share2, Bookmark } from "lucide-react";
 import "./PostCard.css";
-import { NavLink } from "react-router";
+import { NavLink, useNavigate } from "react-router";
 import { useDispatch } from "react-redux";
 import { asyncHomePostToggleLike } from "../../store/Actions/HomePostActions";
+import { asyncGetComments } from "../../store/Actions/commentActions";
 
 const PostCard = ({ post }) => {
 
     const dispatch = useDispatch();
+    const navigate = useNavigate();
 
-
-    function escapeHTML(str) {
-        return str
-            .replace(/&/g, "&amp;")
-            .replace(/</g, "&lt;")
-            .replace(/>/g, "&gt;")
-            .replace(/"/g, "&quot;")
-            .replace(/'/g, "&#39;");
-    }
 
     return (
         <div className="post">
@@ -52,7 +45,10 @@ const PostCard = ({ post }) => {
                         />
                         <span>{post.likesCount}</span>
                     </button>
-                    <button><Combine /> <span>{post.comments}</span></button>
+                    <button onClick={() => {
+                        dispatch(asyncGetComments(post._id))
+                        navigate(`/Comments/${post._id}`)
+                    }} ><Combine /> <span>{post.comments}</span></button>
                     <button><Share2 /> <span>{post.shares}</span></button>
                     <button><Bookmark /> <span>{post.bookmarks}</span></button>
                 </div>

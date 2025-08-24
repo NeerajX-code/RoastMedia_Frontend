@@ -22,7 +22,6 @@ export default function Sidebar() {
     dispatch(asyncLogoutUser()).then(() => {
       dispatch(clearUser());
       dispatch(getHomePosts());
-      navigate("/");
       setShowMenu(false);
     });
   };
