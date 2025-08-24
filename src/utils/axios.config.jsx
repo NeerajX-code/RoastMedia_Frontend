@@ -1,6 +1,5 @@
 import axios from "axios";
 
-// Dynamic baseURL
 const baseURL =
   process.env.NODE_ENV === "development"
     ? "http://localhost:3000/"

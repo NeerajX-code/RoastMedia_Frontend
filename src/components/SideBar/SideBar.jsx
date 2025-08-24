@@ -17,9 +17,9 @@ export default function Sidebar() {
     setShowMenu((prev) => !prev);
   };
 
-
   const handleLogout = () => {
-    dispatch(asyncLogoutUser()).then(() => {
+    dispatch(asyncLogoutUser())
+    .then(() => {
       dispatch(clearUser());
       dispatch(getHomePosts());
       setShowMenu(false);
