@@ -1,30 +1,32 @@
 .post {
-  padding: clamp(0.5rem, 1vw, 1rem);
-  background-color: #0b0b0b;
   border-radius: 1rem;
-  border: 1px solid rgba(255, 255, 255, 0.252);
+  padding: clamp(0.6rem, 1vw, 0.8rem);
+  background-color: rgba(96, 42, 146, 0.1176470588);
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
 }
 .post a {
   text-decoration: none;
 }
 .post_top {
-  width: 100%;
+  width: 98%;
   display: flex;
   color: white;
   gap: clamp(0.8rem, 1vw, 1rem);
-  padding-bottom: clamp(0.5rem, 0.8vw, 1rem);
+  padding: clamp(0.5rem, 1vw, 0.8rem);
+  padding-bottom: 0.8rem;
 }
 .post_top_userImg {
   flex: 0 auto;
 }
 .post_top_userImg img {
-  width: clamp(40px, 5vw, 60px);
-  height: clamp(40px, 5vw, 60px);
+  width: clamp(40px, 4vw, 50px);
+  height: clamp(40px, 4vw, 50px);
   border-radius: 50%;
   overflow: hidden;
   -o-object-fit: cover;
      object-fit: cover;
+  padding: 2px;
+  border: 2px solid rgba(255, 255, 255, 0.903);
 }
 .post_top_userDetails {
   display: flex;
@@ -33,34 +35,37 @@
 }
 .post_top_userDetails .userDetails_left h2 {
   font-weight: 700;
-  font-size: clamp(0.8rem, 1.5vw, 1.5rem);
-  background: linear-gradient(90deg, #22c55e, #16a34a, #15803d);
+  font-size: clamp(0.7rem, 1.5vw, 1.2rem);
+  background: linear-gradient(90deg, #f12711, #f5af19, #efeec8);
   -webkit-background-clip: text;
           background-clip: text;
   -webkit-text-fill-color: transparent;
 }
 .post_top_userDetails .userDetails_left p {
+  font-size: clamp(0.8rem, 1.2vw, 1rem);
   color: rgba(255, 255, 255, 0.873);
 }
+.post_top_userDetails .userDetails_right {
+  display: flex;
+  align-items: end;
+}
 .post_top_userDetails .userDetails_right p {
+  font-size: clamp(0.8rem, 1.2vw, 1rem);
   color: rgba(255, 255, 255, 0.592);
 }
 .post .post__image {
   width: 100%;
+  text-align: center;
 }
 .post .post__image img {
-  width: 100%;
-  aspect-ratio: 1/0.8;
+  width: 90%;
+  aspect-ratio: 1/0.9;
   -o-object-fit: cover;
      object-fit: cover;
+  border-radius: 6px;
 }
 .post .post__content {
-  padding: 1rem;
-}
-.post .post__username {
-  font-size: 1.2rem;
-  font-weight: 600;
-  color: #ffffff;
+  padding: clamp(0.8rem, 1vw, 1rem);
 }
 .post .post__caption {
   font-size: 0.95rem;
@@ -76,7 +81,7 @@
 .post .post__actions {
   display: flex;
   justify-content: space-around;
-  margin-top: 1rem;
+  margin-top: clamp(0.8rem, 1vw, 1rem);
 }
 .post .post__actions button {
   background: none;
