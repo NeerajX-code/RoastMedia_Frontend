@@ -65,7 +65,7 @@
     .post__image img {
         width: 100%;
         aspect-ratio: 1/.8;
-        object-fit: cover;
+        object-fit: contain;
         // object-fit: fill;
     }
 

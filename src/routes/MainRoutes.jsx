@@ -7,6 +7,7 @@ import Loading from "../components/Loader/Loading";
 // Lazy imports
 const Home = lazy(() => import("../pages/Home/Home"));
 const Post = lazy(() => import("../pages/Post/Post"));
+const SinglePost = lazy(() => import("../pages/SinglePost/SinglePost"));
 const Profile = lazy(() => import("../pages/Profile/Profile"));
 const EditUserDetailsPage = lazy(() =>
     import("../pages/EditUserDetails/EditUserDetails")
@@ -30,6 +31,15 @@ const MainRoutes = () => {
                     element={
                         <AuthWrapper>
                             <Post />
+                        </AuthWrapper>
+                    }
+                />
+
+                <Route
+                    path="/Single-post/:id"
+                    element={
+                        <AuthWrapper>
+                            <SinglePost />
                         </AuthWrapper>
                     }
                 />

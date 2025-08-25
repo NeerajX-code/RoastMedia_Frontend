@@ -10,16 +10,13 @@ import UserPostCard from '../../components/UserPostCard/UserPostCard';
 import ErrorCard from '../../components/ErrorCard/ErrorCard';
 
 const OtherProfile = () => {
-    const { id } = useParams();
+    const { id } = useParams();   
     const { user, posts, profileLoading, postsLoading, profileError } = useSelector((state) => state.OtherProfileReducer);
     const dispatch = useDispatch();
     const navigate = useNavigate();
 
     useEffect(() => {
         dispatch(getOtherUserProfile(id));
-
-
-
         let postTimer = setTimeout(() => {
             dispatch(getOtherUserPosts(id));
         }, 500);
@@ -86,7 +83,7 @@ const OtherProfile = () => {
                             <p>Posts Fetching...</p>
                         </div>
                     ) : posts?.length > 0 ? (
-                        <div className="profile__posts">
+                        <div className="profile__posts" >
                             {posts.map((post, i) => (
                                 <UserPostCard key={i} post={post} />
                             ))}

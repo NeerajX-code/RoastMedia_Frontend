@@ -51,8 +51,8 @@
 .post .post__image img {
   width: 100%;
   aspect-ratio: 1/0.8;
-  -o-object-fit: cover;
-     object-fit: cover;
+  -o-object-fit: contain;
+     object-fit: contain;
 }
 .post .post__content {
   padding: 1rem;

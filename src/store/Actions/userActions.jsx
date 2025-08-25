@@ -34,7 +34,6 @@ export const getUserPosts = createAsyncThunk(
     async (id, {rejectWithValue}) => {
         try {
             const { data } = await axios.get(`api/post/get/posts/user/${id}`);
-            console.log(data);
             return data.posts;
         } catch (error) {
            return rejectWithValue(error.response?.message || "Failed to load Posts.");

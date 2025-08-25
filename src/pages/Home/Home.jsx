@@ -20,9 +20,9 @@ const Home = () => {
       dispatch(getHomePosts());
     }
 
-    if (posts.length > 0) {
-      console.log(posts);
-    }
+    // if (posts.length > 0) {
+    //   console.log(posts);
+    // }
 
   }, [posts, dispatch])
 
