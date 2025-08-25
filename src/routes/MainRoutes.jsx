@@ -19,6 +19,7 @@ const NotificationPage = lazy(() =>
 const Register = lazy(() => import("../pages/Register/Register"));
 const Login = lazy(() => import("../pages/Login/Login"));
 const OtherProfile = lazy(() => import("../pages/Profile/OtherProfile"));
+const Comments = lazy(() => import("../pages/Comments/Comments"));
 
 const MainRoutes = () => {
     return (
@@ -34,6 +35,8 @@ const MainRoutes = () => {
                         </AuthWrapper>
                     }
                 />
+
+                <Route path="/Comments/:id" element={<Comments />} />
 
                 <Route
                     path="/Single-post/:id"

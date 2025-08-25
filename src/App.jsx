@@ -3,7 +3,6 @@ import MainRoutes from './routes/MainRoutes'
 import Navbar from './components/Navbar/Navbar'
 import "./App.css"
 import Sidebar from './components/SideBar/SideBar'
-import Cookies from "js-cookie";
 import { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { getUserProfile } from './store/Actions/userActions'
