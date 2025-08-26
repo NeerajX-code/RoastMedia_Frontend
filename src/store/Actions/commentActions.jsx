@@ -1,5 +1,7 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "../../utils/axios.config";
+import { updateCommentsCount } from "../Reducers/HomePostReducer";
+import { updateSavePostCommentsCount } from "../Reducers/saveReducer";
 
 export const asyncGetComments = createAsyncThunk(
     "comment/asyncGetComments",
@@ -18,11 +20,13 @@ export const asyncGetComments = createAsyncThunk(
 
 export const asyncPostComment = createAsyncThunk(
     "comment/asyncPostComment",
-    async ({ id, comment }, { rejectWithValue }) => {
+    async ({ id, comment }, { dispatch, rejectWithValue }) => {
         console.log(id, comment);
         try {
             const { data } = await axios.post(`/api/post/comment/${id}`, { comment });
             console.log(data);
+            dispatch(updateCommentsCount({ id, commentCount: data.commentCount }));
+            dispatch(updateSavePostCommentsCount({ id, commentCount: data.commentCount }));
             return data.comment[0];
         } catch (error) {
             console.log(error);
@@ -49,14 +53,15 @@ export const asyncEditComment = createAsyncThunk(
     }
 );
 
-
 export const asyncDeleteComment = createAsyncThunk(
     "comment/asyncDeleteComment",
-    async ({ postId, commentId }, { rejectWithValue }) => {
+    async ({ postId, commentId }, { dispatch, rejectWithValue }) => {
         try {
             const { data } = await axios.delete(`/api/post/comment/${postId}/${commentId}`);
             console.log(data);
-            return commentId; // just return the deleted commentId
+            dispatch(updateCommentsCount({ id: postId, commentCount: data.commentCount }));
+            dispatch(updateSavePostCommentsCount({ id:postId, commentCount: data.commentCount }));
+            return commentId;
         } catch (error) {
             console.log(error);
             return rejectWithValue(error.response?.data?.message || "Unable to delete comment.");

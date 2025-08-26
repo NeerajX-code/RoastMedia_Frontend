@@ -3,6 +3,7 @@ import { Routes, Route } from "react-router-dom";
 import AuthWrapper from "../components/AuthWrapper/AuthWrapper";
 import UnAuthWrapper from "../components/UnAuthWrapper/UnAuthWrapper";
 import Loading from "../components/Loader/Loading";
+import SavePage from "../pages/SavePage/SavePage";
 
 // Lazy imports
 const Home = lazy(() => import("../pages/Home/Home"));
@@ -75,6 +76,12 @@ const MainRoutes = () => {
                         </UnAuthWrapper>
                     }
                 />
+
+                <Route path="/Save" element={
+                    <AuthWrapper>
+                        <SavePage />
+                    </AuthWrapper>
+                } />
 
                 <Route
                     path="/Login"

@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import "./CommentsPage.css";
-import { useParams } from "react-router";
+import { useNavigate, useParams } from "react-router";
 import { useDispatch, useSelector } from "react-redux";
 import { asyncDeleteComment, asyncEditComment, asyncGetComments, asyncPostComment } from "../../store/Actions/commentActions";
 import { CheckCircle, Delete, Edit } from "lucide-react";
@@ -13,11 +13,12 @@ const CommentsPage = () => {
     const { comments } = useSelector((state) => state.CommentsReducer);
     const { user } = useSelector((state) => state.userReducer)
     const dispatch = useDispatch();
+    const navigate = useNavigate();
     const [comment, setComment] = useState("");
 
     const handleSend = () => {
         if (!comment.trim()) return;
-        if(comment.trim() === editedComment.trim()) return;
+        if (comment.trim() === editedComment.trim()) return;
 
         console.log(comment, id)
         dispatch(asyncPostComment({ id, comment }));
@@ -34,7 +35,7 @@ const CommentsPage = () => {
         <div className="comments-page">
             {/* Header */}
             <header className="comments-header">
-                <button className="back-btn">
+                <button onClick={() => navigate(-1)} className="back-btn">
                     <svg
                         xmlns="http://www.w3.org/2000/svg"
                         width="24px"

@@ -7,6 +7,7 @@ import OtherProfileSlice from "./Reducers/otherProfileReducer";
 import CaptionSlice from "./Reducers/captionReducer";
 import newPostSlice from './Reducers/postReducer'
 import commentSlice from './Reducers/commentReducer'
+import saveSlice from "./Reducers/saveReducer"
 
 export const store = configureStore({
   reducer: {
@@ -17,6 +18,7 @@ export const store = configureStore({
     OtherProfileReducer: OtherProfileSlice,
     CaptionReducer: CaptionSlice,
     PostReducer: newPostSlice,
-    CommentsReducer:commentSlice
+    CommentsReducer: commentSlice,
+    SaveReducer: saveSlice
   },
 })

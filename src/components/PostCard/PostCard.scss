@@ -39,7 +39,7 @@
 
                 h2 {
                     font-weight: 700;
-                    font-size: clamp(0.7rem, 1.5vw, 1.2rem);
+                    font-size: clamp(0.8rem, 1.5vw, 1.2rem);
                     background: linear-gradient(90deg, #f12711, #f5af19, #efeec8);
                     background-clip: text;
                     -webkit-text-fill-color: transparent;
@@ -63,7 +63,6 @@
 
         }
     }
-
 
     .post__image {
         width: 100%;
@@ -98,7 +97,7 @@
     .post__actions {
         display: flex;
         justify-content: space-around;
-        margin-top: clamp(0.8rem,1vw,1rem);
+        margin-top: clamp(0.8rem, 1vw, 1rem);
     }
 
     .post__actions button {
