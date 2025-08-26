@@ -1,5 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { asyncToggleSave, asyncGetSavedPosts, asyncSavePostToggleLike } from "../Actions/saveActions";
+import { asyncToggleSave, asyncGetSavedPosts, asyncSavePostToggleLike } from  "../Actions/saveActions";
 
 const saveSlice = createSlice({
     name: "save",
