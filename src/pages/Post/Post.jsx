@@ -6,6 +6,7 @@ import { clearCaption, clearError } from "../../store/Reducers/captionReducer";
 import { ChevronDown, X } from "lucide-react";
 import ErrorCard from "../../components/ErrorCard/ErrorCard";
 import Loading from "../../components/Loader/Loading";
+import PreviousCaptions from "./PreviousComments/PreviousComments";
 
 const MAX_FILE_SIZE = 5 * 1024 * 1024; // 5MB
 const allowedTypes = ["image/jpeg", "image/png", "image/gif", "image/webp"];
@@ -188,7 +189,7 @@ const Post = () => {
               {showComments ? <X /> : "Previous Captions"}
             </button>
 
-            {showComments && <PreviousComments setShowCurrentCaption={setShowCurrentCaption} />}
+            {showComments && <PreviousCaptions setShowCurrentCaption={setShowCurrentCaption} />}
 
           </div>
 

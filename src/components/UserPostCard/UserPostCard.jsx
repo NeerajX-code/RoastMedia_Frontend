@@ -1,10 +1,13 @@
 import React from "react";
-import { NavLink } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
 import "./UserPostCard.css";
 
 const UserPostCard = ({ post }) => {
+const navigate = useNavigate()
+   
     return (
-        <div className="user-post-card">
+        <div className="user-post-card" onClick={ () => {
+        navigate(`/Single-post/${post._id}`)}}>
             <div className="post-image">
                 <img src={post.image} alt="post" />
             </div>

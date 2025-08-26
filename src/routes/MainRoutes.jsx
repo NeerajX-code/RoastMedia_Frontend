@@ -8,6 +8,7 @@ import SavePage from "../pages/SavePage/SavePage";
 // Lazy imports
 const Home = lazy(() => import("../pages/Home/Home"));
 const Post = lazy(() => import("../pages/Post/Post"));
+const SinglePost = lazy(() => import("../pages/SinglePost/SinglePost"));
 const Profile = lazy(() => import("../pages/Profile/Profile"));
 const EditUserDetailsPage = lazy(() =>
     import("../pages/EditUserDetails/EditUserDetails")
@@ -37,6 +38,15 @@ const MainRoutes = () => {
                 />
 
                 <Route path="/Comments/:id" element={<Comments />} />
+
+                <Route
+                    path="/Single-post/:id"
+                    element={
+                        <AuthWrapper>
+                            <SinglePost />
+                        </AuthWrapper>
+                    }
+                />
 
                 <Route
                     path="/Profile"
