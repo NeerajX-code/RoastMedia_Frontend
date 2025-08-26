@@ -3,7 +3,7 @@ import "./SavePage.css";
 import { ArrowLeft } from 'lucide-react';
 import { useNavigate } from 'react-router';
 import { useDispatch, useSelector } from 'react-redux';
-import { asyncGetSavedPosts } from '../../store/actions/saveActions';
+import { asyncGetSavedPosts } from '../../store/Actions/saveActions';
 import SavePostCard from '../../components/SavePostCard/SavePostCard';
 
 const SavePage = () => {
