@@ -4,7 +4,7 @@ import { NavLink, useNavigate } from "react-router";
 import { useDispatch } from "react-redux";
 import { asyncUpdateShareCount } from "../../store/Actions/HomePostActions";
 import { asyncGetComments } from "../../store/Actions/commentActions";
-import { asyncSavePostToggleLike, asyncToggleSave } from "../../store/actions/saveActions"
+import { asyncSavePostToggleLike, asyncToggleSave } from "../../store/Actions/saveActions"
 
 const SavePostCard = ({ post }) => {
 
