@@ -15,6 +15,10 @@
   border: 1px solid rgba(255, 255, 255, 0.263);
   border-top: none;
   border-bottom: none;
+
+  @media (max-width:580px) {
+    border: none;
+  }
 }
 
 .post-feed_options {
@@ -47,16 +51,3 @@
 }
 
 
-
-/* ===== Responsive ===== */
-@media (max-width: 768px) {
-
-  .post__username {
-    font-size: 1rem;
-  }
-
-  .post-feed .post-feed_wrapper {
-    border: 1px solid rgba(255, 255, 255, 0.505);
-    border-bottom: none;
-  }
-}

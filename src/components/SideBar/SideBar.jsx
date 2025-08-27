@@ -1,6 +1,6 @@
 import { NavLink, useNavigate } from "react-router-dom";
 import "./Sidebar.css";
-import { Bell, Ellipsis, Home, Search, UserRound } from "lucide-react";
+import { Bell, Bookmark, Ellipsis, Home, Search, UserRound } from "lucide-react";
 import { useDispatch, useSelector } from "react-redux";
 import { useState } from "react";
 import { clearUser } from "../../store/Reducers/userReducer";
@@ -30,7 +30,7 @@ export default function Sidebar() {
     <nav className="sidebar">
       <div className="sidebar__top">
         <div className="sidebar__logo">
-          <img src="/logo.svg" alt="Logo" />
+          <img src="#" alt="Logo" />
         </div>
 
         <div className="sidebar_menu">
@@ -46,6 +46,8 @@ export default function Sidebar() {
             <span className="icon"><Bell /></span>
             <span className="label">Notifications</span>
           </NavLink>
+          <NavLink to="/Save" className="menu-item"><span className="icon"><Bookmark /></span>
+            <span className="label">My Saves</span></NavLink>
           <NavLink to="/Profile" className="menu-item">
             <span className="icon"><UserRound /></span>
             <span className="label">Profile</span>

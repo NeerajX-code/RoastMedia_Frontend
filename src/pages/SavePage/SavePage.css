@@ -1,0 +1,37 @@
+.save_page {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  max-width: 680px;
+  background-color: rgba(96, 42, 146, 0.1176470588);
+  border: 1px solid rgba(255, 255, 255, 0.197);
+  border-top: none;
+  border-bottom: none;
+  color: white;
+}
+.save_page_header {
+  flex: 0 0 auto;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: clamp(0.8rem, 1vw, 1rem);
+  background-color: rgba(7, 0, 14, 0.5607843137);
+}
+.save_page_header button {
+  color: white;
+  border: none;
+  background: none;
+}
+.save_page_header p {
+  font-size: clamp(1rem, 1.2vw, 1.5rem);
+}
+.save_page_list {
+  flex: 1;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  padding: clamp(0.8rem, 1vw, 1rem);
+  gap: clamp(0.8rem, 1vw, 1rem);
+  overflow-y: auto;
+}/*# sourceMappingURL=SavePage.css.map */

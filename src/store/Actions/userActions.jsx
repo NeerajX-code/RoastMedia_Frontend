@@ -4,7 +4,7 @@ import { setAuthentication } from "../Reducers/authReducer";
 
 export const getUserProfile = createAsyncThunk(
      "user/getUserProfile",
-     async (_, {dispatch , rejectWithValue }) => {
+     async (_, { dispatch, rejectWithValue }) => {
           try {
                const { data } = await axios.get("/api/user/profile");
                dispatch(setAuthentication());
@@ -30,13 +30,14 @@ export const updateUserDetails = createAsyncThunk(
 
 
 export const getUserPosts = createAsyncThunk(
-    "/user/getUserPosts",
-    async (id, {rejectWithValue}) => {
-        try {
-            const { data } = await axios.get(`api/post/get/posts/user/${id}`);
-            return data.posts;
-        } catch (error) {
-           return rejectWithValue(error.response?.message || "Failed to load Posts.");
-        }
-    }
+     "/user/getUserPosts",
+     async (id, { rejectWithValue }) => {
+          try {
+               console.log(id);
+               const { data } = await axios.get(`api/post/get/posts/user/${id}`);
+               return data.posts;
+          } catch (error) {
+               return rejectWithValue(error.response?.message || "Failed to load Posts.");
+          }
+     }
 )
