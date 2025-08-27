@@ -1,6 +1,7 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "../../utils/axios.config";
 import { getHomePosts } from "./HomePostActions";
+import { getUserProfile } from "./userActions";
 
 export const asyncRegisterUser = createAsyncThunk(
     "auth/asyncRegisterUser",
@@ -8,6 +9,7 @@ export const asyncRegisterUser = createAsyncThunk(
         try {
             const { data } = await axios.post("/api/auth/register", formData);
             dispatch(getHomePosts());
+            dispatch(getUserProfile());
             return data.token;
         } catch (error) {
             console.log(error);
@@ -22,6 +24,7 @@ export const asyncLoginUser = createAsyncThunk(
         try {
             const { data } = await axios.post("/api/auth/login", formData);
             dispatch(getHomePosts());
+            dispatch(getUserProfile());
             return data.token;
         } catch (error) {
             console.log(error);

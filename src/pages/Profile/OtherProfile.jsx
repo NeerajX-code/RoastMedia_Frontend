@@ -36,7 +36,7 @@ const OtherProfile = () => {
             <div className="profile">
                 {/* Header */}
                 <div className="profile__nav">
-                    <div className="profile__back-btn" onClick={() => navigate("/")}>
+                    <div className="profile__back-btn" onClick={() => navigate(-1)}>
                         <ArrowLeft size={30} />
                     </div>
                     <h2 className="profile__username">{user?.displayName}</h2>

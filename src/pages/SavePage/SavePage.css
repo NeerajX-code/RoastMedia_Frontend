@@ -34,4 +34,12 @@
   padding: clamp(0.8rem, 1vw, 1rem);
   gap: clamp(0.8rem, 1vw, 1rem);
   overflow-y: auto;
+}
+.save_page .no-saved-posts {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: clamp(1rem, 1.2vw, 1.5rem);
+  color: gray;
 }/*# sourceMappingURL=SavePage.css.map */

@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react'
 import "./SavePage.css";
 import { ArrowLeft } from 'lucide-react';
-import { useNavigate } from 'react-router';
+import { useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { asyncGetSavedPosts } from '../../store/Actions/saveActions';
 import SavePostCard from '../../components/SavePostCard/SavePostCard';
@@ -30,7 +30,7 @@ const SavePage = () => {
                 })}
             </div>
             ):(
-                <div>
+                <div className='no-saved-posts'>
                     No Saved Posts.
                 </div>
             )}

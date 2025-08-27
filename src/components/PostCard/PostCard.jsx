@@ -1,6 +1,6 @@
 import { Heart, Combine, Share2, Bookmark } from "lucide-react";
 import "./PostCard.css";
-import { NavLink, useNavigate } from "react-router";
+import { NavLink, useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { asyncHomePostToggleLike, asyncUpdateShareCount } from "../../store/Actions/HomePostActions";
 import { asyncGetComments } from "../../store/Actions/commentActions";
@@ -14,7 +14,6 @@ const PostCard = ({ post }) => {
 
     return (
         <div className="post">
-
             <NavLink to={`/other/profile/${post.userData._id}`}>
                 <div className="post_top">
                     <div className="post_top_userImg">
@@ -25,6 +24,7 @@ const PostCard = ({ post }) => {
                             <h2>{post.profileData?.displayName}</h2>
                             <p>@{post.userData?.username}</p>
                         </div>
+
                         <div className="userDetails_right">
                             <p>
                                 {new Intl.DateTimeFormat("en-US", {
@@ -51,10 +51,13 @@ const PostCard = ({ post }) => {
                         />
                         <span>{post.likesCount}</span>
                     </button>
+
                     <button onClick={() => {
                         dispatch(asyncGetComments(post._id))
                         navigate(`/Comments/${post._id}`)
-                    }} ><Combine /> <span>{post.commentCount}</span></button>
+                    }} ><Combine /> <span>{post.commentCount}</span>
+                    </button>
+
                     <button
                         onClick={async () => {
                             dispatch(asyncUpdateShareCount(post._id));
@@ -82,6 +85,7 @@ const PostCard = ({ post }) => {
                     >
                         <Share2 /> <span>{post.shareCount}</span>
                     </button>
+
                     <button
                         onClick={() => dispatch(asyncToggleSave(post._id))}
                     ><Bookmark stroke={!post?.saved ? "white" : "none"}

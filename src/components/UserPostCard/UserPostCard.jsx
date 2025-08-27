@@ -3,26 +3,40 @@ import { NavLink, useNavigate } from "react-router-dom";
 import "./UserPostCard.css";
 
 const UserPostCard = ({ post }) => {
-const navigate = useNavigate()
-   
+    const navigate = useNavigate()
+
     return (
-        <div className="user-post-card" onClick={ () => {
-        navigate(`/Single-post/${post._id}`)}}>
-            <div className="post-image">
+        <div className="user-post-card" >
+            <div className="post-image" onClick={() => {
+                navigate(`/Single-post/${post._id}`)
+            }}>
                 <img src={post.image} alt="post" />
             </div>
 
-            {/* 🔹 Caption */}
-            <div className="post-caption">
+            {/* <div className="post-caption">
                 <p>{post.caption}</p>
-            </div>
+            </div> */}
 
-            {/* 🔹 Footer Info */}
             <div className="post-footer">
-                <span>❤️ {post.likesCount}</span>
-                <span>💬 {post.commentCount}</span>
-                <span>💾 {post.saveCount}</span>
-                <span>🔗 {post.shareCount}</span>
+                <span>
+                    <i className="fa-slab fa-regular fa-heart"></i>
+                    {""} {post.likesCount}
+                </span>
+
+                <span>
+                    <i className="fa-regular fa-comment"></i>
+                    {""}  {post.commentCount}
+                </span>
+                
+                <span>
+                    <i className="ri-share-forward-line"></i>
+                    {""} {post.shareCount}
+                </span>
+
+                <span>
+                    <i className="fa-regular fa-bookmark"></i>
+                    {""} {post.saveCount}
+                </span>
             </div>
         </div>
     );

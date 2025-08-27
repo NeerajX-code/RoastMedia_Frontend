@@ -39,7 +39,9 @@ const Home = () => {
           <h2>For You</h2>
           <h2>Following</h2>
         </div>
+
         <ErrorCard message={error} loading={loading} action={getHomePosts} />
+        
         <div className="post-feed__list">
           {posts?.map((post, i) => (
             <PostCard key={i} post={post} />

@@ -1,6 +1,7 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "../../utils/axios.config"; // tumhara axios instance with baseURL, credentials
 import { toggleSave, updateLikeCount, updateShareCount } from "../Reducers/HomePostReducer";
+import { updateSavePostShareCount } from "../Reducers/saveReducer";
 
 export const asyncToggleSave = createAsyncThunk(
     "save/asyncToggleSave",
@@ -52,7 +53,7 @@ export const asyncUpdateShareCountSavedPost = createAsyncThunk(
     "home/asyncUpdateShareCount",
     async (id, { dispatch, rejectWithValue }) => {
         try {
-            const { data } = await axios.patch(`api/post/${id}/share`,);
+            const { data } = await axios.patch(`/api/post/${id}/share`);
             dispatch(updateShareCount({ id, shareCount: data.shareCount }));
             dispatch(updateSavePostShareCount({ id, shareCount: data.shareCount }))
         } catch (error) {
