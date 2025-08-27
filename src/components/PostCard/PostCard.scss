@@ -71,7 +71,7 @@
     aspect-ratio: 1/0.8;
     object-fit: contain;
     border-radius: 10px;
-    border: 2px solid rgba(68, 178, 237, 0.815);
+    border: 2px solid rgba(162, 166, 168, 0.815);
   }
 
   .post__content {
@@ -98,6 +98,7 @@
   }
 
   .post__actions {
+    
     button {
       background: none;
       border: none;
@@ -116,11 +117,6 @@
 
     .ri-heart-2-line {
       color: white;
-    }
-
-    .liked {
-      color: red;
-      fill: red;
     }
   }
 

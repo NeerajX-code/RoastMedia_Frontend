@@ -1,7 +1,7 @@
 import { Heart, Combine, Share2, Bookmark } from "lucide-react";
 import "./SavePostCard.css";
-import { NavLink, useNavigate } from "react-router";
-import { useDispatch } from "react-redux";
+import { NavLink, useNavigate } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
 import { asyncUpdateShareCount } from "../../store/Actions/HomePostActions";
 import { asyncGetComments } from "../../store/Actions/commentActions";
 import { asyncSavePostToggleLike, asyncToggleSave } from "../../store/Actions/saveActions";
@@ -10,6 +10,9 @@ const SavePostCard = ({ post }) => {
 
     const dispatch = useDispatch();
     const navigate = useNavigate();
+    const isSaved = useSelector((state) =>
+        state.SaveReducer.savedPosts?.some((p) => p.post?._id === post.post?._id)
+    );
 
     return (
         <div className="post">
@@ -80,10 +83,12 @@ const SavePostCard = ({ post }) => {
                     >
                         <Share2 /> <span>{post.post?.shareCount}</span>
                     </button>
-                    <button
-                        onClick={() => dispatch(asyncToggleSave(post.post._id))}
-                    ><Bookmark stroke={!post?.saved ? "white" : "none"}
-                        fill={post?.saved ? "white" : "none"} /></button>
+                    <button onClick={() => dispatch(asyncToggleSave(post.post._id))}>
+                        <Bookmark
+                            stroke={!isSaved ? "white" : "none"}
+                            fill={isSaved ? "white" : "none"}
+                        />
+                    </button>
                 </div>
             </div>
         </div >

@@ -19,26 +19,24 @@ const UserPostCard = ({ post }) => {
 
             <div className="post-footer">
                 <span>
-                    <i class="fa-slab fa-regular fa-heart"></i>
+                    <i className="fa-slab fa-regular fa-heart"></i>
                     {""} {post.likesCount}
                 </span>
 
                 <span>
-                    <i class="fa-regular fa-comment"></i>
+                    <i className="fa-regular fa-comment"></i>
                     {""}  {post.commentCount}
                 </span>
                 
                 <span>
-                    <i class="ri-share-forward-line"></i>
+                    <i className="ri-share-forward-line"></i>
                     {""} {post.shareCount}
                 </span>
 
                 <span>
-                    <i class="fa-regular fa-bookmark"></i>
+                    <i className="fa-regular fa-bookmark"></i>
                     {""} {post.saveCount}
                 </span>
-
-
             </div>
         </div>
     );

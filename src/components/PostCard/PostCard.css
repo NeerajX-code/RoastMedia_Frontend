@@ -34,7 +34,7 @@
 }
 .post_top_userDetails .userDetails_left h2 {
   font-weight: 700;
-  font-size: clamp(0.8rem, 1.5vw, 1.2rem);
+  font-size: clamp(0.7rem, 1.5vw, 1.2rem);
   background: linear-gradient(90deg, #f12711, #f5af19, #efeec8);
   -webkit-background-clip: text;
           background-clip: text;
@@ -62,7 +62,7 @@
   -o-object-fit: contain;
      object-fit: contain;
   border-radius: 10px;
-  border: 2px solid rgba(68, 178, 237, 0.815);
+  border: 2px solid rgba(162, 166, 168, 0.815);
 }
 .post .post__content {
   padding: clamp(0.8rem, 1vw, 1rem);
@@ -99,10 +99,6 @@
 }
 .post .post__actions .ri-heart-2-line {
   color: white;
-}
-.post .post__actions .liked {
-  color: red;
-  fill: red;
 }
 .post .post__actions button:hover {
   color: #2fff75;

@@ -1,25 +1,33 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import "./Profile.css";
 import { getUserPosts, getUserProfile } from "../../store/Actions/userActions";
 import { useDispatch, useSelector } from "react-redux";
-import { ArrowLeft, SquarePen } from "lucide-react";
+import { ArrowLeft, Ellipsis, EllipsisVertical, SquarePen } from "lucide-react";
 import Loading from "../../components/Loader/Loading";
 import { useNavigate } from "react-router-dom";
 import ErrorCard from "../../components/ErrorCard/ErrorCard";
 import UserPostCard from "../../components/UserPostCard/UserPostCard";
+import { asyncLogoutUser } from "../../store/Actions/authActions";
+import { clearUser } from "../../store/Reducers/userReducer";
+import { getHomePosts } from "../../store/Actions/HomePostActions";
 
 const Profile = () => {
   const { user, posts, profileLoading, profileError, postsLoading, successMessage } =
     useSelector((state) => state.userReducer);
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  const [showMenu, setShowMenu] = useState(false);
+
+  const toggleMenu = () => {
+    setShowMenu((prev) => !prev);
+  };
 
   useEffect(() => {
     // load profile if not present
     if (!user && !successMessage) {
       dispatch(getUserProfile());
     }
-  }, [dispatch, user]);
+  }, [dispatch, user, successMessage]);
 
   useEffect(() => {
     if (user && !successMessage) {
@@ -27,13 +35,25 @@ const Profile = () => {
         dispatch(getUserPosts(user?.userId?._id));
       }, 500);
     }
-  }, [user]);
+  }, [user, successMessage, dispatch]);
 
   if (profileLoading) return <Loading />;
 
   const handleEditProfile = () => {
     navigate("/Edit-user-profile");
   };
+
+  const handleLogout = () => {
+    console.log("clicked");
+
+    dispatch(asyncLogoutUser())
+      .then(() => {
+        dispatch(clearUser());
+        dispatch(getHomePosts());
+        navigate("/login");
+      });
+      
+  }
 
   const handleBackBtn = () => {
     navigate(-1);
@@ -49,6 +69,18 @@ const Profile = () => {
         <h2 className="profile__username">{user?.displayName}</h2>
 
         <SquarePen className="profile__edit-btn" onClick={handleEditProfile} />
+
+        {/* <EllipsisVertical onClick={logoutHandler} /> */}
+
+        <span className="dots" onClick={toggleMenu}>
+          <EllipsisVertical />
+        </span>
+
+        {showMenu && (
+          <div className="logout_menu">
+            <button onClick={handleLogout}>Logout</button>
+          </div>
+        )}
       </div>
 
       {profileError && (

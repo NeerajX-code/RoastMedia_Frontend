@@ -34,10 +34,10 @@ export const getUserPosts = createAsyncThunk(
      async (id, { rejectWithValue }) => {
           try {
                console.log(id);
-               const { data } = await axios.get(`api/post/get/posts/user/${id}`);
+               const { data } = await axios.get(`/api/post/get/posts/user/${id}`);
                return data.posts;
           } catch (error) {
-               return rejectWithValue(error.response?.message || "Failed to load Posts.");
+               return rejectWithValue(error.response?.data?.message || error.message || "Failed to load Posts.");
           }
      }
 )

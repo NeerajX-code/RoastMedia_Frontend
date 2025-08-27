@@ -32,7 +32,7 @@ export const asyncUpdateShareCount = createAsyncThunk(
      "home/asyncUpdateShareCount",
      async (id, { dispatch, rejectWithValue }) => {
           try {
-               const { data } = await axios.patch(`api/post/${id}/share`,);
+               const { data } = await axios.patch(`/api/post/${id}/share`);
                dispatch(updateShareCount({ id, shareCount: data.shareCount }));
                dispatch(updateSavePostShareCount({ id, shareCount: data.shareCount }));
                console.log(data);
@@ -46,8 +46,8 @@ export const asyncHomePostToggleSave = createAsyncThunk(
      "save/toggleSave",
      async ({ postId }, { rejectWithValue }) => {
           try {
-               const { data } = await axios.post("/api/save/toggle", { postId });
-               return { ...data, postId }; // send postId for reducer logic
+               const { data } = await axios.post(`/api/post/save/${postId}`);
+               return { ...data, postId };
           } catch (error) {
                return rejectWithValue(error.response?.data?.message || "Save failed");
           }
@@ -58,7 +58,7 @@ export const asyncGetSavedPosts = createAsyncThunk(
      "save/getSavedPosts",
      async (_, { rejectWithValue }) => {
           try {
-               const { data } = await axios.get("/api/save/my-saves");
+               const { data } = await axios.get("/api/post/my-saves");
                return data;
           } catch (error) {
                return rejectWithValue(error.response?.data?.message || "Failed to fetch saved posts");

@@ -18,6 +18,7 @@ export const userSlice = createSlice({
     clearUser: (state) => {
       state.user = null
       state.posts = []
+  state.successMessage = null
     },
     clearError: (state) => {
       state.profileError = null

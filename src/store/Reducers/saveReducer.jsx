@@ -47,7 +47,11 @@ const saveSlice = createSlice({
                 state.loading = false;
                 // If post saved → push, if unsaved → remove
                 if (action.payload.saved) {
-                    state.savedPosts.push(action.payload.save[0]);
+                    const savedDoc = action.payload.save?.[0];
+                    if (savedDoc) {
+                        // Mark as saved so UI fills the bookmark icon
+                        state.savedPosts.push({ ...savedDoc, saved: true });
+                    }
                 } else {
                     console.log(action.payload.saved);
                     const newSavedPosts = state.savedPosts.filter(
