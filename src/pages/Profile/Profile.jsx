@@ -38,7 +38,7 @@ const Profile = () => {
   };
 
   const handleBackBtn = () => {
-    navigate("/");
+    navigate(-1);
   };
 
   return (

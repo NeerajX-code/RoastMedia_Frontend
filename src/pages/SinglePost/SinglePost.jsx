@@ -3,7 +3,7 @@ import "./SinglePost.css";
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { asyncSinglePost } from "../../store/Actions/singlePostAction";
-import { Forward, Heart, MessageCircle } from 'lucide-react'
+import { Bookmark, Forward, Heart, MessageCircle, Save } from 'lucide-react'
 import { getOtherUserPosts, getOtherUserProfile } from "../../store/Actions/otherProfileActions";
 
 export default function SinglePostPage() {
@@ -23,7 +23,6 @@ export default function SinglePostPage() {
 
   return (
     <div className="single-post">
-      {/* Header */}
       <header className="header">
         <button className="back-btn" onClick={() => navigate(-1)}>
           <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor"
@@ -34,8 +33,7 @@ export default function SinglePostPage() {
         <h2 className="title">Post</h2>
       </header>
 
-      {/* Post Image */}
-      <div className="post-body">
+      <div className="profile-content">
         <div className="image-wrapper">
           <img
             src={singlePost?.image}
@@ -43,40 +41,31 @@ export default function SinglePostPage() {
             className="post-img"
           />
         </div>
-      </div>
 
-      {/* Post Caption & User */}
-      <div className="post-details">
-        <p className="caption">{singlePost?.caption}</p>
-        <div className="user-info">
-          <img
-            src={singlePost?.userData?.avatarUrl}
-            alt="user"
-            className="user-avatar"
-          />
-          <div>
-            <h4 className="username">{singlePost?.userData?.displayName}</h4>
-            {/* <p className="handle">@{singlePost?.userData?.handle}</p> */}
+        <div className="post-details">
+          <p className="caption">{singlePost?.caption}</p>
+          <div className="user-info">
+            <img
+              src={singlePost?.userData?.avatarUrl}
+              alt="user"
+              className="user-avatar"
+            />
+            <div>
+              <h4 className="username">{singlePost?.userData?.displayName}</h4>
+            </div>
           </div>
         </div>
       </div>
 
-      {/* Actions */}
-      <div className="actions">
-        <button><Heart /> <span>{singlePost?.likesCount || 0}</span></button>
-        <button><MessageCircle /><span>{singlePost?.commentCou || 0}</span></button>
-        <button><Forward /><span>{singlePost?.shareCount || 0}</span></button>
-      </div>
+       <div className="actions">
+          <button><Heart /> <span>{singlePost?.likesCount || 0}</span></button>
 
-      {/* Comment Box */}
-      <div className="comment-box">
-        <input
-          type="text"
-          placeholder="Add a comment..."
-          className="comment-input"
-        />
-        <button className="send-btn">Send</button>
-      </div>
+          <button><MessageCircle /><span>{singlePost?.commentCou || 0}</span></button>
+
+          <button><Forward /><span>{singlePost?.shareCount || 0}</span></button>
+
+          <button><Bookmark /><span>{singlePost?.shareCount || 0}</span></button>
+        </div>
     </div>
   );
 }

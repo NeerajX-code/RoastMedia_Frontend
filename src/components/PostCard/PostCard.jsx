@@ -24,6 +24,7 @@ const PostCard = ({ post }) => {
                             <h2>{post.profileData?.displayName}</h2>
                             <p>@{post.userData?.username}</p>
                         </div>
+
                         <div className="userDetails_right">
                             <p>
                                 {new Intl.DateTimeFormat("en-US", {
@@ -50,12 +51,24 @@ const PostCard = ({ post }) => {
                         />
                         <span>{post.likesCount}</span>
                     </button>
+
                     <button onClick={() => {
                         dispatch(asyncGetComments(post._id))
                         navigate(`/Comments/${post._id}`)
-                    }} ><Combine /> <span>{post.comments}</span></button>
-                    <button><Share2 /> <span>{post.shares}</span></button>
-                    <button><Bookmark /> <span>{post.bookmarks}</span></button>
+                    }} className="remix-icon">
+                        <i class="ri-chat-3-line"></i>
+                        <span>{post.comments}</span>
+                    </button>
+
+                    <button className="remix-icon">
+                        <i class="ri-share-forward-line"></i>
+                        <span>{post.shares}</span>
+                    </button>
+
+                    <button>
+                        <Bookmark />
+                        <span>{post.bookmarks}</span>
+                    </button>
                 </div>
             </div>
         </div>

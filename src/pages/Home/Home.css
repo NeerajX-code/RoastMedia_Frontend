@@ -38,7 +38,7 @@
 
 .post-feed__list {
   width: 100%;
-  padding: clamp(0.5rem, 1vw, 1rem);
+  padding: clamp(0.8rem, 2vw, 1rem);
   overflow-y: auto;
   max-width: 580px;
   margin: 0 auto;
