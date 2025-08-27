@@ -40,7 +40,7 @@ const SavePostCard = ({ post }) => {
                 <img src={post.post?.image} alt="" />
             </div>
             <div className="post__content">
-                <p className="post__caption">{post.post?.caption.replace(/[*"]+/g, "")}</p>
+                <p className="post__caption">{post.post?.caption?.replace(/[*"]+/g, "")}</p>
                 <div className="post__actions">
                     <button onClick={() => dispatch(asyncSavePostToggleLike(post.post?._id))}>
                         <Heart

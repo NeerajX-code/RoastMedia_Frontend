@@ -79,23 +79,35 @@ const Post = () => {
       return;
     }
 
+    if (captions.length >= 5) {
+      alert("You reached the max limit of generating captions for a single image.");
+      return;
+    }
+
     const formData = new FormData();
     formData.append("image", file);
     formData.append("personality", personality);
     dispatch(asyncGenerateCaption(formData));
   };
 
-  const createPostHandler = () => {
+  const createPostHandler = async () => {
     if (!file || !showCurrentCaption) {
       setError("Please give content before submitting.");
       console.log(error);
+      alert("Please Add Image or Generate Caption then Create Post.")
       return;
     }
 
     const formData = new FormData();
     formData.append("image", file);
     formData.append("showCurrentCaption", showCurrentCaption);
-    dispatch(asyncPostCreate(formData))
+    await dispatch(asyncPostCreate(formData));
+    alert("Post Created Successfully.")
+    dispatch(clearCaption());
+    setPreview(null);
+    setShowCurrentCaption(""); // optional: reset current caption too
+    setFile(null); // optional: reset file input after submit
+    setError(""); // clear error if success
   }
 
   const previousCaptionsHandler = () => {
@@ -129,7 +141,7 @@ const Post = () => {
         </div>
       )}
 
-      <ErrorCard message={captionError} loading={loading} clearAction={clearError} />
+      <ErrorCard message={captionError} loading={loading} clearAction={clearError} isvisible={true} />
 
       {!preview &&
         <div className="roast-generator__dropzone-wrapper">

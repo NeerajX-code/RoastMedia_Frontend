@@ -1,7 +1,8 @@
-import React from 'react'
 import MainRoutes from './routes/MainRoutes'
 import Navbar from './components/Navbar/Navbar'
 import "./App.css"
+import { Suspense } from "react";
+import AppLoader from './components/AppLoader/AppLoader';
 import Sidebar from './components/SideBar/SideBar'
 import { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
@@ -21,14 +22,20 @@ const App = () => {
 
 
   return (
-    <div className='app'>
-      <div className="app_wrapper">
-        <Sidebar />
-        <MainRoutes />
+    <Suspense fallback={<AppLoader />}>
+      <div className='app'>
+        <div className="app_wrapper">
+          <Sidebar />
+          <MainRoutes />
+        </div>
+        <Navbar />
       </div>
-      <Navbar />
-    </div>
+    </Suspense>
   )
 }
 
 export default App
+
+
+
+

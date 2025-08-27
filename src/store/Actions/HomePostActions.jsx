@@ -34,7 +34,7 @@ export const asyncUpdateShareCount = createAsyncThunk(
           try {
                const { data } = await axios.patch(`api/post/${id}/share`,);
                dispatch(updateShareCount({ id, shareCount: data.shareCount }));
-               dispatch(updateSavePostShareCount({ id, shareCount: data.shareCount }))
+               dispatch(updateSavePostShareCount({ id, shareCount: data.shareCount }));
                console.log(data);
           } catch (error) {
                return rejectWithValue(data.message || "Something went wrong.")

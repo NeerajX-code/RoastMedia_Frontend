@@ -24,7 +24,7 @@
   padding: 0 clamp(0.6rem, 1vw, 1rem);
 }
 .sidebar__logo img {
-  width: 40px;
+  width: 50px;
 }
 .sidebar__menu {
   display: flex;

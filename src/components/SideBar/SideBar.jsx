@@ -30,7 +30,7 @@ export default function Sidebar() {
     <nav className="sidebar">
       <div className="sidebar__top">
         <div className="sidebar__logo">
-          <img src="/logo.svg" alt="Logo" />
+          <img src="#" alt="Logo" />
         </div>
 
         <div className="sidebar_menu">

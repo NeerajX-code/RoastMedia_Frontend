@@ -22,7 +22,7 @@ export const asyncGetSavedPosts = createAsyncThunk(
     "save/asyncGetSavedPosts",
     async (_, { rejectWithValue }) => {
         try {
-            const { data } = await axios.get("api/post/my-saves");
+            const { data } = await axios.get("/api/post/my-saves");
             console.log(data);
             return  data.savedPosts;
         } catch (error) {
