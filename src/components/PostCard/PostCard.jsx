@@ -59,7 +59,7 @@ const PostCard = ({ post }) => {
                         onClick={async () => {
                             dispatch(asyncUpdateShareCount(post._id));
 
-                            const text = `${window.location.origin}/singlePost/${post._id}`;
+                            const text = `${window.location.origin}/Single-post/${post._id}`;
                             const html = `
                             <a href="${text}" target="_blank">
                             <strong>Check this Post!</strong><br/>
