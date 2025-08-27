@@ -20,6 +20,8 @@ const Register = lazy(() => import("../pages/Register/Register"));
 const Login = lazy(() => import("../pages/Login/Login"));
 const OtherProfile = lazy(() => import("../pages/Profile/OtherProfile"));
 const Comments = lazy(() => import("../pages/Comments/Comments"));
+const FollowersPage = lazy(() => import("../pages/Followers/Followers"));
+const FollowingPage = lazy(() => import("../pages/Following/Following"));
 
 const MainRoutes = () => {
     return (
@@ -56,6 +58,8 @@ const MainRoutes = () => {
             />
 
             <Route path="/other/profile/:id" element={<OtherProfile />} />
+            <Route path="/profile/:id/followers" element={<FollowersPage />} />
+            <Route path="/profile/:id/following" element={<FollowingPage />} />
             <Route path="/Search" element={<SearchUserPage />} />
 
             <Route

@@ -1,31 +1,43 @@
 import "./Profile.css";
 import { useNavigate, useParams } from 'react-router';
 import { useDispatch, useSelector } from 'react-redux';
-import { useEffect } from 'react';
+import { useEffect, useMemo } from 'react';
 import Loading from '../../components/Loader/Loading';
 import { ArrowLeft } from 'lucide-react';
 import { clearOtherProfileData, clearProfileError } from "../../store/Reducers/otherProfileReducer";
 import { getOtherUserPosts, getOtherUserProfile } from '../../store/Actions/otherProfileActions';
 import UserPostCard from '../../components/UserPostCard/UserPostCard';
 import ErrorCard from '../../components/ErrorCard/ErrorCard';
+import { followUser as followUserAction, unfollowUser as unfollowUserAction, checkIsFollowing } from "../../store/Actions/followActions";
+import { useSelector as useReduxSelector } from 'react-redux';
 
 const OtherProfile = () => {
     const { id } = useParams();   
     const { user, posts, profileLoading, postsLoading, profileError } = useSelector((state) => state.OtherProfileReducer);
+    const authUser = useReduxSelector((state) => state.userReducer.user);
+    const isFollowingMap = useReduxSelector((state) => state.FollowReducer.isFollowingMap);
     const dispatch = useDispatch();
     const navigate = useNavigate();
 
     useEffect(() => {
+        // If trying to view own profile via /other/profile/:id, redirect to /Profile
+        if (authUser?.userId?._id && authUser.userId._id === id) {
+            navigate('/Profile', { replace: true });
+            return;
+        }
+
         dispatch(getOtherUserProfile(id));
         let postTimer = setTimeout(() => {
             dispatch(getOtherUserPosts(id));
         }, 500);
 
+    dispatch(checkIsFollowing(id));
+
         return () => {
             dispatch(clearOtherProfileData());
             clearTimeout(postTimer);
         };
-    }, [id, dispatch]);
+    }, [id, dispatch, authUser, navigate]);
 
     if (profileLoading) {
         return <Loading />
@@ -56,16 +68,15 @@ const OtherProfile = () => {
                         </div>
                     </div>
 
-                    {/* Stats */}
+            {/* Stats */}
                     <div className="profile__stats">
                         <div className="stat">
-                            <p className="stat__number">{user?.
-                                followersCount} </p>
-                            <p className="stat__label">Followers</p>
+                <p className="stat__number">{user?.followersCount}</p>
+                <p className="stat__label" onClick={() => navigate(`/profile/${user?.userId?._id}/followers`)} style={{cursor:"pointer"}}>Followers</p>
                         </div>
                         <div className="stat">
                             <p className="stat__number">{user?.followingCount}</p>
-                            <p className="stat__label">Following</p>
+                <p className="stat__label" onClick={() => navigate(`/profile/${user?.userId?._id}/following`)} style={{cursor:"pointer"}}>Following</p>
                         </div>
                     </div>
 
@@ -73,6 +84,17 @@ const OtherProfile = () => {
                     <p className="profile__bio">
                         {user?.bio}
                     </p>
+
+                    {/* Follow/Unfollow button (if not self) */}
+                    {authUser?.userId?._id !== user?.userId?._id && (
+                        <div style={{padding:"0 1rem 1rem"}}>
+                            {isFollowingMap[id] ? (
+                                <button className="btn btn-secondary" onClick={() => dispatch(unfollowUserAction(id)).then(() => dispatch(getOtherUserProfile(id)))}>Unfollow</button>
+                            ) : (
+                                <button className="btn btn-primary" onClick={() => dispatch(followUserAction(id)).then(() => dispatch(getOtherUserProfile(id)))}>Follow</button>
+                            )}
+                        </div>
+                    )}
 
                     {/* Tabs */}
                     <div className="profile__tabs">

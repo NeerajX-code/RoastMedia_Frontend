@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useForm } from 'react-hook-form'
 import "./EditUserDetails.css";
@@ -12,12 +12,14 @@ import ErrorCard from "../../components/ErrorCard/ErrorCard";
 const EditUserDetails = () => {
     const navigate = useNavigate();
     const dispatch = useDispatch()
-    const { user, loading , profileError } = useSelector((state) => state.userReducer)
+    const { user, profileLoading , profileError } = useSelector((state) => state.userReducer)
+    const [previewUrl, setPreviewUrl] = useState("")
 
     const {
         register,
         handleSubmit,
-        reset
+    reset,
+    watch
     } = useForm({
         defaultValues: {
             displayName: "",
@@ -30,8 +32,9 @@ const EditUserDetails = () => {
         if (!user) {
             dispatch(getUserProfile());
         }
-        if (user) {
-            console.log(user, loading);
+        // initialize preview with existing avatar
+        if (user?.avatarUrl) {
+            setPreviewUrl(user.avatarUrl);
         }
 
     }, [dispatch, user]);
@@ -43,8 +46,20 @@ const EditUserDetails = () => {
                 username: user?.userId?.username || "",
                 bio: user?.bio || "",
             });
+            if (user?.avatarUrl) setPreviewUrl(user.avatarUrl)
         }
     }, [user, reset]);
+
+    // Watch for file selection to show preview
+    const profilePicFiles = watch("profilePic");
+    useEffect(() => {
+        if (profilePicFiles && profilePicFiles[0]) {
+            const file = profilePicFiles[0];
+            const url = URL.createObjectURL(file);
+            setPreviewUrl(url);
+            return () => URL.revokeObjectURL(url);
+        }
+    }, [profilePicFiles]);
 
     const onSubmit = async (data) => {
         const fd = new FormData();
@@ -66,12 +81,13 @@ const EditUserDetails = () => {
         navigate('/profile')
     }
 
-    if (loading) {
-        return <Loading />
-    }
-
     return (
         <div className="edit-user-page" style={{position:"relative"}}>
+            {profileLoading && (
+                <div style={{position:"absolute", inset:0, background:"rgba(0,0,0,.4)", display:"flex", alignItems:"center", justifyContent:"center", zIndex:10}}>
+                    <Loading />
+                </div>
+            )}
             <header className="header">
                 <ChevronLeft className="back-btn" onClick={handleBackBtn} />
                 <div className="profile-text">
@@ -79,14 +95,14 @@ const EditUserDetails = () => {
                 </div>
             </header>
 
-            <ErrorCard message={profileError} loading={loading} clearAction={clearError} isvisible={true} />
+            <ErrorCard message={profileError} loading={profileLoading} clearAction={clearError} isvisible={true} />
 
             <main className="content">
                 <form onSubmit={handleSubmit(onSubmit)} className="form">
 
-                    <div className="profile-pic-container">
+            <div className="profile-pic-container">
                         <img
-                            src={user?.avatarUrl || "https://lh3.googleusercontent.com/aida-public/AB6AXuCvZ6iX3SS0n5bWvq4xivN92oDnmMmoPonKiGulM2PvFLtdFxF6eyVrTBeE3UQtkxdiNU3-4hgssfcdEtNLC_0vOMumHsu9WeV5VzCak-VKmQJuYP9hTcQa7IDcFf0gKtBjU7OguR4YD4vSdk3Nyzf5GQHbzPaXqQNP9bwbuepDDJ2OZ889Bsdw6iX-rL1drIoBrKoJc3Bxt-GxOwJrr-MK2gDB4rNECU9WkHpFdbvgcNJ8uuvzjMTtu7edZ9-US0OhApKxfEXDKDM"}
+                src={previewUrl || user?.avatarUrl || "https://lh3.googleusercontent.com/aida-public/AB6AXuCvZ6iX3SS0n5bWvq4xivN92oDnmMmoPonKiGulM2PvFLtdFxF6eyVrTBeE3UQtkxdiNU3-4hgssfcdEtNLC_0vOMumHsu9WeV5VzCak-VKmQJuYP9hTcQa7IDcFf0gKtBjU7OguR4YD4vSdk3Nyzf5GQHbzPaXqQNP9bwbuepDDJ2OZ889Bsdw6iX-rL1drIoBrKoJc3Bxt-GxOwJrr-MK2gDB4rNECU9WkHpFdbvgcNJ8uuvzjMTtu7edZ9-US0OhApKxfEXDKDM"}
                             alt="Profile"
                             className="profile-pic"
                             style={{
@@ -131,8 +147,8 @@ const EditUserDetails = () => {
                     </div>
 
                     <div className="form-actions">
-                        <button type="submit" className="save-btn">
-                            Update
+                        <button type="submit" className="save-btn" disabled={profileLoading} aria-busy={profileLoading}>
+                            {profileLoading ? "Updating..." : "Update"}
                         </button>
                     </div>
                 </form>

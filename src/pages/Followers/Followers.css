@@ -1,0 +1,64 @@
+.follow-page {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  height: 100%;
+}
+.follow-header {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 0.75rem 1rem;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+.follow-header h2 {
+  font-size: 1.25rem;
+  margin: 0;
+}
+.back-btn {
+  background: transparent;
+  border: none;
+  color: inherit;
+  cursor: pointer;
+  display: inline-flex;
+}
+.follow-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+.follow-item {
+  display: flex;
+  align-items: center;
+  gap: 0.85rem;
+  padding: 0.75rem 1rem;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+  cursor: pointer;
+}
+.follow-item img {
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  object-fit: cover;
+  background: #222;
+}
+.follow-item .name {
+  font-weight: 600;
+  margin: 0;
+}
+.follow-item .username {
+  opacity: 0.7;
+  margin: 0;
+  font-size: 0.9rem;
+}
+.empty-state {
+  padding: 2rem 1rem;
+  opacity: 0.7;
+  text-align: center;
+}
+@media (min-width: 768px) {
+  .follow-page {
+    max-width: 680px;
+    margin: 0 auto;
+  }
+}

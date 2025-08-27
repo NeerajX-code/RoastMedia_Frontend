@@ -105,14 +105,14 @@ const Profile = () => {
           </div>
         </div>
 
-        <div className="profile__stats">
+    <div className="profile__stats">
           <div className="stat">
             <p className="stat__number">{user?.followersCount}</p>
-            <p className="stat__label">Followers</p>
+      <p className="stat__label" onClick={() => navigate(`/profile/${user?.userId?._id}/followers`)} style={{cursor:"pointer"}}>Followers</p>
           </div>
           <div className="stat">
             <p className="stat__number">{user?.followingCount}</p>
-            <p className="stat__label">Following</p>
+      <p className="stat__label" onClick={() => navigate(`/profile/${user?.userId?._id}/following`)} style={{cursor:"pointer"}}>Following</p>
           </div>
         </div>
 

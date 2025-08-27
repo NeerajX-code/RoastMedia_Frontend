@@ -18,6 +18,7 @@
   align-items: center;
   justify-content: space-between;
   padding: clamp(0.5rem, 1vw, 1rem) clamp(0.75rem, 2vw, 1.25rem);
+  position: relative; /* anchor absolute children like logout menu */
 }
 .profile__nav .profile__back-btn {
   width: clamp(2.5rem, 6vw, 3rem);
@@ -39,6 +40,12 @@
 }
 .profile__nav .dots {
   cursor: pointer;
+  display: inline-flex;
+}
+@media (min-width: 768px) {
+  .profile__nav .dots {
+    display: none;
+  }
 }
 .profile__nav .logout_menu {
   position: absolute;
@@ -157,4 +164,9 @@
   width: 100%;
   padding: 4rem 1rem;
   text-align: center;
-}/*# sourceMappingURL=Profile.css.map */
+}
+/* buttons */
+.btn { padding: 8px 14px; border-radius: 10px; cursor: pointer; border: none; }
+.btn-primary { background: #1d9bf0; color: #fff; }
+.btn-secondary { background: transparent; color: #fff; border: 1px solid rgba(255,255,255,.2); }
+/*# sourceMappingURL=Profile.css.map */
