@@ -2,6 +2,7 @@ import { createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "../../utils/axios.config";
 import { updateCommentsCount } from "../Reducers/HomePostReducer";
 import { updateSavePostCommentsCount } from "../Reducers/saveReducer";
+import { updateSinglePostCommentCount } from "../Reducers/singlePostReducer";
 
 export const asyncGetComments = createAsyncThunk(
     "comment/asyncGetComments",
@@ -27,6 +28,7 @@ export const asyncPostComment = createAsyncThunk(
             console.log(data);
             dispatch(updateCommentsCount({ id, commentCount: data.commentCount }));
             dispatch(updateSavePostCommentsCount({ id, commentCount: data.commentCount }));
+            dispatch(updateSinglePostCommentCount({ id, commentCount: data.commentCount }));
             return data.comment[0];
         } catch (error) {
             console.log(error);
@@ -61,6 +63,7 @@ export const asyncDeleteComment = createAsyncThunk(
             console.log(data);
             dispatch(updateCommentsCount({ id: postId, commentCount: data.commentCount }));
             dispatch(updateSavePostCommentsCount({ id:postId, commentCount: data.commentCount }));
+            dispatch(updateSinglePostCommentCount({ id: postId, commentCount: data.commentCount }));
             return commentId;
         } catch (error) {
             console.log(error);

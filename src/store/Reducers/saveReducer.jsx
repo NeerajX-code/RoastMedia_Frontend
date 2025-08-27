@@ -50,7 +50,8 @@ const saveSlice = createSlice({
                     const savedDoc = action.payload.save?.[0];
                     if (savedDoc) {
                         // Mark as saved so UI fills the bookmark icon
-                        state.savedPosts.push({ ...savedDoc, saved: true });
+                        const withDefaults = { isLiked: false, ...savedDoc };
+                        state.savedPosts.push({ ...withDefaults, saved: true });
                     }
                 } else {
                     console.log(action.payload.saved);

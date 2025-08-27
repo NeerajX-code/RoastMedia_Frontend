@@ -12,8 +12,12 @@ import { followUser as followUserAction, unfollowUser as unfollowUserAction, che
 import { useSelector as useReduxSelector } from 'react-redux';
 
 const OtherProfile = () => {
-    const { id } = useParams();   
+    const { id } = useParams();
+    console.log(id);
+
     const { user, posts, profileLoading, postsLoading, profileError } = useSelector((state) => state.OtherProfileReducer);
+    console.log(user);
+    
     const authUser = useReduxSelector((state) => state.userReducer.user);
     const isFollowingMap = useReduxSelector((state) => state.FollowReducer.isFollowingMap);
     const dispatch = useDispatch();
@@ -21,7 +25,7 @@ const OtherProfile = () => {
 
     useEffect(() => {
         // If trying to view own profile via /other/profile/:id, redirect to /Profile
-        if (authUser?.userId?._id && authUser.userId._id === id) {
+        if (authUser?.userId && authUser.userI === id) {
             navigate('/Profile', { replace: true });
             return;
         }
@@ -31,7 +35,7 @@ const OtherProfile = () => {
             dispatch(getOtherUserPosts(id));
         }, 500);
 
-    dispatch(checkIsFollowing(id));
+        dispatch(checkIsFollowing(id));
 
         return () => {
             dispatch(clearOtherProfileData());
@@ -68,15 +72,15 @@ const OtherProfile = () => {
                         </div>
                     </div>
 
-            {/* Stats */}
+                    {/* Stats */}
                     <div className="profile__stats">
                         <div className="stat">
-                <p className="stat__number">{user?.followersCount}</p>
-                <p className="stat__label" onClick={() => navigate(`/profile/${user?.userId?._id}/followers`)} style={{cursor:"pointer"}}>Followers</p>
+                            <p className="stat__number">{user?.followersCount}</p>
+                            <p className="stat__label" onClick={() => navigate(`/profile/${user?.userId}/followers`)} style={{ cursor: "pointer" }}>Followers</p>
                         </div>
                         <div className="stat">
                             <p className="stat__number">{user?.followingCount}</p>
-                <p className="stat__label" onClick={() => navigate(`/profile/${user?.userId?._id}/following`)} style={{cursor:"pointer"}}>Following</p>
+                            <p className="stat__label" onClick={() => navigate(`/profile/${user?.userId}/following`)} style={{ cursor: "pointer" }}>Following</p>
                         </div>
                     </div>
 
@@ -86,8 +90,8 @@ const OtherProfile = () => {
                     </p>
 
                     {/* Follow/Unfollow button (if not self) */}
-                    {authUser?.userId?._id !== user?.userId?._id && (
-                        <div style={{padding:"0 1rem 1rem"}}>
+                    {authUser?.userId !== user?.userId && (
+                        <div style={{ padding: "0 1rem 1rem" }}>
                             {isFollowingMap[id] ? (
                                 <button className="btn btn-secondary" onClick={() => dispatch(unfollowUserAction(id)).then(() => dispatch(getOtherUserProfile(id)))}>Unfollow</button>
                             ) : (

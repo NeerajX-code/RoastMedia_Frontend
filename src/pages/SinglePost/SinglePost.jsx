@@ -2,8 +2,8 @@ import { useNavigate, useParams } from "react-router-dom";
 import "./SinglePost.css";
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { asyncSinglePost } from "../../store/Actions/singlePostAction";
-import { Bookmark, Forward, Heart, MessageCircle, Save } from 'lucide-react'
+import { asyncSinglePost, asyncSingleToggleLike, asyncSingleShare, asyncSingleToggleSave } from "../../store/Actions/singlePostAction";
+import { Bookmark, Forward, Heart, MessageCircle } from 'lucide-react'
 import { getOtherUserPosts, getOtherUserProfile } from "../../store/Actions/otherProfileActions";
 
 export default function SinglePostPage() {
@@ -17,8 +17,8 @@ export default function SinglePostPage() {
   const singlePost = singlePostDetails[0];
 
   useEffect(() => {
-    dispatch(asyncSinglePost(id))
-  }, [dispatch])
+    if (id) dispatch(asyncSinglePost(id))
+  }, [dispatch, id])
 
 
   return (
@@ -58,13 +58,24 @@ export default function SinglePostPage() {
       </div>
 
        <div className="actions">
-          <button><Heart /> <span>{singlePost?.likesCount || 0}</span></button>
+          <button onClick={() => dispatch(asyncSingleToggleLike(singlePost?._id))} aria-pressed={singlePost?.isLiked}>
+            <Heart color={singlePost?.isLiked ? "#e0245e" : "currentColor"} />
+            <span>{singlePost?.likesCount || 0}</span>
+          </button>
 
-          <button><MessageCircle /><span>{singlePost?.commentCou || 0}</span></button>
+          <button onClick={() => navigate(`/Comments/${singlePost?._id}`)}>
+            <MessageCircle />
+            <span>{singlePost?.commentCount || 0}</span>
+          </button>
 
-          <button><Forward /><span>{singlePost?.shareCount || 0}</span></button>
+          <button onClick={() => dispatch(asyncSingleShare(singlePost?._id))}>
+            <Forward />
+            <span>{singlePost?.shareCount || 0}</span>
+          </button>
 
-          <button><Bookmark /><span>{singlePost?.shareCount || 0}</span></button>
+          <button onClick={() => dispatch(asyncSingleToggleSave(singlePost?._id))} aria-pressed={singlePost?.saved}>
+            <Bookmark fill={singlePost?.saved ? "currentColor" : "none"} />
+          </button>
         </div>
     </div>
   );
