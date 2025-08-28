@@ -9,6 +9,7 @@ import { getOtherUserPosts, getOtherUserProfile } from '../../store/Actions/othe
 import UserPostCard from '../../components/UserPostCard/UserPostCard';
 import ErrorCard from '../../components/ErrorCard/ErrorCard';
 import { followUser as followUserAction, unfollowUser as unfollowUserAction, checkIsFollowing } from "../../store/Actions/followActions";
+import { openChatWithUser } from "../../store/Actions/chatActions";
 import { useSelector as useReduxSelector } from 'react-redux';
 
 const OtherProfile = () => {
@@ -25,7 +26,7 @@ const OtherProfile = () => {
 
     useEffect(() => {
         // If trying to view own profile via /other/profile/:id, redirect to /Profile
-        if (authUser?.userId && authUser.userI === id) {
+        if (authUser?.userId && String(authUser.userId?._id || authUser.userId) === String(id)) {
             navigate('/Profile', { replace: true });
             return;
         }
@@ -89,14 +90,15 @@ const OtherProfile = () => {
                         {user?.bio}
                     </p>
 
-                    {/* Follow/Unfollow button (if not self) */}
-                    {authUser?.userId !== user?.userId && (
-                        <div style={{ padding: "0 1rem 1rem" }}>
+                    {/* Follow/Unfollow + Message buttons (if not self) */}
+                    {String(authUser?.userId?._id || authUser?.userId) !== String(user?.userId) && (
+                        <div style={{ padding: "0 1rem 1rem", display: "flex", gap: "8px" }}>
                             {isFollowingMap[id] ? (
                                 <button className="btn btn-secondary" onClick={() => dispatch(unfollowUserAction(id)).then(() => dispatch(getOtherUserProfile(id)))}>Unfollow</button>
                             ) : (
                                 <button className="btn btn-primary" onClick={() => dispatch(followUserAction(id)).then(() => dispatch(getOtherUserProfile(id)))}>Follow</button>
                             )}
+                            <button className="btn btn-primary" onClick={() => dispatch(openChatWithUser(id)).then(() => navigate(`/messages/${id}`))}>Message</button>
                         </div>
                     )}
 

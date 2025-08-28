@@ -13,11 +13,13 @@ const SavePostCard = ({ post }) => {
     const isSaved = useSelector((state) =>
         state.SaveReducer.savedPosts?.some((p) => p.post?._id === post.post?._id)
     );
+    const me = useSelector((s) => s.userReducer.user);
+    const isSelf = me?.userId?._id && post?.user && String(me.userId._id) === String(post.user);
 
     return (
         <div className="post">
 
-            <NavLink to={`/other/profile/${post.user}`}>
+            <NavLink to={isSelf ? "/Profile" : `/other/profile/${post.user}`}>
                 <div className="post_top">
                     <div className="post_top_userImg">
                         <img src={post.userProfile?.avatarUrl} alt="" />

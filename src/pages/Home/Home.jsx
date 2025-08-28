@@ -6,11 +6,14 @@ import { getHomePosts } from "../../store/Actions/HomePostActions";
 import { useEffect } from "react";
 import PostCard from "../../components/PostCard/PostCard";
 import ErrorCard from "../../components/ErrorCard/ErrorCard";
+import { useNavigate } from "react-router-dom";
+import { MessageSquareMore } from "lucide-react";
 
 const Home = () => {
 
   const { posts, loading, error } = useSelector((state) => state.HomePostReducer);
   const dispatch = useDispatch()
+  const navigate = useNavigate();
 
 
 

@@ -10,6 +10,7 @@ import singlePostSlice from '../store/Reducers/singlePostReducer'
 import commentSlice from './Reducers/commentReducer'
 import SaveSlice from "./Reducers/saveReducer"
 import followSlice from "./Reducers/followReducer"
+import chatSlice from "./Reducers/chatReducer"
 
 export const store = configureStore({
   reducer: {
@@ -24,5 +25,6 @@ export const store = configureStore({
     PostDetailsReducer: singlePostSlice,
   CommentsReducer: commentSlice,
   FollowReducer: followSlice,
+  ChatReducer: chatSlice,
   },
 })

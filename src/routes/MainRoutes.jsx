@@ -22,6 +22,8 @@ const OtherProfile = lazy(() => import("../pages/Profile/OtherProfile"));
 const Comments = lazy(() => import("../pages/Comments/Comments"));
 const FollowersPage = lazy(() => import("../pages/Followers/Followers"));
 const FollowingPage = lazy(() => import("../pages/Following/Following"));
+const Conversations = lazy(() => import("../pages/Messenger/Conversations"));
+const Messenger = lazy(() => import("../pages/Messenger/Messenger"));
 
 const MainRoutes = () => {
     return (
@@ -79,6 +81,9 @@ const MainRoutes = () => {
                     </AuthWrapper>
                 }
             />
+
+            <Route path="/messages" element={<AuthWrapper><Conversations /></AuthWrapper>} />
+            <Route path="/messages/:id" element={<AuthWrapper><Messenger /></AuthWrapper>} />
 
             <Route
                 path="/Register"

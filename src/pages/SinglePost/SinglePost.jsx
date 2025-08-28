@@ -1,6 +1,6 @@
 import { useNavigate, useParams } from "react-router-dom";
 import "./SinglePost.css";
-import { useEffect, useState } from "react";
+import { useEffect, useState, useMemo } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { asyncSinglePost, asyncSingleToggleLike, asyncSingleShare, asyncSingleToggleSave } from "../../store/Actions/singlePostAction";
 import { Bookmark, Forward, Heart, MessageCircle } from 'lucide-react'
@@ -11,10 +11,16 @@ export default function SinglePostPage() {
   const dispatch = useDispatch()
   const navigate = useNavigate()
   const { singlePostDetails } = useSelector(state => state.PostDetailsReducer)
+  const me = useSelector((s) => s.userReducer.user);
 
   console.log(singlePostDetails[0]);
 
   const singlePost = singlePostDetails[0];
+  const isSelf = useMemo(() => {
+    const myId = me?.userId?._id || me?.userId || me?._id;
+    const ownerId = singlePost?.userData?._id || singlePost?.user;
+    return myId && ownerId && String(myId) === String(ownerId);
+  }, [me, singlePost]);
 
   useEffect(() => {
     if (id) dispatch(asyncSinglePost(id))
@@ -49,8 +55,10 @@ export default function SinglePostPage() {
               src={singlePost?.userData?.avatarUrl}
               alt="user"
               className="user-avatar"
+              onClick={() => navigate(isSelf ? "/Profile" : `/other/profile/${singlePost?.userData?._id}`)}
+              style={{ cursor: "pointer" }}
             />
-            <div>
+            <div onClick={() => navigate(isSelf ? "/Profile" : `/other/profile/${singlePost?.userData?._id}`)} style={{ cursor: "pointer" }}>
               <h4 className="username">{singlePost?.userData?.displayName}</h4>
             </div>
           </div>
