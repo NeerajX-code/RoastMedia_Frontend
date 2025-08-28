@@ -1,6 +1,6 @@
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { fetchConversations, initSocketListeners } from "../../store/Actions/chatActions";
+import { fetchConversations } from "../../store/Actions/chatActions";
 import { useNavigate } from "react-router-dom";
 import "./Messenger.css";
 
@@ -11,7 +11,6 @@ export default function Conversations() {
 
   useEffect(() => {
     dispatch(fetchConversations());
-    dispatch(initSocketListeners());
   }, [dispatch]);
 
   return (

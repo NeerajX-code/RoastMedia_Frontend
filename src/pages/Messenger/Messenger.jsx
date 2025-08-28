@@ -1,6 +1,7 @@
 import { useEffect, useMemo, useRef, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { initSocketListeners, openChatWithUser, sendMessage, apiMarkSeen, clearChat } from "../../store/Actions/chatActions";
+import { openChatWithUser, sendMessage, apiMarkSeen, clearChat } from "../../store/Actions/chatActions";
+import { chatSlice } from "../../store/Reducers/chatReducer";
 import { useNavigate, useParams } from "react-router-dom";
 import axios from "../../utils/axios.config.jsx";
 import { Smile, Image, Heart, MoreVertical, Send, X } from "lucide-react";
@@ -11,6 +12,7 @@ import "./Messenger.css";
 export default function Messenger() {
     const dispatch = useDispatch();
     const { byId, active } = useSelector((s) => s.ChatReducer);
+    const { setRouteUser } = chatSlice.actions;
     const me = useSelector((s) => s.userReducer?.user);
     const [input, setInput] = useState("");
     const navigate = useNavigate();
@@ -38,9 +40,13 @@ export default function Messenger() {
 
     const [other, setOther] = useState(null);
 
-    useEffect(() => {
-        dispatch(initSocketListeners());
-    }, [dispatch]);
+    // Compute whether to render the current thread based on route vs active state
+    const showThread = useMemo(() => (
+        Boolean(active?.userId && String(active.userId) === String(otherUserId) && active?.conversationId)
+    ), [active?.userId, active?.conversationId, otherUserId]);
+    const thread = showThread ? (byId[active.conversationId]?.messages || []) : [];
+
+    // Socket listeners are initialized globally in App.jsx to avoid duplicates
 
     useEffect(() => {
         if (!otherUserId) return;
@@ -48,6 +54,8 @@ export default function Messenger() {
             navigate("/messages", { replace: true });
             return;
         }
+        // update route token to help guard against stale responses
+        dispatch(setRouteUser(otherUserId));
         dispatch(openChatWithUser(otherUserId));
     }, [otherUserId, myUserId, dispatch, navigate]);
 
@@ -75,22 +83,24 @@ export default function Messenger() {
     }, [otherUserId]);
 
     useEffect(() => {
-        if (!active.conversationId) return;
+        if (!showThread) return;
         const t = setTimeout(() => {
             if (messagesEndRef.current) {
                 messagesEndRef.current.scrollIntoView({ behavior: "auto", block: "end" });
             }
         }, 0);
         return () => clearTimeout(t);
-    }, [active.conversationId]);
+    }, [showThread, active.conversationId]);
 
     useEffect(() => {
+        if (!showThread) return;
         if (atBottom && messagesEndRef.current) {
             messagesEndRef.current.scrollIntoView({ behavior: "smooth", block: "end" });
         }
-    }, [byId, active, atBottom]);
+    }, [showThread, byId, active, atBottom]);
 
     useEffect(() => {
+        if (!showThread) return;
         if (!threadRef.current || !messagesEndRef.current) return;
         const observer = new IntersectionObserver(
             (entries) => {
@@ -102,7 +112,7 @@ export default function Messenger() {
         );
         observer.observe(messagesEndRef.current);
         return () => observer.disconnect();
-    }, [active.conversationId]);
+    }, [showThread, active.conversationId]);
 
     useEffect(() => {
         const onVis = () => setPageVisible(document.visibilityState === "visible");
@@ -111,7 +121,7 @@ export default function Messenger() {
     }, []);
 
     useEffect(() => {
-        if (!active.conversationId || !pageVisible || !atBottom) return;
+        if (!showThread || !active.conversationId || !pageVisible || !atBottom) return;
         if (!hasMeasuredBottom) return;
         const msgs = byId[active.conversationId]?.messages || [];
         const unseenIds = msgs
@@ -120,7 +130,7 @@ export default function Messenger() {
         if (unseenIds.length) {
             dispatch(apiMarkSeen({ conversationId: active.conversationId, messageIds: unseenIds }));
         }
-    }, [active.conversationId, pageVisible, atBottom, hasMeasuredBottom, byId, myUserId, dispatch]);
+    }, [showThread, active.conversationId, pageVisible, atBottom, hasMeasuredBottom, byId, myUserId, dispatch]);
 
     useEffect(() => {
         if (!showEmoji) return;
@@ -158,7 +168,8 @@ export default function Messenger() {
         return () => pickerRef.current && pickerRef.current.removeEventListener("emoji-click", onEmoji);
     }, [showEmoji]);
 
-    const thread = byId[active.conversationId]?.messages || [];
+    // Only render/act on the thread if the active reducer state matches the route's userId
+    // moved earlier to avoid TDZ
 
     // socket not needed here; listeners are initialized via Redux action
 
@@ -187,7 +198,7 @@ export default function Messenger() {
                     </div>
                 </header>
                 <section className="dm-main">
-                    {active.conversationId ? (
+                    {showThread ? (
                         <>
                             <div className="dm-thread" ref={threadRef}>
                                 {thread.map((m) => {

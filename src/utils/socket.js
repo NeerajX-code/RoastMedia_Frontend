@@ -16,9 +16,18 @@ export function getSocket() {
     reconnectionAttempts: Infinity,
     reconnectionDelay: 500,
     reconnectionDelayMax: 5000,
+    randomizationFactor: 0.4,
     timeout: 20000,
     autoConnect: true,
     path: "/socket.io",
+    auth: (cb) => {
+      // Try to send token explicitly in case cookie isn't read server-side
+      try {
+        const m = document.cookie.match(/(?:^|; )token=([^;]+)/);
+        const token = m ? decodeURIComponent(m[1]) : undefined;
+        cb({ token });
+      } catch { cb({}); }
+    },
   });
   return socket;
 }

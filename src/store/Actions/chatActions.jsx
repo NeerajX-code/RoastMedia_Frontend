@@ -16,11 +16,27 @@ export const openChatWithUser = (userId) => async (dispatch, getState) => {
     // Prevent opening chat with self
     return;
   }
+  // Declare intent immediately to avoid race when user clicks between chats quickly
+  dispatch(setActive({ conversationId: null, userId }));
+  const navTokenAtStart = getState()?.ChatReducer?.routeUserId;
+  
   const { data } = await axios.get(`/api/chat/with/${userId}`);
+  
+  // If user switched to another chat while this request was inflight, ignore this result
+  const stateNow = getState()?.ChatReducer;
+  const current = stateNow?.active?.userId;
+  const routeNow = stateNow?.routeUserId;
+  if (String(current) !== String(userId) || (routeNow && String(routeNow) !== String(userId)) || (navTokenAtStart && String(navTokenAtStart) !== String(userId))) return;
+  
   dispatch(upsertConversation({ conversationId: data.conversationId, userId }));
   dispatch(setActive({ conversationId: data.conversationId, userId }));
   // preload history deduped into state and clear unread
   dispatch(setMessages({ conversationId: data.conversationId, messages: data.messages }));
+  // also ensure sidebar shows the latest last message immediately
+  const last = data.messages?.[data.messages.length - 1];
+  if (last) {
+    dispatch(addMessage({ conversationId: data.conversationId, message: last }));
+  }
   // kick socket flow to set delivered for pending messages
   try { getSocket().emit("chat:open", { conversationId: data.conversationId }); } catch {}
 };
@@ -32,6 +48,19 @@ export const sendMessage = ({ to, text, mediaUrl, mediaType }) => async (dispatc
 
 export const initSocketListeners = () => (dispatch, getState) => {
   const socket = getSocket();
+  // Refresh data on (re)connect to avoid missing messages when tab sleeps or network blips
+  const resubscribe = () => {
+    try {
+      const state = getState();
+      const active = state.ChatReducer?.active;
+      dispatch(fetchConversations());
+      if (active?.conversationId) {
+        socket.emit("chat:open", { conversationId: active.conversationId });
+      }
+    } catch {}
+  };
+  socket.off("connect").on("connect", resubscribe);
+  socket.off("reconnect").on("reconnect", resubscribe);
   socket.off("chat:message").on("chat:message", (msg) => {
     // Ensure a conversation list item exists for incoming messages
     try {
