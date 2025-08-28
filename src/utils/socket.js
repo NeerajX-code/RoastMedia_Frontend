@@ -4,13 +4,10 @@ let socket = null;
 
 export function getSocket() {
   if (socket && socket.connected) return socket;
-  // In dev, use same-origin (Vite proxies /socket.io) so auth cookie (SameSite=Lax) is sent.
-  // In production, you MUST set VITE_BACKEND_URL to your API origin (e.g., https://roastmedia-backend.onrender.com)
-  const prodUrl = import.meta.env.VITE_BACKEND_URL;
+  // In dev, use same-origin (Vite proxies /socket.io) so auth cookie is sent.
+  // In prod, default to known backend URL; allow override via VITE_BACKEND_URL.
+  const prodUrl = import.meta.env.VITE_BACKEND_URL || "https://roastmedia-backend.onrender.com";
   const url = import.meta.env.PROD ? prodUrl : undefined;
-  if (import.meta.env.PROD && !url) {
-    console.warn("[socket] VITE_BACKEND_URL is not set; Socket.IO will try same-origin which likely fails in production.");
-  }
   socket = io(url, {
     withCredentials: true,
     transports: ["websocket", "polling"], // allow polling fallback behind some proxies/CDNs
