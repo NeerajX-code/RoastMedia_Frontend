@@ -1,3 +1,16 @@
+:root {
+  /* Emerald is the only theme and global default */
+  --bg: #0c1512;
+  --bg-elev: #0f1f1a;
+  --text: #e6f4ef;
+  --text-muted: #93b1a6;
+  --accent: #10b981;
+  --accent-contrast: #06281f;
+  --border: #20332c;
+}
+
+/* no alternate themes */
+
 * {
   margin: 0;
   padding: 0;
@@ -9,6 +22,8 @@ html,
 body {
   height: 100%;
   width: 100%;
+  background: var(--bg);
+  color: var(--text);
 }
 
 
@@ -16,4 +31,26 @@ body {
   to {
     transform: rotate(360deg);
   }
+}
+
+/* Utility styles used by theme preview */
+.theme-preview {
+  background: var(--bg);
+  color: var(--text);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 12px;
+}
+.theme-preview .preview-card {
+  background: var(--bg-elev);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 12px;
+}
+.theme-preview .preview-btn {
+  background: var(--accent);
+  color: var(--accent-contrast);
+  border: none;
+  padding: 6px 10px;
+  border-radius: 8px;
 }

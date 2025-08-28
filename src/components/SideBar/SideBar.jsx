@@ -19,11 +19,11 @@ export default function Sidebar() {
 
   const handleLogout = () => {
     dispatch(asyncLogoutUser())
-    .then(() => {
-      dispatch(clearUser());
-      dispatch(getHomePosts());
-      setShowMenu(false);
-    });
+      .then(() => {
+        dispatch(clearUser());
+        dispatch(getHomePosts());
+        setShowMenu(false);
+      });
   };
 
   return (
@@ -38,20 +38,27 @@ export default function Sidebar() {
             <span className="icon"><Home /></span>
             <span className="label">Home</span>
           </NavLink>
-          <NavLink to="/messages" className="menu-item">
-            <span className="icon"><MessageSquareMore /></span>
-            <span className="label">Messages</span>
-          </NavLink>
+
           <NavLink to="/Search" className="menu-item">
             <span className="icon"><Search /></span>
             <span className="label">Explore</span>
           </NavLink>
+
+          <NavLink to="/messages" className="menu-item">
+            <span className="icon"><MessageSquareMore /></span>
+            <span className="label">Messages</span>
+          </NavLink>
+
           <NavLink to="/Notification" className="menu-item">
             <span className="icon"><Bell /></span>
             <span className="label">Notifications</span>
           </NavLink>
-          <NavLink to="/Save" className="menu-item"><span className="icon"><Bookmark /></span>
-            <span className="label">My Saves</span></NavLink>
+
+          <NavLink to="/Save" className="menu-item">
+            <span className="icon"><Bookmark /></span>
+            <span className="label">My Saves</span>
+          </NavLink>
+
           <NavLink to="/Profile" className="menu-item">
             <span className="icon"><UserRound /></span>
             <span className="label">Profile</span>

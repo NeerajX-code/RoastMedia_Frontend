@@ -4,13 +4,13 @@
   max-width: 600px;
   display: flex;
   flex-direction: column;
-  background-color: #101010;
-  border: 1px solid rgba(255, 255, 255, 0.345);
+  background-color: var(--bg);
+  border: 1px solid var(--border);
   border-top: none;
   border-bottom: none;
   font-family: "Plus Jakarta Sans", "Noto Sans", sans-serif;
   justify-content: space-between;
-  color: white;
+  color: var(--text);
 }
 .profile__nav {
   flex: 0 0 auto;
@@ -88,7 +88,7 @@
 .profile__info .user_info .profile__role,
 .profile__info .user_info .profile__joined {
   font-size: clamp(0.875rem, 2vw, 1rem);
-  color: #96c5a8;
+  color: var(--text-muted);
 }
 .profile__stats {
   display: flex;
@@ -102,7 +102,7 @@
   align-items: center;
   justify-content: center;
   gap: clamp(0.5rem, 1.5vw, 0.7rem);
-  border: 1px solid #366347;
+  border: 1px solid var(--border);
   border-radius: 2rem;
   padding: clamp(0.5rem, 2vw, 0.75rem);
   text-align: center;
@@ -115,7 +115,7 @@
 }
 .profile__stats .stat__label {
   font-size: clamp(0.875rem, 2.5vw, 1.2rem);
-  color: #96c5a8;
+  color: var(--text-muted);
 }
 .profile__bio {
   padding: 0 clamp(0.75rem, 2vw, 1rem) clamp(0.75rem, 2vw, 1rem);
@@ -125,16 +125,16 @@
 .profile__tabs {
   display: flex;
   justify-content: flex-start;
-  border-bottom: 1px solid #366347;
+  border-bottom: 1px solid var(--border);
 }
 .profile__tabs a {
   padding: clamp(0.75rem, 2vw, 1rem);
   text-decoration: none;
-  color: rgb(246, 240, 230);
+  color: var(--text);
   font-size: clamp(0.9rem, 2vw, 1rem);
 }
 .profile__tabs a.active {
-  border-bottom: 3px solid #39e079;
+  border-bottom: 3px solid var(--accent);
 }
 .profile__posts {
   display: grid;
@@ -167,6 +167,6 @@
 }
 /* buttons */
 .btn { padding: 8px 14px; border-radius: 10px; cursor: pointer; border: none; }
-.btn-primary { background: #1d9bf0; color: #fff; }
-.btn-secondary { background: transparent; color: #fff; border: 1px solid rgba(255,255,255,.2); }
+.btn-primary { background: var(--accent); color: var(--accent-contrast); }
+.btn-secondary { background: transparent; color: var(--text); border: 1px solid var(--border); }
 /*# sourceMappingURL=Profile.css.map */

@@ -14,7 +14,7 @@
   aspect-ratio: 1/1;
   -o-object-fit: contain;
      object-fit: contain;
-  background-color: #201927;
+  background-color: var(--bg-elev);
 }
 @media (min-width: 768px) {
   .user-post-card .post-image {
@@ -28,5 +28,5 @@
   gap: 10px;
   padding: 10px;
   font-size: 14px;
-  background-color: #424143;
+  background-color: var(--bg-elev);
 }/*# sourceMappingURL=UserPostCard.css.map */

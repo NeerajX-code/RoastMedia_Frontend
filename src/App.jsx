@@ -14,11 +14,10 @@ const App = () => {
   const { user } = useSelector((state) => state.userReducer);
 
   useEffect(() => {
-    // Page load pe ya user null hai → profile fetch karo
-    if (!user) {
-      dispatch(getUserProfile());
-    }
-  }, [dispatch, user]); // user bhi dependency me add karo
+    // Fetch profile once on app mount
+    if (!user) dispatch(getUserProfile());
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
 
   return (
@@ -28,7 +27,7 @@ const App = () => {
           <Sidebar />
           <MainRoutes />
         </div>
-        <Navbar />
+  <Navbar />
       </div>
     </Suspense>
   )

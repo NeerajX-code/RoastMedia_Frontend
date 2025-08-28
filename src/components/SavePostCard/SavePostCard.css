@@ -1,8 +1,9 @@
 .post {
   border-radius: 1rem;
   padding: clamp(0.6rem, 1vw, 0.8rem);
-  background-color: rgba(96, 42, 146, 0.1176470588);
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
+  background-color: var(--bg-elev);
+  border: 1px solid var(--border);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.25);
 }
 
 .post a {
@@ -12,7 +13,7 @@
 .post_top {
   width: 98%;
   display: flex;
-  color: white;
+  color: var(--text);
   gap: clamp(0.8rem, 1vw, 1rem);
   padding: clamp(0.5rem, 1vw, 0.8rem);
   padding-bottom: 0.8rem;
@@ -30,7 +31,7 @@
   -o-object-fit: cover;
   object-fit: cover;
   padding: 2px;
-  border: 2px solid rgba(255, 255, 255, 0.903);
+  border: 2px solid var(--border);
 }
 
 .post_top_userDetails {
@@ -50,7 +51,7 @@
 
 .post_top_userDetails .userDetails_left p {
   font-size: clamp(0.8rem, 1.2vw, 1rem);
-  color: rgba(255, 255, 255, 0.873);
+  color: var(--text-muted);
 }
 
 .post_top_userDetails .userDetails_right {
@@ -60,7 +61,7 @@
 
 .post_top_userDetails .userDetails_right p {
   font-size: clamp(0.8rem, 1.2vw, 1rem);
-  color: rgba(255, 255, 255, 0.592);
+  color: var(--text-muted);
 }
 
 .post .post__image {
@@ -82,13 +83,13 @@
 
 .post .post__caption {
   font-size: 0.95rem;
-  color: rgb(225, 242, 192);
+  color: var(--text);
   margin-top: 0.3rem;
 }
 
 .post .post__roast {
   font-size: 0.9rem;
-  color: #a0a0a0;
+  color: var(--text-muted);
   margin-top: 0.5rem;
   font-style: italic;
 }
@@ -102,7 +103,7 @@
 .post .post__actions button {
   background: none;
   border: none;
-  color: #ffffff;
+  color: var(--text);
   font-size: 1rem;
   display: flex;
   align-items: center;
@@ -112,7 +113,7 @@
 }
 
 .post .post__actions button:hover {
-  color: #2fff75;
+  color: var(--accent);
 }
 
 .post .post__actions button svg {

@@ -2,9 +2,9 @@
   flex: 1;
   display: flex;
   flex-direction: column;
-  color: white;
+  color: var(--text);
   font-family: "Space Grotesk", "Noto Sans", sans-serif;
-  border: 1px solid rgba(255, 255, 255, 0.274);
+  border: 1px solid var(--border);
   border-top: none;
   border-bottom: none;
   overflow-x: hidden;
@@ -25,7 +25,7 @@
 }
 .login-container .login-header .login-backbtn {
   border-radius: 50%;
-  border: 2px solid rgba(128, 128, 128, 0.473);
+  border: 2px solid var(--border);
   cursor: pointer;
   padding: clamp(4px, 1vw, 6px);
 }
@@ -36,7 +36,7 @@
 }
 @media (min-width: 768px) {
   .login-container .login-header .login-backbtn:hover {
-    background-color: rgba(255, 255, 255, 0.08);
+  background-color: rgba(255, 255, 255, 0.08);
     transform: scale(1.05);
     transition: all 0.2s ease;
   }
@@ -77,20 +77,20 @@
   padding: clamp(1rem, 3vw, 1.2rem) clamp(0.8rem, 2vw, 1rem);
   border-radius: 4px;
   border: none;
-  background-color: #3c3c3c;
-  color: white;
+  background-color: var(--bg-elev);
+  color: var(--text);
 }
 .login-container .login-content .login-form label input::-moz-placeholder {
-  color: #efeff0;
+  color: var(--text-muted);
   font-size: clamp(1rem, 2vw, 1.2rem);
 }
 .login-container .login-content .login-form label input::placeholder {
-  color: #efeff0;
+  color: var(--text-muted);
   font-size: clamp(1rem, 2vw, 1.2rem);
 }
 .login-container .login-content .login-form label input:focus {
   outline: none;
-  border: 3px solid #129d7a;
+  border: 3px solid var(--accent);
 }
 .login-container .login-content .login-form label .error-message {
   color: #ff6b6b;
@@ -99,7 +99,7 @@
 }
 .login-container .login-content .login-form .forgot-password {
   font-size: clamp(0.9rem, 3vw, 1rem);
-  color: #efedf1;
+  color: var(--text);
   cursor: pointer;
   text-align: right;
 }
@@ -107,8 +107,8 @@
   height: clamp(2.5rem, 4vw, 3rem);
   border: none;
   border-radius: 0.5rem;
-  background-color: #1894d7;
-  color: white;
+  background-color: var(--accent);
+  color: var(--accent-contrast);
   font-weight: bold;
   font-size: clamp(0.9rem, 1.5vw, 1rem);
   cursor: pointer;
@@ -120,7 +120,7 @@
 }
 @media (min-width: 768px) {
   .login-container .login-content .login-form .login-button:hover:enabled {
-    background-color: #1479bc;
+  background-color: var(--accent);
   }
   .login-container .login-content .login-form .login-button:active:enabled {
     transform: scale(0.96);

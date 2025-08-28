@@ -68,6 +68,7 @@ export default function Navbar() {
                 </div>
             </NavLink>
 
+            {/* Theme toggle removed: Emerald enforced globally */}
         </div>
     );
 }

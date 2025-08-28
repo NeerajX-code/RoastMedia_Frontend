@@ -2,11 +2,10 @@ import { useSelector } from "react-redux";
 import { Navigate } from "react-router-dom";
 
 const UnAuthWrapper = ({ children }) => {
-  const { isAuthenticated } = useSelector((state) => state.authReducer);
+  const { isAuthenticated, initialized, loading } = useSelector((state) => state.authReducer);
 
-  if (isAuthenticated) {
-    return <Navigate to="/Profile" replace />;
-  }
+  if (!initialized || loading) return null;
+  if (isAuthenticated) return <Navigate to="/" replace />;
 
   return children;
 };

@@ -7,6 +7,7 @@ const initialState = {
     error: null,
     successMessage: null,
     isAuthenticated: false,
+    initialized: false,
 };
 
 const authSlice = createSlice({
@@ -14,7 +15,10 @@ const authSlice = createSlice({
     initialState,
     reducers: {
         setAuthentication: (state) => {
-            state.isAuthenticated = true
+            state.isAuthenticated = true;
+        },
+        setAuthInitialized: (state, action) => {
+            state.initialized = action?.payload ?? true;
         },
         clearError: (state) => {
             state.error = null;
@@ -28,6 +32,7 @@ const authSlice = createSlice({
             .addCase(asyncLogoutUser.fulfilled, (state) => {
                 state.loading = false;
                 state.isAuthenticated = false;
+                state.initialized = true;
             })
             .addCase(asyncLogoutUser.rejected, (state, action) => {
                 state.loading = false;
@@ -48,7 +53,8 @@ const authSlice = createSlice({
                 isAnyOf(asyncRegisterUser.fulfilled, asyncLoginUser.fulfilled),
                 (state, action) => {
                     state.loading = false;
-                    state.isAuthenticated = true
+                    state.isAuthenticated = true;
+                    state.initialized = true;
                     state.successMessage =
                         action.type === asyncRegisterUser.fulfilled.type
                             ? "User registered successfully!"
@@ -62,11 +68,12 @@ const authSlice = createSlice({
                 (state, action) => {
                     state.loading = false;
                     state.error = action.payload;
+                    state.initialized = true;
                 }
             )
     },
 });
 
-export const { setAuthentication, clearError } = authSlice.actions;
+export const { setAuthentication, setAuthInitialized, clearError } = authSlice.actions;
 
 export default authSlice.reducer;

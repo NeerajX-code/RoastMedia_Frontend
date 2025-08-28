@@ -1,0 +1,11 @@
+import{t as i,r as d,u as p,j as e}from"./index-gLIxXFiy.js";/**
+ * @license lucide-react v0.542.0 - ISC
+ *
+ * This source code is licensed under the ISC license.
+ * See the LICENSE file in the root directory of this source tree.
+ */const f=[["path",{d:"M21 12a9 9 0 0 0-9-9 9.75 9.75 0 0 0-6.74 2.74L3 8",key:"14sxne"}],["path",{d:"M3 3v5h5",key:"1xhq8a"}],["path",{d:"M3 12a9 9 0 0 0 9 9 9.75 9.75 0 0 0 6.74-2.74L21 16",key:"1hlbsb"}],["path",{d:"M16 16h5v5",key:"ccwih5"}]],h=i("refresh-ccw",f);/**
+ * @license lucide-react v0.542.0 - ISC
+ *
+ * This source code is licensed under the ISC license.
+ * See the LICENSE file in the root directory of this source tree.
+ */const b=[["path",{d:"M18 6 6 18",key:"1bl5f8"}],["path",{d:"m6 6 12 12",key:"d8bk6v"}]],x=i("x",b),u=({message:o,loading:c,action:s,clearAction:t,isvisible:r})=>{const[n,l]=d.useState(r||!0),a=p();return o?(d.useEffect(()=>(console.log("isShown:",n),console.log("isVisible",r),()=>{t&&a(t())}),[]),e.jsx(e.Fragment,{children:n&&e.jsxs("div",{style:{width:"100%",height:"100%",backdropFilter:"blur(2px)",border:"1px solid #f8f8f83f",borderBottom:0,borderTop:0,background:"#3c3d3b11",display:"flex",gap:"clamp(0.8rem,1vw,1rem)",justifyContent:"space-between",alignItems:"center",position:"absolute",top:"50%",left:"50%",transform:"translate(-50%,-50%)"},children:[r&&e.jsx("button",{onClick:()=>{l(!1),t&&a(t())},style:{display:"flex",justifyContent:"center",alignItems:"center",position:"absolute",right:"10px",top:"10px",padding:"clamp(0.8rem,1vw,1rem)",borderRadius:"50%",border:"none"},children:e.jsx(x,{})}),e.jsxs("div",{style:{width:"fit-content",padding:"clamp(0.8rem,1vw,1rem)",border:"1px solid #f44336",borderRadius:"8px",background:"#ffebee",color:"#b71c1c",display:"flex",gap:"clamp(0.6rem,1vw,0.8rem)",justifyContent:"space-between",alignItems:"center",position:"absolute",top:"50%",left:"50%",transform:"translate(-50%,-50%)",boxShadow:"0px 2px 6px rgba(0,0,0,0.1)"},children:[e.jsx("span",{style:{fontSize:"clamp(0.8rem,1vw,1rem)",fontWeight:"500"},children:o}),s&&e.jsx("button",{onClick:s,style:{border:"none",background:"transparent",cursor:"pointer",fontSize:"1.2rem",fontWeight:"bold",color:"#b71c1c"},disabled:c&&!0,children:e.jsx(h,{style:{marginTop:"2px"}})})]})]})})):null};export{u as E,x as X};

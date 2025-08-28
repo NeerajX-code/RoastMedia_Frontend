@@ -1,0 +1,10 @@
+.incoming-call{position:fixed;inset:auto 0 72px 0;display:flex;justify-content:center;pointer-events:none;z-index:1000}
+.incoming-card{pointer-events:auto;display:flex;align-items:center;gap:12px;background:#0b0b0b;border:1px solid #222;padding:10px 14px;border-radius:12px;box-shadow:0 8px 24px rgba(0,0,0,.35)}
+.incoming-avatar{width:40px;height:40px;border-radius:50%;object-fit:cover}
+.incoming-info{min-width:160px}
+.incoming-name{font-weight:600}
+.incoming-type{font-size:12px;color:#9aa}
+.incoming-actions{display:flex;gap:8px}
+.incoming-actions .btn{padding:6px 12px;border-radius:8px;border:1px solid #333;background:#151515;color:#ddd;cursor:pointer}
+.incoming-actions .btn.accept{background:#0a3;border-color:#0a3;color:#fff}
+.incoming-actions .btn.decline{background:#a00;border-color:#a00;color:#fff}

@@ -50,17 +50,19 @@ export const chatSlice = createSlice({
         arr[idx] = { ...arr[idx], ...message };
       }
       const convo = state.conversations.find((c) => c._id === conversationId);
-      if (convo) {
-        const label = message.text && message.text.length
-          ? message.text
-          : (message.mediaType?.startsWith("image/") ? "📷 Photo" : message.mediaType?.startsWith("audio/") ? "🎤 Audio" : (message.mediaUrl ? "Attachment" : ""));
-        convo.lastMessage = label;
-        convo.lastMessageAt = message.createdAt;
-        // increment unread if message from other in inactive chat
-        const isIncoming = message.sender === convo.otherUser?._id;
-        const isActive = state.active.conversationId === conversationId;
-        if (isIncoming && !isActive) convo.unreadCount = (convo.unreadCount || 0) + 1;
-      }
+        if (convo) {
+          const label = message.text && message.text.length
+            ? message.text
+            : (message.mediaType?.startsWith("image/") ? "\ud83d\udcf7 Photo" : message.mediaType?.startsWith("audio/") ? "\ud83c\udfa4 Audio" : (message.mediaUrl ? "Attachment" : ""));
+          convo.lastMessage = label;
+          convo.lastMessageAt = message.createdAt || new Date().toISOString();
+          // increment unread if message from other in inactive chat
+          const msgSender = message.sender && typeof message.sender === 'object' && message.sender._id ? message.sender._id : message.sender;
+          const otherId = convo.otherUser?._id;
+          const isIncoming = otherId && String(msgSender) === String(otherId);
+          const isActive = state.active.conversationId === conversationId;
+          if (isIncoming && !isActive) convo.unreadCount = (convo.unreadCount || 0) + 1;
+        }
     },
     markSeen(state, action) {
       const { conversationId, messageIds } = action.payload;

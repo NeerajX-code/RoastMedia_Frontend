@@ -17,6 +17,7 @@ const Profile = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const [showMenu, setShowMenu] = useState(false);
+  // Theme is now controlled globally from Navbar ThemeToggle
 
   const toggleMenu = () => {
     setShowMenu((prev) => !prev);
@@ -36,6 +37,8 @@ const Profile = () => {
       }, 500);
     }
   }, [user, successMessage, dispatch]);
+
+  // (removed) per global ThemeToggle
 
   if (profileLoading) return <Loading />;
 
@@ -58,6 +61,8 @@ const Profile = () => {
   const handleBackBtn = () => {
     navigate(-1);
   };
+
+  // (removed) local theme list and picker
 
   return (
     <div className="profile">
@@ -91,7 +96,7 @@ const Profile = () => {
         />
       )}
 
-      <div className="info_wrapper">
+  <div className="info_wrapper">
         <div className="profile__info">
           <div
             className="profile__avatar"

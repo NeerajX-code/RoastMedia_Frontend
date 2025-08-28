@@ -21,16 +21,29 @@ export const openChatWithUser = (userId) => async (dispatch, getState) => {
   dispatch(setActive({ conversationId: data.conversationId, userId }));
   // preload history deduped into state and clear unread
   dispatch(setMessages({ conversationId: data.conversationId, messages: data.messages }));
+  // kick socket flow to set delivered for pending messages
+  try { getSocket().emit("chat:open", { conversationId: data.conversationId }); } catch {}
 };
 
-export const sendMessage = ({ to, text }) => async (dispatch, getState) => {
+export const sendMessage = ({ to, text, mediaUrl, mediaType }) => async (dispatch, getState) => {
   const socket = getSocket();
-  socket.emit("chat:send", { to, text });
+  socket.emit("chat:send", { to, text, mediaUrl, mediaType });
 };
 
-export const initSocketListeners = () => (dispatch) => {
+export const initSocketListeners = () => (dispatch, getState) => {
   const socket = getSocket();
   socket.off("chat:message").on("chat:message", (msg) => {
+    // Ensure a conversation list item exists for incoming messages
+    try {
+      const state = getState();
+      const me = state?.userReducer?.user;
+      const myId = me?.userId?._id || me?.userId || me?._id;
+      const isIncoming = myId && String(msg.receiver) === String(myId);
+      if (isIncoming) {
+        const exists = state.ChatReducer?.conversations?.some((c) => c._id === msg.conversation);
+        if (!exists) dispatch(upsertConversation({ conversationId: msg.conversation, userId: msg.sender }));
+      }
+    } catch {}
     dispatch(addMessage({ conversationId: msg.conversation, message: msg }));
   });
   socket.off("chat:delivered").on("chat:delivered", ({ conversationId, messageIds, deliveredAt }) => {
@@ -48,6 +61,8 @@ export const initSocketListeners = () => (dispatch) => {
 export const apiMarkSeen = ({ conversationId, messageIds }) => async (dispatch) => {
   await axios.post("/api/chat/seen", { conversationId, messageIds });
   dispatch(markSeen({ conversationId, messageIds }));
+  // also emit via socket so the sender gets real-time blue ticks without polling
+  try { getSocket().emit("chat:seen", { conversationId, messageIds }); } catch {}
 };
 
 export const clearChat = (conversationId) => async (dispatch) => {
