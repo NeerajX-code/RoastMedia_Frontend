@@ -43,11 +43,7 @@ const MainRoutes = () => {
 
             <Route
                 path="/Single-post/:id"
-                element={
-                    <AuthWrapper>
-                        <SinglePost />
-                    </AuthWrapper>
-                }
+                element={<SinglePost />}
             />
 
             <Route
