@@ -12,20 +12,25 @@ export default function SinglePostPage() {
   const navigate = useNavigate()
   const { singlePostDetails } = useSelector(state => state.PostDetailsReducer)
   const me = useSelector((s) => s.userReducer.user);
-
-  console.log(singlePostDetails[0]);
+  console.log(me);
 
   const singlePost = singlePostDetails[0];
+
+  console.log(singlePost);
+
   const isSelf = useMemo(() => {
     const myId = me?.userId?._id || me?.userId || me?._id;
-    const ownerId = singlePost?.userData?._id || singlePost?.user;
-    return myId && ownerId && String(myId) === String(ownerId);
+    const ownerId = singlePost?.userData?.userId || singlePost?.user;
+    return myId, ownerId && String(myId) === String(ownerId)
   }, [me, singlePost]);
+
+  console.log(isSelf);
+
+  // const isSel = authUser?.userId?._id && post?.userData?._id && String(authUser.userId._id) === String(post.userData._id);
 
   useEffect(() => {
     if (id) dispatch(asyncSinglePost(id))
   }, [dispatch, id])
-
 
   return (
     <div className="single-post">
@@ -55,36 +60,36 @@ export default function SinglePostPage() {
               src={singlePost?.userData?.avatarUrl}
               alt="user"
               className="user-avatar"
-              onClick={() => navigate(isSelf ? "/Profile" : `/other/profile/${singlePost?.userData?._id}`)}
+              onClick={() => navigate(isSelf ? "/Profile" : `/other/profile/${singlePost?.userData?.userId}`)}
               style={{ cursor: "pointer" }}
             />
-            <div onClick={() => navigate(isSelf ? "/Profile" : `/other/profile/${singlePost?.userData?._id}`)} style={{ cursor: "pointer" }}>
+            <div onClick={() => navigate(isSelf ? "/Profile" : `/other/profile/${singlePost?.userData?.userId}`)} style={{ cursor: "pointer" }}>
               <h4 className="username">{singlePost?.userData?.displayName}</h4>
             </div>
           </div>
         </div>
       </div>
 
-       <div className="actions">
-          <button onClick={() => dispatch(asyncSingleToggleLike(singlePost?._id))} aria-pressed={singlePost?.isLiked}>
-            <Heart color={singlePost?.isLiked ? "#e0245e" : "currentColor"} />
-            <span>{singlePost?.likesCount || 0}</span>
-          </button>
+      <div className="actions">
+        <button onClick={() => dispatch(asyncSingleToggleLike(singlePost?._id))} aria-pressed={singlePost?.isLiked}>
+          <Heart color={singlePost?.isLiked ? "#e0245e" : "currentColor"} fill={singlePost?.isLiked && "#e0245e"} />
+          <span>{singlePost?.likesCount || 0}</span>
+        </button>
 
-          <button onClick={() => navigate(`/Comments/${singlePost?._id}`)}>
-            <MessageCircle />
-            <span>{singlePost?.commentCount || 0}</span>
-          </button>
+        <button onClick={() => navigate(`/Comments/${singlePost?._id}`)}>
+          <MessageCircle />
+          <span>{singlePost?.commentCount || 0}</span>
+        </button>
 
-          <button onClick={() => dispatch(asyncSingleShare(singlePost?._id))}>
-            <Forward />
-            <span>{singlePost?.shareCount || 0}</span>
-          </button>
+        <button onClick={() => dispatch(asyncSingleShare(singlePost?._id))}>
+          <Forward />
+          <span>{singlePost?.shareCount || 0}</span>
+        </button>
 
-          <button onClick={() => dispatch(asyncSingleToggleSave(singlePost?._id))} aria-pressed={singlePost?.saved}>
-            <Bookmark fill={singlePost?.saved ? "currentColor" : "none"} />
-          </button>
-        </div>
+        <button onClick={() => dispatch(asyncSingleToggleSave(singlePost?._id))} aria-pressed={singlePost?.saved}>
+          <Bookmark fill={singlePost?.saved ? "currentColor" : "none"} />
+        </button>
+      </div>
     </div>
   );
 }
