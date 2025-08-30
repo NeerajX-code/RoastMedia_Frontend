@@ -116,6 +116,7 @@ const Post = () => {
 
   const clearPreviewHandler = () => {
     setPreview(null);
+    setShowCurrentCaption(null)
     dispatch(clearCaption());
   }
 

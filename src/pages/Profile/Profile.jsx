@@ -17,6 +17,7 @@ const Profile = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const [showMenu, setShowMenu] = useState(false);
+  // Theme is now controlled globally from Navbar ThemeToggle
 
   const toggleMenu = () => {
     setShowMenu((prev) => !prev);
@@ -37,6 +38,8 @@ const Profile = () => {
     }
   }, [user, successMessage, dispatch]);
 
+  // (removed) per global ThemeToggle
+
   if (profileLoading) return <Loading />;
 
   const handleEditProfile = () => {
@@ -52,12 +55,14 @@ const Profile = () => {
         dispatch(getHomePosts());
         navigate("/login");
       });
-      
+
   }
 
   const handleBackBtn = () => {
     navigate(-1);
   };
+
+  // (removed) local theme list and picker
 
   return (
     <div className="profile">
@@ -91,7 +96,7 @@ const Profile = () => {
         />
       )}
 
-      <div className="info_wrapper">
+  <div className="info_wrapper">
         <div className="profile__info">
           <div
             className="profile__avatar"
@@ -108,11 +113,12 @@ const Profile = () => {
         <div className="profile__stats">
           <div className="stat">
             <p className="stat__number">{user?.followersCount}</p>
-            <p className="stat__label">Followers</p>
+            <p className="stat__label" onClick={() => navigate(`/profile/${user?.userId?._id}/followers`)} style={{ cursor: "pointer" }}>Followers</p>
           </div>
+          
           <div className="stat">
             <p className="stat__number">{user?.followingCount}</p>
-            <p className="stat__label">Following</p>
+            <p className="stat__label" onClick={() => navigate(`/profile/${user?.userId?._id}/following`)} style={{ cursor: "pointer" }}>Following</p>
           </div>
         </div>
 

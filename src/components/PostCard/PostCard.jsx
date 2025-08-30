@@ -1,7 +1,24 @@
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 import { Heart, Combine, Share2, Bookmark } from "lucide-react";
 import "./PostCard.css";
 import { NavLink, useNavigate } from "react-router-dom";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { asyncHomePostToggleLike, asyncUpdateShareCount } from "../../store/Actions/HomePostActions";
 import { asyncGetComments } from "../../store/Actions/commentActions";
 import { asyncToggleSave } from "../../store/Actions/saveActions"
@@ -9,15 +26,19 @@ import { asyncToggleSave } from "../../store/Actions/saveActions"
 const PostCard = ({ post }) => {
 
     const dispatch = useDispatch();
-    const navigate = useNavigate();
 
+    const authUser = useSelector((s) => s.userReducer.user);
+    
+    const isSelf = authUser?.userId?._id && post?.userData?._id && String(authUser.userId._id) === String(post.userData._id);
+
+    const navigate = useNavigate();
 
     return (
         <div className="post">
-            <NavLink to={`/other/profile/${post.userData._id}`}>
+            <NavLink to={isSelf ? "/Profile" : `/other/profile/${post.userData._id}`}>
                 <div className="post_top">
                     <div className="post_top_userImg">
-                        <img src={post.profileData?.avatarUrl} alt="" />
+                        <img src={post.profileData?.avatarUrl} alt="avatarURL" />
                     </div>
                     <div className="post_top_userDetails">
                         <div className="userDetails_left">

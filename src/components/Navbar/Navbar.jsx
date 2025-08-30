@@ -1,5 +1,6 @@
 import React from "react";
-import { NavLink } from "react-router";
+import { NavLink } from "react-router-dom";
+import { MessageSquareMore } from "lucide-react";
 import "./Navbar.css";
 
 export default function Navbar() {
@@ -50,6 +51,14 @@ export default function Navbar() {
 
             <NavLink className={({ isActive }) =>
                 `nav-item ${isActive ? "active" : ""}`
+            } to="/messages">
+                <div className="icon">
+                    <MessageSquareMore size={24} />
+                </div>
+            </NavLink>
+
+            <NavLink className={({ isActive }) =>
+                `nav-item ${isActive ? "active" : ""}`
             } to="/Profile">
                 <div className="icon">
                     {/* User Icon */}
@@ -59,6 +68,7 @@ export default function Navbar() {
                 </div>
             </NavLink>
 
+            {/* Theme toggle removed: Emerald enforced globally */}
         </div>
     );
 }

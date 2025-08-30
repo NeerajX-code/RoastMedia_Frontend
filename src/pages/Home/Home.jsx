@@ -6,13 +6,13 @@ import { getHomePosts } from "../../store/Actions/HomePostActions";
 import { useEffect } from "react";
 import PostCard from "../../components/PostCard/PostCard";
 import ErrorCard from "../../components/ErrorCard/ErrorCard";
+import { useNavigate } from "react-router-dom";
+import { MessageSquareMore } from "lucide-react";
 
 const Home = () => {
 
   const { posts, loading, error } = useSelector((state) => state.HomePostReducer);
   const dispatch = useDispatch()
-
-
 
   useEffect(() => {
 
@@ -20,20 +20,14 @@ const Home = () => {
       dispatch(getHomePosts());
     }
 
-    // if (posts.length > 0) {
-    //   console.log(posts);
-    // }
-
   }, [posts, dispatch])
-
 
   if (loading) {
     return <Loading />
   }
 
-
   return (
-    <div className="post-feed" style={{position:"relative"}}>
+    <div className="post-feed" style={{ position: "relative" }}>
       <div className="post-feed_wrapper">
         <div className="post-feed_options">
           <h2>For You</h2>
@@ -41,7 +35,7 @@ const Home = () => {
         </div>
 
         <ErrorCard message={error} loading={loading} action={getHomePosts} />
-        
+
         <div className="post-feed__list">
           {posts?.map((post, i) => (
             <PostCard key={i} post={post} />

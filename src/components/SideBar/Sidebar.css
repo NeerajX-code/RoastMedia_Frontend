@@ -1,7 +1,7 @@
 .sidebar {
-  border-top: 1px solid rgba(33, 74, 60, 0.2784313725);
-  background-color: rgba(96, 42, 146, 0.1176470588);
-  color: white;
+  border-top: 1px solid var(--border);
+  background-color: var(--bg-elev);
+  color: var(--text);
   display: none;
 }
 @media (min-width: 768px) {
@@ -12,7 +12,7 @@
     flex-direction: column;
     justify-content: space-between;
     height: 100vh;
-    border-left: 1px solid rgba(71, 70, 70, 0.586);
+  border-left: 1px solid var(--border);
     padding: 1rem;
     flex: 0.5;
   }
@@ -41,29 +41,29 @@
   border-radius: 8px;
   font-size: clamp(1rem, 1.5vw, 1.5rem);
   text-decoration: none;
-  color: #767474;
+  color: var(--text-muted);
   font-weight: 500;
   transition: background 0.2s ease;
 }
 .sidebar .menu-item:hover {
-  background: rgba(75, 74, 74, 0.4274509804);
-  color: rgba(255, 255, 255, 0.6588235294);
+  background: rgba(255, 255, 255, 0.06);
+  color: var(--text);
 }
 .sidebar .menu-item.active {
-  color: #fff;
+  color: var(--text);
 }
 .sidebar .menu-item .label {
   font-size: 20px;
 }
 .sidebar .menu-item svg {
   fill: none;
-  stroke: gray;
+  stroke: var(--text-muted);
   width: 32px;
   height: 32px;
 }
 .sidebar_post-btn {
-  background: #1d9bf0;
-  color: #fff;
+  background: var(--accent);
+  color: var(--accent-contrast);
   padding: 0.6rem 1rem;
   border-radius: 100px;
   margin-top: auto;
@@ -82,7 +82,7 @@
   padding: 0.8rem;
   cursor: pointer;
   position: relative;
-  border-top: 1px solid #ddd;
+  border-top: 1px solid var(--border);
 }
 .sidebar__profile .profile-img {
   width: 40px;
@@ -96,7 +96,7 @@
   cursor: pointer;
 }
 .sidebar__profile .profile-info span {
-  color: grey;
+  color: var(--text-muted);
 }
 .sidebar__profile .dots {
   margin-left: auto;
@@ -113,7 +113,7 @@
   font-size: clamp(1rem, 1.2vw, 1.2rem);
   padding: clamp(0.8rem, 1.2vw, 1rem) clamp(1.5rem, 2vw, 2rem);
   background-color: rgb(248, 5, 5);
-  color: white;
+  color: var(--accent-contrast);
 }
 .sidebar .sideBar_auth {
   width: 100%;
@@ -121,14 +121,14 @@
   justify-content: center;
   align-items: center;
   gap: clamp(0.8rem, 1vw, 1rem);
-  border-top: 1px solid rgba(255, 255, 255, 0.863);
+  border-top: 1px solid var(--border);
   padding-top: 1rem;
 }
 .sidebar .sideBar_auth button {
-  color: white;
+  color: var(--accent-contrast);
   border: none;
   padding: clamp(1rem, 1vw, 1.5rem) clamp(1.5rem, 2vw, 1.8rem);
-  background-color: #1d9bf0;
+  background-color: var(--accent);
   border-radius: 50px;
 }
 .sidebar .sideBar_auth div {

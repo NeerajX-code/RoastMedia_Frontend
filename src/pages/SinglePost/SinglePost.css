@@ -38,13 +38,16 @@
 .single-post .profile-content {
   flex: 1;
   overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  align-content: space-between;
 }
 .single-post .image-wrapper {
   flex: 1;
   width: 100%;
   padding: clamp(16px, 2vw, 20px);
   max-width: 600px;
-  aspect-ratio: 1/0.7;
+  aspect-ratio: 1/0.67;
   margin: 0 auto;
   display: flex;
   align-items: center;
@@ -59,12 +62,10 @@
   background-color: rgba(148, 145, 151, 0.1490196078);
   border-radius: clamp(8px, 2vw, 16px);
 }
-@media (max-width: 580px) {
-  .single-post .image-wrapper {
-    aspect-ratio: 1/0.98;
-  }
-}
 .single-post .post-details {
+  display: flex;
+  flex-direction: column;
+  align-content: space-between;
   padding: clamp(1rem, 2vw, 1.5rem);
 }
 .single-post .post-details .caption {

@@ -2,8 +2,8 @@
     flex: 0 auto;
     display: flex;
     gap: 0.5rem;
-    border-top: 1px solid #231023;;
-    background: #231023;
+    border-top: 1px solid var(--border);
+    background: var(--bg-elev);
     padding: 0.5rem 1rem 0.75rem 1rem;
 }
 
@@ -14,13 +14,11 @@
     align-items: center;
     justify-content: end;
     gap: 0.25rem;
-    color: #8ecdb7;
+    color: var(--text-muted);
     text-decoration: none;
 }
 
-.nav-item.active {
-    color: white;
-}
+.nav-item.active { color: var(--text); }
 
 .icon {
     display: flex;
@@ -34,6 +32,8 @@
     height: 24px;
     fill: currentColor;
 }
+
+/* theme toggle removed */
 
 
 @media (min-width: 769px) {

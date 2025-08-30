@@ -2,11 +2,11 @@
   flex: 1;
   display: flex;
   flex-direction: column;
-  border: 1px solid rgba(255, 255, 255, 0.274);
+  border: 1px solid var(--border);
   border-top: none;
   border-bottom: none;
   font-family: "Space Grotesk", "Noto Sans", sans-serif;
-  color: white;
+  color: var(--text);
 }
 .register-page .register-header {
   display: flex;
@@ -26,7 +26,7 @@
 }
 .register-page .register-header .login-backbtn {
   border-radius: 50%;
-  border: 2px solid rgba(128, 128, 128, 0.473);
+  border: 2px solid var(--border);
   cursor: pointer;
   padding: clamp(4px, 0.8vw, 6px);
 }
@@ -48,7 +48,7 @@
   margin-bottom: 10px;
   font-size: clamp(1.8rem, 3vw, 2.2rem);
   font-weight: 400;
-  color: #d0e7df;
+  color: var(--text);
 }
 .register-page .form .register-form {
   display: flex;
@@ -63,11 +63,11 @@
   margin-bottom: clamp(10px, 2vw, 16px);
 }
 .register-page .form .register-form .form-group input {
-  background: rgba(128, 128, 128, 0.388);
+  background: var(--bg-elev);
   border: none;
   border-radius: 4px;
   padding: clamp(10px, 2vw, 14px);
-  color: white;
+  color: var(--text);
   font-size: clamp(1.1rem, 2vw, 1.2rem);
 }
 .register-page .form .register-form .form-group input::-moz-placeholder {
@@ -75,12 +75,12 @@
   padding-left: 3px;
 }
 .register-page .form .register-form .form-group input::placeholder {
-  color: #d9d8db;
+  color: var(--text-muted);
   padding-left: 3px;
 }
 .register-page .form .register-form .form-group input:focus {
   outline: none;
-  border: 3px solid rgb(12, 152, 78);
+  border: 3px solid var(--accent);
 }
 .register-page .form .register-form .form-group span {
   margin-top: 4px;
@@ -89,8 +89,8 @@
 }
 .register-page .form .register-form .register-btn {
   width: 100%;
-  background: #1d9bf0;
-  color: rgba(255, 255, 255, 0.906);
+  background: var(--accent);
+  color: var(--accent-contrast);
   border: none;
   border-radius: 4px;
   padding: clamp(10px, 2vw, 12px);
@@ -101,19 +101,19 @@
 }
 @media (min-width: 768px) {
   .register-page .form .register-form .register-btn:hover {
-    background: #1479bc;
+    background: var(--accent);
   }
   .register-page .form .register-form .register-btn:active {
-    background: #10679c;
+    background: var(--accent);
     transform: scale(0.96);
   }
 }
 .register-page .form .register-type {
-  color: gray;
+  color: var(--text-muted);
   margin-top: 6px;
 }
 .register-page .form .register-type a {
-  color: #14ab79;
+  color: var(--accent);
   text-decoration: none;
 }
 .register-page .form .divider {
@@ -123,7 +123,7 @@
   width: 100%;
   max-width: clamp(230px, 40vw, 350px);
   margin: clamp(6px, 2vw, 10px) 0;
-  color: #999;
+  color: var(--text-muted);
   font-size: clamp(1rem, 3vw, 1.25rem);
 }
 .register-page .form .divider span {
@@ -132,7 +132,7 @@
 .register-page .form .divider::before, .register-page .form .divider::after {
   content: "";
   flex: 1;
-  border-bottom: 1px solid #ccc;
+  border-bottom: 1px solid var(--border);
 }
 .register-page .form .divider::before {
   margin-right: clamp(6px, 1vw, 10px);
@@ -148,8 +148,8 @@
   padding: clamp(0.6rem, 2vw, 0.7rem) clamp(0.8rem, 2vw, 1rem);
   width: 100%;
   max-width: 400px;
-  background-color: #5a5858;
-  color: rgba(255, 255, 255, 0.676);
+  background-color: var(--bg-elev);
+  color: var(--text-muted);
   border: none;
   outline: none;
   border-radius: 4px;
@@ -158,7 +158,7 @@
 }
 @media (min-width: 768px) {
   .register-page .form .google-btn:hover {
-    background-color: rgb(66, 63, 63);
+    background-color: var(--bg-elev);
   }
   .register-page .form .google-btn:active {
     transform: scale(0.97);
