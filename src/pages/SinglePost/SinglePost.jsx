@@ -5,12 +5,13 @@ import { useDispatch, useSelector } from "react-redux";
 import { asyncSinglePost } from "../../store/Actions/singlePostAction";
 import { Bookmark, Forward, Heart, MessageCircle, Save } from 'lucide-react'
 import { getOtherUserPosts, getOtherUserProfile } from "../../store/Actions/otherProfileActions";
+import Loading from "../../components/Loader/Loading";
 
 export default function SinglePostPage() {
   const { id } = useParams()
   const dispatch = useDispatch()
   const navigate = useNavigate()
-  const { singlePostDetails } = useSelector(state => state.PostDetailsReducer)
+  const { singlePostDetails, singlePostLoading } = useSelector(state => state.PostDetailsReducer)
 
   console.log(singlePostDetails[0]);
 
@@ -20,6 +21,9 @@ export default function SinglePostPage() {
     dispatch(asyncSinglePost(id))
   }, [dispatch])
 
+  if (singlePostLoading) {
+    return <Loading />
+  }
 
   return (
     <div className="single-post">
@@ -57,15 +61,15 @@ export default function SinglePostPage() {
         </div>
       </div>
 
-       <div className="actions">
-          <button><Heart /> <span>{singlePost?.likesCount || 0}</span></button>
+      <div className="actions">
+        <button><Heart /> <span>{singlePost?.likesCount || 0}</span></button>
 
-          <button><MessageCircle /><span>{singlePost?.commentCou || 0}</span></button>
+        <button><MessageCircle /><span>{singlePost?.commentCou || 0}</span></button>
 
-          <button><Forward /><span>{singlePost?.shareCount || 0}</span></button>
+        <button><Forward /><span>{singlePost?.shareCount || 0}</span></button>
 
-          <button><Bookmark /><span>{singlePost?.shareCount || 0}</span></button>
-        </div>
+        <button><Bookmark /><span>{singlePost?.shareCount || 0}</span></button>
+      </div>
     </div>
   );
 }
