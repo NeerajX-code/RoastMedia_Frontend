@@ -5,21 +5,21 @@ import { useDispatch, useSelector } from "react-redux";
 import { asyncHomePostToggleLike, asyncUpdateShareCount } from "../../store/Actions/HomePostActions";
 import { asyncGetComments } from "../../store/Actions/commentActions";
 import { asyncToggleSave } from "../../store/Actions/saveActions"
+import Loading from "../Loader/Loading";
 
 const PostCard = ({ post }) => {
 
     const dispatch = useDispatch();
     const navigate = useNavigate();
-    const { user } = useSelector((state) => state.userReducer);
+    const { user, profileLoading } = useSelector((state) => state.userReducer);
 
-    const isCurrentUser = user.userId._id === post.userData._id;
+    const isCurrentUser = user?.userId?._id === post?.userData?._id;
 
-    console.log(user);
-    console.log(post.userData._id);
+   
 
     return (
         <div className="post">
-            <NavLink to={`${isCurrentUser ? "/Profile" : `/other/profile/${post.userData._id}`}`}>
+            <NavLink to={`${isCurrentUser ? "/Profile" : `/other/profile/${post?.userData?._id}`}`}>
                 <div className="post_top">
                     <div className="post_top_userImg">
                         <img src={post.profileData?.avatarUrl} alt="" />
@@ -67,7 +67,7 @@ const PostCard = ({ post }) => {
                         onClick={async () => {
                             dispatch(asyncUpdateShareCount(post._id));
 
-                            const text = `${window.location.origin}/singlePost/${post._id}`;
+                            const text = `${window.location.origin}/Single-post/${post._id}`;
                             const html = `
                             <a href="${text}" target="_blank">
                             <strong>Check this Post!</strong><br/>

@@ -8,18 +8,12 @@ const AuthWrapper = ({ children }) => {
   const { isAuthenticated, loading } = useSelector((state) => state.authReducer);
   const navigate = useNavigate();
 
-  useEffect(() => {
-    if (!loading && !isAuthenticated) {
-      navigate("/Register");
-    }
-  }, [isAuthenticated, loading]);
-
   if (loading) {
     return <Loading />; // jab tak auth check ho raha hai
   }
 
   if (!isAuthenticated) {
-    return <Register />; // navigate hone se pehle kuch render mat karo
+    return <Loading />; // navigate hone se pehle kuch render mat karo
   }
 
   return children;

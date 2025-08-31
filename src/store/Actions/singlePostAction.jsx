@@ -1,7 +1,7 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "../../utils/axios.config";
 import { updateLikeCount, updateShareCount } from "../Reducers/HomePostReducer";
-import { updateSavePostLikeCount, updateSavePostShareCount } from "../Reducers/saveReducer";
+import { loadSavedPosts, updateSavePostLikeCount, updateSavePostShareCount } from "../Reducers/saveReducer";
 import { updateSinglePostLike, updateSinglePostShareCount, updateSinglePostSaved } from "../Reducers/singlePostReducer";
 
 export const asyncSinglePost = createAsyncThunk(
@@ -20,7 +20,7 @@ export const asyncSinglePost = createAsyncThunk(
 );
 
 export const asyncSingleToggleLike = createAsyncThunk(
-    "singlePost/toggleLike",
+    "singlePostDetails/asyncSingleToggleLike",
     async (postId, { dispatch, rejectWithValue }) => {
         try {
             const { data } = await axios.patch(`/api/post/like/${postId}`);
@@ -28,6 +28,8 @@ export const asyncSingleToggleLike = createAsyncThunk(
             dispatch(updateLikeCount({ postId, ...data }));
             dispatch(updateSavePostLikeCount({ postId, ...data }));
             dispatch(updateSinglePostLike({ postId, ...data }));
+            console.log(data);
+            
             return { postId, ...data };
         } catch (error) {
             return rejectWithValue(error.response?.data?.message || "Like failed");
@@ -51,12 +53,14 @@ export const asyncSingleShare = createAsyncThunk(
 );
 
 export const asyncSingleToggleSave = createAsyncThunk(
-    "singlePost/toggleSave",
+    "singlePostDetails/asyncSingleToggleSave",
     async (postId, { dispatch, rejectWithValue }) => {
         try {
             const { data } = await axios.post(`/api/post/save/${postId}`);
-            dispatch(updateSinglePostSaved({ id: postId, saved: data.saved }));
-            return { id: postId, saved: data.saved };
+            dispatch(updateSinglePostSaved({ id: postId, isSaved: data.saved }));
+            dispatch(loadSavedPosts(data?.save?.[0])); // Add to saved posts if saved
+            console.log(data);
+
         } catch (error) {
             return rejectWithValue(error.response?.data?.message || "Save failed");
         }

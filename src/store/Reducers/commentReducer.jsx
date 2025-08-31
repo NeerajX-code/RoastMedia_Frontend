@@ -17,7 +17,13 @@ const commentSlice = createSlice({
         },
         clearError: (state) => {
             state.commentError = null;
+        },
+
+        deleteComment: (state, action) => {
+            const id = action.payload;
+            state.comments = state.comments.filter((c) => c._id !== id);
         }
+
     },
     extraReducers: (builder) => {
         builder
@@ -77,5 +83,8 @@ const commentSlice = createSlice({
     },
 });
 
+export const { clearComment, clearError, deleteComment } = commentSlice.actions;
 
 export default commentSlice.reducer;
+
+

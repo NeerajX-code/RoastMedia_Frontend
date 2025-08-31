@@ -18,13 +18,19 @@ export const userSlice = createSlice({
     clearUser: (state) => {
       state.user = null
       state.posts = []
-  state.successMessage = null
+      state.successMessage = null
     },
     clearError: (state) => {
       state.profileError = null
       state.postsError = null
+    },
+
+    deleteUserPost: (state, action) => {
+      const id = action.payload;
+      state.posts = state.posts.filter((p) => p._id !== id);
     }
   },
+
   extraReducers: (builder) => {
 
     // Get User Profile
@@ -73,5 +79,5 @@ export const userSlice = createSlice({
   }
 })
 
-export const { clearUser, clearError } = userSlice.actions;
+export const { clearUser, clearError, deleteUserPost } = userSlice.actions;
 export default userSlice.reducer;

@@ -1,5 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { asyncToggleSave, asyncGetSavedPosts, asyncSavePostToggleLike } from  "../Actions/saveActions";
+import { asyncToggleSave, asyncGetSavedPosts, asyncSavePostToggleLike } from "../Actions/saveActions";
 
 const saveSlice = createSlice({
     name: "save",
@@ -10,6 +10,9 @@ const saveSlice = createSlice({
         message: null
     },
     reducers: {
+        loadSavedPosts: (state, action) => {
+            state.savedPosts.push(action.payload);
+        },
         updateSavePostLikeCount: (state, action) => {
             const { postId, likesCount, isLiked } = action.payload;
             const post = state.savedPosts.find(p => p.post._id === postId);
@@ -36,6 +39,11 @@ const saveSlice = createSlice({
         clearSaveError(state) {
             state.error = null;
         },
+
+        deleteSavedPost(state, action) {
+            const id = action.payload;
+            state.savedPosts = state.savedPosts.filter((p) => p.post._id !== id);
+        }
     },
     extraReducers: (builder) => {
         builder
@@ -110,5 +118,5 @@ const saveSlice = createSlice({
     },
 });
 
-export const { updateSavePostLikeCount, updateSavePostCommentsCount, updateSavePostShareCount, clearSaveError } = saveSlice.actions;
+export const { updateSavePostLikeCount, updateSavePostCommentsCount, updateSavePostShareCount, clearSaveError , deleteSavedPost, loadSavedPosts } = saveSlice.actions;
 export default saveSlice.reducer;

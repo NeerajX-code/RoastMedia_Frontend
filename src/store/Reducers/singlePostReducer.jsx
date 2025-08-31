@@ -4,7 +4,7 @@ import { asyncSinglePost } from '../Actions/singlePostAction'
 const initialState = {
     singlePostLoading: false,
     error: null,
-    singlePostDetails: [],
+    singlePostDetails: {},
 };
 
 const singlePostSlice = createSlice({
@@ -13,27 +13,29 @@ const singlePostSlice = createSlice({
     reducers: {
         updateSinglePostLike(state, action) {
             const { postId, likesCount, isLiked } = action.payload;
-            if (state.singlePostDetails[0] && state.singlePostDetails[0]._id === postId) {
-                state.singlePostDetails[0].likesCount = likesCount;
-                state.singlePostDetails[0].isLiked = isLiked;
+            console.log(action.payload);
+
+            if (state.singlePostDetails && state.singlePostDetails.post._id === postId) {
+                state.singlePostDetails.post.likesCount = likesCount;
+                state.singlePostDetails.post.isLiked = isLiked;
             }
         },
         updateSinglePostCommentCount(state, action) {
             const { id, commentCount } = action.payload;
-            if (state.singlePostDetails[0] && state.singlePostDetails[0]._id === id) {
-                state.singlePostDetails[0].commentCount = commentCount;
+            if (state.singlePostDetails.post && state.singlePostDetails.post._id === id) {
+                state.singlePostDetails.post.commentCount = commentCount;
             }
         },
         updateSinglePostShareCount(state, action) {
             const { id, shareCount } = action.payload;
-            if (state.singlePostDetails[0] && state.singlePostDetails[0]._id === id) {
-                state.singlePostDetails[0].shareCount = shareCount;
+            if (state.singlePostDetails.post && state.singlePostDetails.post._id === id) {
+                state.singlePostDetails.post.shareCount = shareCount;
             }
         },
         updateSinglePostSaved(state, action) {
-            const { id, saved } = action.payload;
-            if (state.singlePostDetails[0] && state.singlePostDetails[0]._id === id) {
-                state.singlePostDetails[0].saved = saved;
+            const { id, isSaved } = action.payload;
+            if (state.singlePostDetails.post && state.singlePostDetails.post._id === id) {
+                state.singlePostDetails.post.isSaved = isSaved;
             }
         }
     },
@@ -46,7 +48,7 @@ const singlePostSlice = createSlice({
             .addCase(asyncSinglePost.fulfilled, (state, action) => {
                 state.singlePostLoading = false;
                 // keep a single current post instance
-                state.singlePostDetails = [action.payload];
+                state.singlePostDetails = { ...action.payload };
             })
             .addCase(asyncSinglePost.rejected, (state, action) => {
                 state.singlePostLoading = false;

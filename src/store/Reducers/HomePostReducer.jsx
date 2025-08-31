@@ -44,6 +44,11 @@ export const HomePostSlice = createSlice({
                 post.saved = saved;
             }
         },
+
+        deleteHomePost: (state, action) => {
+            const id = action.payload;
+            state.posts = state.posts.filter((p) => p._id !== id);
+        }
     },
     extraReducers: (builder) => {
         builder
@@ -91,7 +96,7 @@ export const HomePostSlice = createSlice({
     }
 })
 
-export const {updateLikeCount, updateCommentsCount, updateShareCount, toggleSave } = HomePostSlice.actions;
+export const {updateLikeCount, updateCommentsCount, updateShareCount, toggleSave, deleteHomePost } = HomePostSlice.actions;
 
 
 export default HomePostSlice.reducer;

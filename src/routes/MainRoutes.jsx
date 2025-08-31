@@ -58,8 +58,11 @@ const MainRoutes = () => {
             />
 
             <Route path="/other/profile/:id" element={<OtherProfile />} />
+
             <Route path="/profile/:id/followers" element={<FollowersPage />} />
+
             <Route path="/profile/:id/following" element={<FollowingPage />} />
+            
             <Route path="/Search" element={<SearchUserPage />} />
 
             <Route

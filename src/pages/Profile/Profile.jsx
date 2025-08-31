@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import "./Profile.css";
 import { getUserPosts, getUserProfile } from "../../store/Actions/userActions";
 import { useDispatch, useSelector } from "react-redux";
-import { ArrowLeft, Ellipsis, EllipsisVertical, SquarePen, X } from "lucide-react";
+import { ArrowLeft, Ellipsis, EllipsisVertical, LogOut, SquarePen, X } from "lucide-react";
 import Loading from "../../components/Loader/Loading";
 import { useNavigate } from "react-router-dom";
 import ErrorCard from "../../components/ErrorCard/ErrorCard";
@@ -36,8 +36,6 @@ const Profile = () => {
     }
   }, [user, successMessage, dispatch]);
 
-  if (profileLoading) return <Loading />;
-
   const handleEditProfile = () => {
     navigate("/Edit-user-profile");
   };
@@ -57,6 +55,10 @@ const Profile = () => {
     navigate(-1);
   };
 
+  if (profileLoading) {
+    return <Loading />
+  }
+
   return (
     <div className="profile">
       <div className="profile__nav">
@@ -67,17 +69,17 @@ const Profile = () => {
         <h2 className="profile__username">{user?.displayName}</h2>
 
         <span className="dots" onClick={toggleMenu}>
-          <EllipsisVertical />
+          {!showMenu && <EllipsisVertical />}
           {showMenu && <X className="profile__close-btn" />}
         </span>
 
         {showMenu && (
           <div className="profile__menu">
-            <span className="profile__edit">
-              <SquarePen className="profile__edit-btn" onClick={handleEditProfile} />
+            <span onClick={handleEditProfile} className="profile__edit">
+              <SquarePen className="profile__edit-btn" />
               Edit
             </span>
-            <button onClick={handleLogout}>Logout</button>
+            <button onClick={handleLogout}> <LogOut /> Logout</button>
           </div>
         )}
       </div>

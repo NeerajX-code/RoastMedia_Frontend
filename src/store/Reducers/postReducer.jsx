@@ -1,5 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { asyncPostCreate } from '../Actions/postActions'
+import { asyncDeletePost, asyncPostCreate } from '../Actions/postActions'
 import Cookies from "js-cookie";
 
 const initialState = {

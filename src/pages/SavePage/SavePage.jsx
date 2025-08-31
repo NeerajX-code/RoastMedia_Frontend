@@ -10,8 +10,9 @@ const SavePage = () => {
     const navigate = useNavigate();
     const { savedPosts, loading , message } = useSelector((state) => state.SaveReducer)
     const dispatch = useDispatch();
+
     useEffect(() => {
-        if (savedPosts?.length == 0 && !message) {
+        if (!message) {
             dispatch(asyncGetSavedPosts());
             console.log(savedPosts);
         }

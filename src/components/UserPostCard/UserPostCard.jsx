@@ -13,10 +13,6 @@ const UserPostCard = ({ post }) => {
                 <img src={post.image} alt="post" />
             </div>
 
-            {/* <div className="post-caption">
-                <p>{post.caption}</p>
-            </div> */}
-
             <div className="post-footer">
                 <span>
                     <i className="fa-slab fa-regular fa-heart"></i>

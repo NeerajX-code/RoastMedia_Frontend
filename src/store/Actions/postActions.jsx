@@ -1,5 +1,8 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "../../utils/axios.config";
+import { deleteHomePost } from "../Reducers/HomePostReducer";
+import { deleteSavedPost } from "../Reducers/saveReducer";
+import { deleteUserPost } from '../Reducers/userReducer'
 
 export const asyncGenerateCaption = createAsyncThunk(
     "caption/asyncGenerateCaption",
@@ -31,3 +34,17 @@ export const asyncPostCreate = createAsyncThunk(
         }
     }
 );
+
+export const asyncDeletePost = (id) => async (dispatch) => {
+    try {
+        const { data } = await axios.delete(`/api/post/delete-post/${id}`);
+        console.log(data);
+
+        dispatch(deleteHomePost(id));
+        dispatch(deleteSavedPost(id));
+        dispatch(deleteUserPost(id));
+
+    } catch (error) {
+        console.log(error);
+    }
+};

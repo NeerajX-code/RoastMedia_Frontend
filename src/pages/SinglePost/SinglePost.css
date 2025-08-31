@@ -31,9 +31,22 @@
   width: clamp(20px, 2.5vw, 28px);
   height: clamp(20px, 2.5vw, 28px);
 }
-.single-post .header .title {
+.single-post .header .delete_post {
   font-size: clamp(1.2rem, 2vw, 1.4rem);
   font-weight: 600;
+  background-color: crimson;
+  border: none;
+  color: white;
+  padding: 8px 12px;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: all 0.2s cubic-bezier(0.19, 1, 0.22, 1);
+}
+.single-post .header .delete_post:hover {
+  background-color: rgb(188, 10, 10);
+}
+.single-post .header .delete_post:active {
+  transform: scale(0.95);
 }
 .single-post .profile-content {
   flex: 1;
