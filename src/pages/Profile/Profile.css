@@ -13,12 +13,12 @@
   color: white;
 }
 .profile__nav {
+  position: relative;
   flex: 0 0 auto;
   display: flex;
   align-items: center;
   justify-content: space-between;
   padding: clamp(0.5rem, 1vw, 1rem) clamp(0.75rem, 2vw, 1.25rem);
-  position: relative; /* anchor absolute children like logout menu */
 }
 .profile__nav .profile__back-btn {
   width: clamp(2.5rem, 6vw, 3rem);
@@ -40,19 +40,25 @@
 }
 .profile__nav .dots {
   cursor: pointer;
-  display: inline-flex;
 }
-@media (min-width: 768px) {
-  .profile__nav .dots {
-    display: none;
-  }
-}
-.profile__nav .logout_menu {
+.profile__nav .profile__menu {
+  display: flex;
+  flex-direction: column;
   position: absolute;
   right: 5px;
   top: 50px;
+  gap: 8px;
+  background-color: rgba(64, 65, 64, 0.537);
+  padding: clamp(0.5rem, 2vw, 1rem);
+  border-radius: 8px;
+  transition: all 0.3s ease;
 }
-.profile__nav .logout_menu button {
+.profile__nav .profile__menu .profile__edit {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+.profile__nav .profile__menu button {
   border: none;
   border-radius: 50px;
   font-size: clamp(1rem, 1.2vw, 1.2rem);
@@ -164,9 +170,4 @@
   width: 100%;
   padding: 4rem 1rem;
   text-align: center;
-}
-/* buttons */
-.btn { padding: 8px 14px; border-radius: 10px; cursor: pointer; border: none; }
-.btn-primary { background: #1d9bf0; color: #fff; }
-.btn-secondary { background: transparent; color: #fff; border: 1px solid rgba(255,255,255,.2); }
-/*# sourceMappingURL=Profile.css.map */
+}/*# sourceMappingURL=Profile.css.map */

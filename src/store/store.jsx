@@ -22,7 +22,7 @@ export const store = configureStore({
     PostReducer: newPostSlice,
     SaveReducer: SaveSlice,
     PostDetailsReducer: singlePostSlice,
-  CommentsReducer: commentSlice,
-  FollowReducer: followSlice,
+    CommentsReducer: commentSlice,
+    FollowReducer: followSlice,
   },
 })

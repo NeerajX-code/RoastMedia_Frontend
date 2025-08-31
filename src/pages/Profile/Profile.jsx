@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import "./Profile.css";
 import { getUserPosts, getUserProfile } from "../../store/Actions/userActions";
 import { useDispatch, useSelector } from "react-redux";
-import { ArrowLeft, Ellipsis, EllipsisVertical, SquarePen } from "lucide-react";
+import { ArrowLeft, Ellipsis, EllipsisVertical, SquarePen, X } from "lucide-react";
 import Loading from "../../components/Loader/Loading";
 import { useNavigate } from "react-router-dom";
 import ErrorCard from "../../components/ErrorCard/ErrorCard";
@@ -23,7 +23,6 @@ const Profile = () => {
   };
 
   useEffect(() => {
-    // load profile if not present
     if (!user && !successMessage) {
       dispatch(getUserProfile());
     }
@@ -44,7 +43,6 @@ const Profile = () => {
   };
 
   const handleLogout = () => {
-    console.log("clicked");
 
     dispatch(asyncLogoutUser())
       .then(() => {
@@ -68,16 +66,17 @@ const Profile = () => {
 
         <h2 className="profile__username">{user?.displayName}</h2>
 
-        <SquarePen className="profile__edit-btn" onClick={handleEditProfile} />
-
-        {/* <EllipsisVertical onClick={logoutHandler} /> */}
-
         <span className="dots" onClick={toggleMenu}>
           <EllipsisVertical />
+          {showMenu && <X className="profile__close-btn" />}
         </span>
 
         {showMenu && (
-          <div className="logout_menu">
+          <div className="profile__menu">
+            <span className="profile__edit">
+              <SquarePen className="profile__edit-btn" onClick={handleEditProfile} />
+              Edit
+            </span>
             <button onClick={handleLogout}>Logout</button>
           </div>
         )}
@@ -110,7 +109,7 @@ const Profile = () => {
             <p className="stat__number">{user?.followersCount}</p>
             <p className="stat__label" onClick={() => navigate(`/profile/${user?.userId?._id}/followers`)} style={{ cursor: "pointer" }}>Followers</p>
           </div>
-          
+
           <div className="stat">
             <p className="stat__number">{user?.followingCount}</p>
             <p className="stat__label" onClick={() => navigate(`/profile/${user?.userId?._id}/following`)} style={{ cursor: "pointer" }}>Following</p>
