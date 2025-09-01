@@ -3,33 +3,37 @@ import "./CommentsPage.css";
 import { useNavigate, useParams } from "react-router";
 import { useDispatch, useSelector } from "react-redux";
 import { asyncDeleteComment, asyncEditComment, asyncGetComments, asyncPostComment } from "../../store/Actions/commentActions";
-import { CheckCircle, Delete, Edit } from "lucide-react";
+import { CheckCircle, Delete, Edit, Loader, Loader2 } from "lucide-react";
+import Loading from "../../components/Loader/Loading";
 
 const CommentsPage = () => {
 
     const { id } = useParams();
     const [editId, setEditId] = useState(null);      // which comment is in edit mode
     const [editedComment, setEditedComment] = useState("");
-    const { comments } = useSelector((state) => state.CommentsReducer);
+    const { comments, loading } = useSelector((state) => state.CommentsReducer);
     const { user } = useSelector((state) => state.userReducer)
     const dispatch = useDispatch();
     const navigate = useNavigate();
     const [comment, setComment] = useState("");
+    const avatar = user?.avatarUrl
 
     const handleSend = () => {
         if (!comment.trim()) return;
         if (comment.trim() === editedComment.trim()) return;
 
-        console.log(comment, id)
         dispatch(asyncPostComment({ id, comment }));
 
         setComment("");
     };
 
     useEffect(() => {
-
         dispatch(asyncGetComments(id));
     }, [dispatch])
+
+    if(loading){    
+        return <Loading />
+    }
 
     return (
         <div className="comments-page">
@@ -70,9 +74,9 @@ const CommentsPage = () => {
                                         })}
                                     </p>
                                 </div>
-                                {c.user === user.userId._id && (
+                                {c.user === user?.userId?._id && (
                                     <div className="actions">
-                                        {editId !== c._id ? (
+                                        {/* {editId !== c._id ? (
                                             <button
                                                 onClick={() => {
                                                     setEditId(c._id);
@@ -100,7 +104,7 @@ const CommentsPage = () => {
                                             >
                                                 <CheckCircle />
                                             </button>
-                                        )}
+                                        )} */}
 
                                         <button
                                             onClick={() =>
@@ -112,13 +116,12 @@ const CommentsPage = () => {
                                                 )
                                             }
                                         >
-                                            <Delete />
+                                            <i className="ri-delete-bin-4-line delete__cmnt"></i>
                                         </button>
                                     </div>
                                 )}
                             </div>
 
-                            {/* Comment Text or Input */}
                             {editId !== c._id ? (
                                 <p className="text">{c.comment}</p>
                             ) : (
@@ -140,10 +143,10 @@ const CommentsPage = () => {
                     className="avatar"
                     style={{
                         backgroundImage:
-                            "url('https://lh3.googleusercontent.com/aida-public/AB6AXuC9K8SNwVV0f4ggstewz9DwgsIXj0JuFeFTx67LPknsj1wuAkdGqqQ2fyKZA82CFK1Eg6OVyMHmOq7TrQubDv77OnHj8VFS7j_Yk5GYjGhlp-Us7dLxdNVIgVby14LpvDTOzjKLTAHAWe8-o-XDl1ZSh-wEa4-mZo2WUwJvEDD_iSUVgS17De-T6zTtqJfnGEKhg9eMH0k2o6cHdH8fcfhywPXFpxYt70zuICP8xpikc5CjxgMPJgFQHdqD7ajIRsmsWHGol0HDxMk')",
+                            `url('${avatar}')`,
                     }}
                 />
-                <div className="input-box">
+                <form className="input-box" onClick={handleSend}>
                     <input
                         value={comment}
                         onChange={(e) => setComment(e.target.value)}
@@ -152,12 +155,11 @@ const CommentsPage = () => {
                     />
                     <button
                         className="send-btn"
-                        onClick={handleSend}
                         disabled={!comment.trim()}
                     >
                         Send
                     </button>
-                </div>
+                </form>
             </div>
         </div>
     );
