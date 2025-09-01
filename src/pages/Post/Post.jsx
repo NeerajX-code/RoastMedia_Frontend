@@ -7,6 +7,7 @@ import { ChevronDown, X } from "lucide-react";
 import ErrorCard from "../../components/ErrorCard/ErrorCard";
 import Loading from "../../components/Loader/Loading";
 import PreviousCaptions from "./PreviousComments/PreviousComments";
+import { useToast } from "../../components/Toast/useToast";
 
 const MAX_FILE_SIZE = 5 * 1024 * 1024; // 5MB
 const allowedTypes = ["image/jpeg", "image/png", "image/gif", "image/webp"];
@@ -15,6 +16,7 @@ const Post = () => {
   const { captions, loading, captionError } = useSelector((state) => state.CaptionReducer);
   const { createPostLoading } = useSelector(state => state.PostReducer)
   const dispatch = useDispatch();
+  const { toast } = useToast();
 
   const [file, setFile] = useState(null);
   const [preview, setPreview] = useState(null);
@@ -76,11 +78,15 @@ const Post = () => {
   const submitHandler = () => {
     if (!file) {
       setError("Please select an image before submitting.");
+      toast.error("Please select an image before generating caption.");
       return;
     }
 
     if (captions.length >= 5) {
-      alert("You reached the max limit of generating captions for a single image.");
+      toast.error("You reached the max limit of generating captions for this image.", {
+        duration: 3500,
+        position: "top-right",
+      });
       return;
     }
 
@@ -93,21 +99,26 @@ const Post = () => {
   const createPostHandler = async () => {
     if (!file || !showCurrentCaption) {
       setError("Please give content before submitting.");
-      console.log(error);
-      alert("Please Add Image or Generate Caption then Create Post.")
+      toast.error("Add image and generate a caption before creating the post.");
       return;
     }
 
     const formData = new FormData();
     formData.append("image", file);
     formData.append("showCurrentCaption", showCurrentCaption);
-    await dispatch(asyncPostCreate(formData));
-    alert("Post Created Successfully.")
-    dispatch(clearCaption());
-    setPreview(null);
-    setShowCurrentCaption(""); // optional: reset current caption too
-    setFile(null); // optional: reset file input after submit
-    setError(""); // clear error if success
+    try {
+      await dispatch(asyncPostCreate(formData)).unwrap();
+      toast.success("Post created successfully!", { duration: 2500 });
+      dispatch(clearCaption());
+      setPreview(null);
+      setShowCurrentCaption("");
+      setFile(null);
+      setError("");
+    } catch (err) {
+      toast.error(typeof err === "string" ? err : (err?.message || "Failed to create post"), {
+        duration: 3500,
+      });
+    }
   }
 
   const previousCaptionsHandler = () => {

@@ -25,7 +25,7 @@ const OtherProfile = () => {
 
     useEffect(() => {
         // If trying to view own profile via /other/profile/:id, redirect to /Profile
-        if (authUser?.userId && authUser.userI === id) {
+        if (authUser?.userId?._id === id) {
             navigate('/Profile', { replace: true });
             return;
         }
@@ -57,7 +57,7 @@ const OtherProfile = () => {
                     </div>
                     <h2 className="profile__username">{user?.displayName}</h2>
 
-                    {authUser?.userId !== user?.userId && (
+                    {authUser?.userId?._id !== user?.userId && (
                         <div >
                             {isFollowingMap[id] ? (
                                 <button style={{

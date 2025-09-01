@@ -5,6 +5,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { asyncDeleteComment, asyncEditComment, asyncGetComments, asyncPostComment } from "../../store/Actions/commentActions";
 import { CheckCircle, Delete, Edit, Loader, Loader2 } from "lucide-react";
 import Loading from "../../components/Loader/Loading";
+import { useToast } from "../../components/Toast/useToast";
 
 const CommentsPage = () => {
 
@@ -17,14 +18,18 @@ const CommentsPage = () => {
     const navigate = useNavigate();
     const [comment, setComment] = useState("");
     const avatar = user?.avatarUrl
+    const { toast } = useToast();
 
-    const handleSend = () => {
+    const handleSend = async (e) => {
+        e?.preventDefault();
         if (!comment.trim()) return;
-        if (comment.trim() === editedComment.trim()) return;
-
-        dispatch(asyncPostComment({ id, comment }));
-
-        setComment("");
+        try {
+            await Promise.resolve(dispatch(asyncPostComment({ id, comment })));
+            toast.success("Comment posted", { duration: 2200 });
+            setComment("");
+        } catch (err) {
+            toast.error(err?.message || "Failed to post comment", { duration: 3000 });
+        }
     };
 
     useEffect(() => {
@@ -107,14 +112,21 @@ const CommentsPage = () => {
                                         )} */}
 
                                         <button
-                                            onClick={() =>
-                                                dispatch(
-                                                    asyncDeleteComment({
-                                                        postId: id,
-                                                        commentId: c._id,
-                                                    })
-                                                )
-                                            }
+                                            onClick={async () => {
+                                                try {
+                                                    await Promise.resolve(
+                                                        dispatch(
+                                                            asyncDeleteComment({
+                                                                postId: id,
+                                                                commentId: c._id,
+                                                            })
+                                                        )
+                                                    );
+                                                    toast.success("Comment deleted", { duration: 2000 });
+                                                } catch (err) {
+                                                    toast.error(err?.message || "Failed to delete comment");
+                                                }
+                                            }}
                                         >
                                             <i className="ri-delete-bin-4-line delete__cmnt"></i>
                                         </button>
@@ -146,7 +158,7 @@ const CommentsPage = () => {
                             `url('${avatar}')`,
                     }}
                 />
-                <form className="input-box" onClick={handleSend}>
+                <form className="input-box" onSubmit={handleSend}>
                     <input
                         value={comment}
                         onChange={(e) => setComment(e.target.value)}
@@ -156,6 +168,7 @@ const CommentsPage = () => {
                     <button
                         className="send-btn"
                         disabled={!comment.trim()}
+                        type="submit"
                     >
                         Send
                     </button>

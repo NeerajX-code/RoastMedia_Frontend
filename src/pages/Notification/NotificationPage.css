@@ -39,6 +39,7 @@
   align-items: center;
   gap: 1rem;
   padding: 0.75rem 1rem;
+  cursor: pointer;
 }
 .notification-page .notification-item .avatar {
   width: 3.5rem;
@@ -55,4 +56,19 @@
 .notification-page .notification-item .content .time {
   color: #ad92c9;
   font-size: 0.85rem;
-}/*# sourceMappingURL=NotificationPage.css.map */
+}
+
+.notification-page .notification-item .content .comment-text {
+  color: #d1d5db;
+  font-size: 0.95rem;
+}
+
+.notification-page .notification-item .thumb {
+  margin-left: auto;
+  width: 56px;
+  height: 56px;
+  border-radius: 8px;
+  background-size: cover;
+  background-position: center;
+}
+/*# sourceMappingURL=NotificationPage.css.map */

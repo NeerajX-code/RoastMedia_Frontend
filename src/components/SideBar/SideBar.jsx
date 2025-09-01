@@ -2,16 +2,24 @@ import { NavLink, useNavigate } from "react-router-dom";
 import "./Sidebar.css";
 import { Bell, Bookmark, Ellipsis, Home, Search, UserRound } from "lucide-react";
 import { useDispatch, useSelector } from "react-redux";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { clearUser } from "../../store/Reducers/userReducer";
 import { asyncLogoutUser } from "../../store/Actions/authActions";
 import { getHomePosts } from "../../store/Actions/HomePostActions";
+import { fetchUnreadCount } from "../../store/Actions/notificationActions";
 
 export default function Sidebar() {
   const { user } = useSelector((state) => state.userReducer);
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const [showMenu, setShowMenu] = useState(false);
+  const unread = useSelector(s => s.NotificationReducer.unreadCount);
+
+  useEffect(() => {
+    dispatch(fetchUnreadCount());
+    const id = setInterval(() => dispatch(fetchUnreadCount()), 30000);
+    return () => clearInterval(id);
+  }, [dispatch]);
 
   const toggleMenu = () => {
     setShowMenu((prev) => !prev);
@@ -43,7 +51,10 @@ export default function Sidebar() {
             <span className="label">Explore</span>
           </NavLink>
           <NavLink to="/Notification" className="menu-item">
-            <span className="icon"><Bell /></span>
+            <span className="icon" style={{ position: 'relative' }}>
+              <Bell />
+              {unread > 0 && <span className="dot" aria-label={`${unread} unread`}></span>}
+            </span>
             <span className="label">Notifications</span>
           </NavLink>
           <NavLink to="/Save" className="menu-item"><span className="icon"><Bookmark /></span>

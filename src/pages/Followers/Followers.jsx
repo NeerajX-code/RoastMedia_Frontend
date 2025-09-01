@@ -11,6 +11,7 @@ const Followers = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const { followers, loading } = useSelector((s) => s.FollowReducer);
+  const authUser = useSelector((s) => s.userReducer.user);
 
   useEffect(() => {
     dispatch(fetchFollowers(id));
@@ -30,7 +31,15 @@ const Followers = () => {
       ) : followers.length ? (
         <ul className="follow-list">
           {followers.map((f) => (
-            <li key={f._id} className="follow-item" onClick={() => navigate(`/other/profile/${f.user._id}`)}>
+            <li
+              key={f._id}
+              className="follow-item"
+              onClick={() => {
+                const targetId = f.user._id;
+                if (authUser?.userId?._id === targetId) navigate("/Profile");
+                else navigate(`/other/profile/${targetId}`);
+              }}
+            >
               <img src={f.user.avatarUrl} alt={f.user.displayName} />
               <div>
                 <p className="name">{f.user.displayName}</p>

@@ -7,13 +7,15 @@ import { Bookmark, Forward, Heart, MessageCircle } from 'lucide-react'
 import { getOtherUserPosts, getOtherUserProfile } from "../../store/Actions/otherProfileActions";
 import { asyncDeletePost } from "../../store/Actions/postActions";
 import Loading from "../../components/Loader/Loading";
+import { useToast } from "../../components/Toast/useToast";
 
 export default function SinglePostPage() {
   const { id } = useParams()
   const dispatch = useDispatch()
   const navigate = useNavigate()
   const { singlePostDetails, singlePostLoading } = useSelector(state => state.PostDetailsReducer)
-
+  const authUser = useSelector(state => state.userReducer.user)
+  const { toast } = useToast();
   const singlePost = singlePostDetails?.post;
 
   console.log(singlePost);
@@ -22,9 +24,18 @@ export default function SinglePostPage() {
     if (id) dispatch(asyncSinglePost(id))
   }, [dispatch, id])
 
-  const postDeleteHandler = () => {
-    dispatch(asyncDeletePost(id))
-    navigate("/Profile")
+  const isOwner = authUser?.userId?._id && singlePost?.userData?.userId
+    ? authUser.userId._id === singlePost.userData.userId
+    : false;
+
+  const postDeleteHandler = async () => {
+    try {
+      await dispatch(asyncDeletePost(id));
+      toast.success("Post deleted");
+      navigate("/Profile");
+    } catch (err) {
+      toast.error(err?.message || "Not authorized to delete this post");
+    }
   }
 
   if (singlePostLoading) {
@@ -40,7 +51,9 @@ export default function SinglePostPage() {
             <path d="M224,128a8,8,0,0,1-8,8H59.31l58.35,58.34a8,8,0,0,1-11.32,11.32l-72-72a8,8,0,0,1,0-11.32l72-72a8,8,0,0,1,11.32,11.32L59.31,120H216A8,8,0,0,1,224,128Z" />
           </svg>
         </button>
-        <button className="delete_post" onClick={postDeleteHandler}>Delete Post</button>
+        {isOwner && (
+          <button className="delete_post" onClick={postDeleteHandler}>Delete Post</button>
+        )}
       </header>
 
       <div className="profile-content">
