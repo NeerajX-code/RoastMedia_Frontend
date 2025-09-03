@@ -2,17 +2,27 @@ import React, { useEffect } from "react";
 import { NavLink } from "react-router-dom";
 import "./Navbar.css";
 import { useDispatch, useSelector } from "react-redux";
-import { fetchUnreadCount } from "../../store/Actions/notificationActions";
+import { fetchUnreadCount, markAllRead } from "../../store/Actions/notificationActions";
 
 export default function Navbar() {
     const dispatch = useDispatch();
     const unread = useSelector(s => s.NotificationReducer.unreadCount);
 
     useEffect(() => {
-        dispatch(fetchUnreadCount());
-        const id = setInterval(() => dispatch(fetchUnreadCount()), 30000);
-        return () => clearInterval(id);
+        const refresh = () => dispatch(fetchUnreadCount());
+        refresh();
+        const id = setInterval(refresh, 10000); // poll every 10s
+        const onFocus = () => refresh();
+        const onVisibility = () => { if (document.visibilityState === 'visible') refresh(); };
+        window.addEventListener('focus', onFocus);
+        document.addEventListener('visibilitychange', onVisibility);
+        return () => {
+            clearInterval(id);
+            window.removeEventListener('focus', onFocus);
+            document.removeEventListener('visibilitychange', onVisibility);
+        };
     }, [dispatch]);
+    
     return (
         <div className="navbar">
             <NavLink className={({ isActive }) =>
@@ -49,7 +59,7 @@ export default function Navbar() {
             </NavLink>
             <NavLink className={({ isActive }) =>
                 `nav-item ${isActive ? "active" : ""}`
-            } to="/Notification">
+            } to="/Notification" onClick={async () => { await dispatch(markAllRead()); await dispatch(fetchUnreadCount()); }}>
                 <div className="icon badge">
                     {/* Heart Icon */}
                     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" viewBox="0 0 256 256">

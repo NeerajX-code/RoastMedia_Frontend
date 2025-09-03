@@ -33,10 +33,10 @@ const CommentsPage = () => {
     };
 
     useEffect(() => {
-        dispatch(asyncGetComments(id));
-    }, [dispatch])
+        if (id) dispatch(asyncGetComments(id));
+    }, [dispatch, id])
 
-    if(loading){    
+    if (loading) {
         return <Loading />
     }
 
@@ -79,38 +79,9 @@ const CommentsPage = () => {
                                         })}
                                     </p>
                                 </div>
+
                                 {c.user === user?.userId?._id && (
                                     <div className="actions">
-                                        {/* {editId !== c._id ? (
-                                            <button
-                                                onClick={() => {
-                                                    setEditId(c._id);
-                                                    setEditedComment(c.comment);
-                                                }}
-                                            >
-                                                <Edit />
-                                            </button>
-                                        ) : (
-                                            <button
-                                                onClick={() => {
-                                                    console.log((editedComment))
-                                                    if (editedComment.trim()) {
-                                                        dispatch(
-                                                            asyncEditComment({
-                                                                postId: id,
-                                                                commentId: c._id,
-                                                                newComment: editedComment,
-                                                            })
-                                                        );
-                                                    }
-                                                    setEditId(null);
-                                                    setEditedComment("");
-                                                }}
-                                            >
-                                                <CheckCircle />
-                                            </button>
-                                        )} */}
-
                                         <button
                                             onClick={async () => {
                                                 try {

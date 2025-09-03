@@ -17,6 +17,7 @@ const Profile = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const [showMenu, setShowMenu] = useState(false);
+  const [showConfirm, setShowConfirm] = useState(false);
 
   const toggleMenu = () => {
     setShowMenu((prev) => !prev);
@@ -41,15 +42,14 @@ const Profile = () => {
   };
 
   const handleLogout = () => {
-
     dispatch(asyncLogoutUser())
       .then(() => {
         dispatch(clearUser());
         dispatch(getHomePosts());
         navigate("/login");
-      });
-
-  }
+      })
+      .finally(() => setShowConfirm(false));
+  };
 
   const handleBackBtn = () => {
     navigate(-1);
@@ -79,7 +79,42 @@ const Profile = () => {
               <SquarePen className="profile__edit-btn" />
               Edit
             </span>
-            <button onClick={handleLogout}> <LogOut /> Logout</button>
+            <button onClick={() => setShowConfirm(true)}> <LogOut /> Logout</button>
+          </div>
+        )}
+
+        {showConfirm && (
+          <div style={{
+            position: 'absolute',
+            top: '60px',
+            right: '12px',
+            background: 'rgba(32,32,32,0.95)',
+            color: '#fff',
+            border: '1px solid rgba(255,255,255,0.15)',
+            borderRadius: '10px',
+            padding: '12px',
+            minWidth: '220px',
+            boxShadow: '0 8px 24px rgba(0,0,0,0.35)'
+          }}>
+            <div style={{ marginBottom: '10px', fontWeight: 600 }}>Logout?</div>
+            <div style={{ display: 'flex', gap: '8px', justifyContent: 'flex-end' }}>
+              <button onClick={() => setShowConfirm(false)} style={{
+                background: 'transparent',
+                color: '#d1d5db',
+                border: '1px solid rgba(255,255,255,0.2)',
+                borderRadius: '8px',
+                padding: '6px 10px',
+                cursor: 'pointer'
+              }}>No</button>
+              <button onClick={handleLogout} style={{
+                background: '#ef4444',
+                color: '#fff',
+                border: 'none',
+                borderRadius: '8px',
+                padding: '6px 10px',
+                cursor: 'pointer'
+              }}>Yes</button>
+            </div>
           </div>
         )}
       </div>

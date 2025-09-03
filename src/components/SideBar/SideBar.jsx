@@ -6,7 +6,7 @@ import { useState, useEffect } from "react";
 import { clearUser } from "../../store/Reducers/userReducer";
 import { asyncLogoutUser } from "../../store/Actions/authActions";
 import { getHomePosts } from "../../store/Actions/HomePostActions";
-import { fetchUnreadCount } from "../../store/Actions/notificationActions";
+import { fetchUnreadCount, markAllRead } from "../../store/Actions/notificationActions";
 
 export default function Sidebar() {
   const { user } = useSelector((state) => state.userReducer);
@@ -16,9 +16,18 @@ export default function Sidebar() {
   const unread = useSelector(s => s.NotificationReducer.unreadCount);
 
   useEffect(() => {
-    dispatch(fetchUnreadCount());
-    const id = setInterval(() => dispatch(fetchUnreadCount()), 30000);
-    return () => clearInterval(id);
+    const refresh = () => dispatch(fetchUnreadCount());
+    refresh();
+    const id = setInterval(refresh, 10000);
+    const onFocus = () => refresh();
+    const onVisibility = () => { if (document.visibilityState === 'visible') refresh(); };
+    window.addEventListener('focus', onFocus);
+    document.addEventListener('visibilitychange', onVisibility);
+    return () => {
+      clearInterval(id);
+      window.removeEventListener('focus', onFocus);
+      document.removeEventListener('visibilitychange', onVisibility);
+    };
   }, [dispatch]);
 
   const toggleMenu = () => {
@@ -27,11 +36,13 @@ export default function Sidebar() {
 
   const handleLogout = () => {
     dispatch(asyncLogoutUser())
-    .then(() => {
-      dispatch(clearUser());
-      dispatch(getHomePosts());
-      setShowMenu(false);
-    });
+      .then(() => {
+        dispatch(clearUser());
+        dispatch(getHomePosts());
+      })
+      .finally(() => {
+        setShowMenu(false);
+      });
   };
 
   return (
@@ -50,7 +61,7 @@ export default function Sidebar() {
             <span className="icon"><Search /></span>
             <span className="label">Explore</span>
           </NavLink>
-          <NavLink to="/Notification" className="menu-item">
+          <NavLink to="/Notification" className="menu-item" onClick={async () => { await dispatch(markAllRead()); await dispatch(fetchUnreadCount()); }}>
             <span className="icon" style={{ position: 'relative' }}>
               <Bell />
               {unread > 0 && <span className="dot" aria-label={`${unread} unread`}></span>}
@@ -75,12 +86,6 @@ export default function Sidebar() {
             <strong>{user?.displayName}</strong>
             <span>@{user?.userId?.username}</span>
           </div>
-          <span className="dots" onClick={toggleMenu}><Ellipsis /></span>
-          {showMenu && (
-            <div className="logout_menu">
-              <button onClick={handleLogout}>Logout</button>
-            </div>
-          )}
         </div>
       )}
 

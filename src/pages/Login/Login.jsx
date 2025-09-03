@@ -45,7 +45,6 @@ export default function Login() {
     <div className="login-container" style={{ position: "relative" }}>
       <div className="login-header">
         <h2 className="login-logo">RoastMe</h2>
-        <ArrowLeft className="login-backbtn" size={36} />
       </div>
 
       <div className="login-content">

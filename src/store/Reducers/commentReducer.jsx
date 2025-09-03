@@ -33,7 +33,8 @@ const commentSlice = createSlice({
             })
             .addCase(asyncGetComments.fulfilled, (state, action) => {
                 state.loading = false;
-                state.comments = action.payload;
+            // Ensure newest-first ordering
+            state.comments = [...(action.payload || [])].sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
             })
             .addCase(asyncGetComments.rejected, (state, action) => {
                 state.loading = false;
@@ -45,7 +46,10 @@ const commentSlice = createSlice({
             })
             .addCase(asyncPostComment.fulfilled, (state, action) => {
                 state.loading = false;
-                state.comments.push(action.payload);
+                        // New comment should appear at the top (newest-first)
+                        if (action.payload) {
+                            state.comments.unshift(action.payload);
+                        }
             })
             .addCase(asyncPostComment.rejected, (state, action) => {
                 state.loading = false;

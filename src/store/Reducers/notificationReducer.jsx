@@ -15,7 +15,9 @@ const notificationSlice = createSlice({
   extraReducers: (builder) => {
     builder
       .addCase(fetchNotifications.pending, (state) => {
-        state.loading = true; state.error = null;
+        // Keep list rendered to prevent scroll jump; show lightweight inline loading if needed
+        state.loading = state.items.length === 0; 
+        state.error = null;
       })
       .addCase(fetchNotifications.fulfilled, (state, action) => {
         state.loading = false; state.items = action.payload;

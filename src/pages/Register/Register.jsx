@@ -44,7 +44,6 @@ export default function Register() {
         <div className="register-page" style={{ position: "relative" }}>
             <div className="register-header">
                 <h2 className="login-logo">RoastMe</h2>
-                <ArrowLeft className="login-backbtn" size={36} />
             </div>
 
             {error && <ErrorCard message={error} action={() => dispatch(asyncRegisterUser())} clearAction={clearError} loading={loading} isvisible={true} />}

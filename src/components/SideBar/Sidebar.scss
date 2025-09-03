@@ -141,9 +141,10 @@
     button{
       color: white;
       border: none;
-      padding: clamp(1rem,1vw,1.5rem) clamp(1.5rem,2vw,1.8rem);
+      padding: clamp(.6rem,1vw,1rem) clamp(1.5rem,2vw,1.8rem);
       background-color: #1d9bf0;
       border-radius: 50px;
+      font-size: clamp(.8rem,3vw,1rem);
     }
     div{
       height: 100%;

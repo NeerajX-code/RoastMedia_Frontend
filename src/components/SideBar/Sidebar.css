@@ -127,22 +127,11 @@
 .sidebar .sideBar_auth button {
   color: white;
   border: none;
-  padding: clamp(1rem, 1vw, 1.5rem) clamp(1.5rem, 2vw, 1.8rem);
+  padding: clamp(0.6rem, 1vw, 1rem) clamp(1.5rem, 2vw, 1.8rem);
   background-color: #1d9bf0;
   border-radius: 50px;
+  font-size: clamp(0.8rem, 3vw, 1rem);
 }
 .sidebar .sideBar_auth div {
   height: 100%;
-}
-
-/* Unread notifications dot */
-.dot {
-  position: absolute;
-  top: -2px;
-  right: -2px;
-  width: 8px;
-  height: 8px;
-  background: #ef4444;
-  border-radius: 50%;
-}
-/*# sourceMappingURL=Sidebar.css.map */
+}/*# sourceMappingURL=Sidebar.css.map */
