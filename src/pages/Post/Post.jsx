@@ -96,7 +96,12 @@ const Post = () => {
     dispatch(asyncGenerateCaption(formData));
   };
 
+  const authUser = useSelector(state => state.userReducer.user);
   const createPostHandler = async () => {
+    if (!authUser) {
+      toast.error("Please login to create or save posts.");
+      return;
+    }
     if (!file || !showCurrentCaption) {
       setError("Please give content before submitting.");
       toast.error("Add image and generate a caption before creating the post.");

@@ -3,6 +3,7 @@ import { NavLink } from "react-router-dom";
 import "./SearchUserCard.css";
 import { useDispatch, useSelector } from "react-redux";
 import { followUser as followUserAction, unfollowUser as unfollowUserAction } from "../../store/Actions/followActions";
+import { useToast } from "../Toast/useToast";
 
 const SearchUserCard = ({ user }) => {
   if (!user) return null;
@@ -12,6 +13,7 @@ const SearchUserCard = ({ user }) => {
   const authUser = useSelector((s) => s.userReducer.user);
   const isSelf = authUser?.userId?._id === userData?._id;
   const isFollowing = useSelector((s) => s.FollowReducer.isFollowingMap[userData?._id]);
+  const { toast } = useToast();
 
   const targetHref = isSelf ? "/Profile" : `/other/profile/${userData?._id}`;
 
@@ -32,9 +34,21 @@ const SearchUserCard = ({ user }) => {
       {!isSelf && (
         <div className="follow-action" onClick={(e) => e.preventDefault()}>
           {isFollowing ? (
-            <button className="btn btn-secondary" onClick={() => dispatch(unfollowUserAction(userData?._id))}>Unfollow</button>
+            <button className="btn btn-secondary" onClick={() => {
+              if (!authUser) {
+                toast.error("Please login to unfollow users.");
+                return;
+              }
+              dispatch(unfollowUserAction(userData?._id));
+            }}>Unfollow</button>
           ) : (
-            <button className="btn btn-primary" onClick={() => dispatch(followUserAction(userData?._id))}>Follow</button>
+            <button className="btn btn-primary" onClick={() => {
+              if (!authUser) {
+                toast.error("Please login to follow users.");
+                return;
+              }
+              dispatch(followUserAction(userData?._id));
+            }}>Follow</button>
           )}
         </div>
       )}

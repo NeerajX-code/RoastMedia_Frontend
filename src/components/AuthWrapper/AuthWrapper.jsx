@@ -13,7 +13,7 @@ const AuthWrapper = ({ children }) => {
   }
 
   if (!isAuthenticated) {
-    return <Loading />; // navigate hone se pehle kuch render mat karo
+    return <Register />; // navigate hone se pehle kuch render mat karo
   }
 
   return children;

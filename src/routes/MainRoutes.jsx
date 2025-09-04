@@ -42,9 +42,7 @@ const MainRoutes = () => {
             <Route
                 path="/Single-post/:id"
                 element={
-                    <AuthWrapper>
-                        <SinglePost />
-                    </AuthWrapper>
+                    <SinglePost />
                 }
             />
 
@@ -62,7 +60,7 @@ const MainRoutes = () => {
             <Route path="/profile/:id/followers" element={<FollowersPage />} />
 
             <Route path="/profile/:id/following" element={<FollowingPage />} />
-            
+
             <Route path="/Search" element={<SearchUserPage />} />
 
             <Route

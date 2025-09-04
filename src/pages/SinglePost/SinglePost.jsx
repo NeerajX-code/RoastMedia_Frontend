@@ -13,19 +13,20 @@ export default function SinglePostPage() {
   const { id } = useParams()
   const dispatch = useDispatch()
   const navigate = useNavigate()
+
   const { singlePostDetails, singlePostLoading } = useSelector(state => state.PostDetailsReducer)
+
   const authUser = useSelector(state => state.userReducer.user)
   const { toast } = useToast();
-  const singlePost = singlePostDetails?.post;
 
-  console.log(singlePost);
+  const singlePost = singlePostDetails?.post;
 
   useEffect(() => {
     if (id) dispatch(asyncSinglePost(id))
   }, [dispatch, id])
 
   const isOwner = authUser?.userId?._id && singlePost?.userData?.userId
-    ? authUser.userId._id === singlePost.userData.userId
+    ? authUser?.userId._id === singlePost?.userData?.userId
     : false;
 
   const postDeleteHandler = async () => {
@@ -81,12 +82,24 @@ export default function SinglePostPage() {
       </div>
 
       <div className="actions">
-        <button onClick={() => dispatch(asyncSingleToggleLike(singlePost?._id))} aria-pressed={singlePost?.isLiked}>
+        <button onClick={() => {
+          if (!authUser) {
+            toast.error("Please login to like posts.");
+            return;
+          }
+          dispatch(asyncSingleToggleLike(singlePost?._id));
+        }} aria-pressed={singlePost?.isLiked}>
           <Heart fill={singlePost?.isLiked ? "#e0245e" : "none"} stroke={singlePost?.isLiked ? "#e0245e" : "currentColor"} />
           <span>{singlePost?.likesCount || 0}</span>
         </button>
 
-        <button onClick={() => navigate(`/Comments/${singlePost?._id}`)}>
+        <button onClick={() => {
+          if (!authUser) {
+            toast.error("Please login to comment.");
+            return;
+          }
+          navigate(`/Comments/${singlePost?._id}`);
+        }}>
           <MessageCircle />
           <span>{singlePost?.commentCount || 0}</span>
         </button>
@@ -118,7 +131,13 @@ export default function SinglePostPage() {
           <span>{singlePost?.shareCount || 0}</span>
         </button>
 
-        <button onClick={() => dispatch(asyncSingleToggleSave(singlePost?._id))} aria-pressed={singlePost?.isSaved}>
+        <button onClick={() => {
+          if (!authUser) {
+            toast.error("Please login to save posts.");
+            return;
+          }
+          dispatch(asyncSingleToggleSave(singlePost?._id));
+        }} aria-pressed={singlePost?.isSaved}>
           <Bookmark fill={singlePost?.isSaved ? "currentColor" : "none"} />
         </button>
       </div>

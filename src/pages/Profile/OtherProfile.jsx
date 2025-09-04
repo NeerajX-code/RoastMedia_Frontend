@@ -9,6 +9,7 @@ import { getOtherUserPosts, getOtherUserProfile } from '../../store/Actions/othe
 import UserPostCard from '../../components/UserPostCard/UserPostCard';
 import ErrorCard from '../../components/ErrorCard/ErrorCard';
 import { followUser as followUserAction, unfollowUser as unfollowUserAction, checkIsFollowing } from "../../store/Actions/followActions";
+import { useToast } from "../../components/Toast/useToast";
 import { useSelector as useReduxSelector } from 'react-redux';
 
 const OtherProfile = () => {
@@ -21,6 +22,7 @@ const OtherProfile = () => {
     const authUser = useReduxSelector((state) => state.userReducer.user);
     const isFollowingMap = useReduxSelector((state) => state.FollowReducer.isFollowingMap);
     const dispatch = useDispatch();
+    const { toast } = useToast();
     const navigate = useNavigate();
 
     useEffect(() => {
@@ -62,9 +64,21 @@ const OtherProfile = () => {
                             {isFollowingMap[id] ? (
                                 <button style={{
                                     backgroundColor: '#244f65ff',
-                                }} className="btn btn-secondary" onClick={() => dispatch(unfollowUserAction(id)).then(() => dispatch(getOtherUserProfile(id)))}>Unfollow</button>
+                                }} className="btn btn-secondary" onClick={() => {
+                                    if (!authUser) {
+                                        toast.error("Please login to unfollow users.");
+                                        return;
+                                    }
+                                    dispatch(unfollowUserAction(id)).then(() => dispatch(getOtherUserProfile(id)))
+                                }}>Unfollow</button>
                             ) : (
-                                <button className="btn btn-primary" onClick={() => dispatch(followUserAction(id)).then(() => dispatch(getOtherUserProfile(id)))}>Follow</button>
+                                <button className="btn btn-primary" onClick={() => {
+                                    if (!authUser) {
+                                        toast.error("Please login to follow users.");
+                                        return;
+                                    }
+                                    dispatch(followUserAction(id)).then(() => dispatch(getOtherUserProfile(id)))
+                                }}>Follow</button>
                             )}
                         </div>
                     )}

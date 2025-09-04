@@ -23,6 +23,10 @@ const CommentsPage = () => {
     const handleSend = async (e) => {
         e?.preventDefault();
         if (!comment.trim()) return;
+        if (!user) {
+            toast.error("Please login to comment.");
+            return;
+        }
         try {
             await Promise.resolve(dispatch(asyncPostComment({ id, comment })));
             toast.success("Comment posted", { duration: 2200 });

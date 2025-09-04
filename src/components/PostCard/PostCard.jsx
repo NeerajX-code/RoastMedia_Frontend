@@ -1,4 +1,4 @@
-import { Heart, Combine, Share2, Bookmark } from "lucide-react";
+import { Heart, Combine, Share2, Bookmark, MessageCircle } from "lucide-react";
 import "./PostCard.css";
 import { NavLink, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
@@ -6,6 +6,7 @@ import { asyncHomePostToggleLike, asyncUpdateShareCount } from "../../store/Acti
 import { asyncGetComments } from "../../store/Actions/commentActions";
 import { asyncToggleSave } from "../../store/Actions/saveActions"
 import Loading from "../Loader/Loading";
+import { useToast } from "../Toast/useToast";
 
 const PostCard = ({ post }) => {
 
@@ -14,6 +15,7 @@ const PostCard = ({ post }) => {
     const { user, profileLoading } = useSelector((state) => state.userReducer);
 
     const isCurrentUser = user?.userId?._id === post?.userData?._id;
+    const { toast } = useToast();
 
    
 
@@ -49,7 +51,13 @@ const PostCard = ({ post }) => {
                 <h2 className="post__username">{post.username}</h2>
                 <p className="post__caption">{post.caption.replace(/[*"]+/g, "")}</p>
                 <div className="post__actions">
-                    <button onClick={() => dispatch(asyncHomePostToggleLike(post._id))}>
+                    <button onClick={() => {
+                        if (!user) {
+                            toast.error("Please login to like posts.");
+                            return;
+                        }
+                        dispatch(asyncHomePostToggleLike(post._id));
+                    }}>
                         <Heart
                             stroke={!post.isLiked ? "white" : "none"}
                             fill={post.isLiked ? "red" : "none"}
@@ -58,9 +66,13 @@ const PostCard = ({ post }) => {
                     </button>
 
                     <button onClick={() => {
+                        if (!user) {
+                            toast.error("Please login to comment.");
+                            return;
+                        }
                         dispatch(asyncGetComments(post._id))
                         navigate(`/Comments/${post._id}`)
-                    }} ><Combine /> <span>{post.commentCount}</span>
+                    }} ><MessageCircle /> <span>{post.commentCount}</span>
                     </button>
 
                     <button
@@ -92,7 +104,13 @@ const PostCard = ({ post }) => {
                     </button>
 
                     <button
-                        onClick={() => dispatch(asyncToggleSave(post._id))}
+                        onClick={() => {
+                            if (!user) {
+                                toast.error("Please login to save posts.");
+                                return;
+                            }
+                            dispatch(asyncToggleSave(post._id))
+                        }}
                     ><Bookmark stroke={!post?.saved ? "white" : "none"}
                         fill={post?.saved ? "white" : "none"} /></button>
                 </div>
