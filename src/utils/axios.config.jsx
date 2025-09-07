@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const baseURL =
+export const baseURL =
   process.env.NODE_ENV === "development"
     ? "http://localhost:3000"
     : "https://roastmedia-backend.onrender.com";

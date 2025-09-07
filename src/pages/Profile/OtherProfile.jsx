@@ -3,7 +3,7 @@ import { useNavigate, useParams } from 'react-router';
 import { useDispatch, useSelector } from 'react-redux';
 import { useEffect, useMemo } from 'react';
 import Loading from '../../components/Loader/Loading';
-import { ArrowLeft } from 'lucide-react';
+import { ArrowLeft, MessageCircle } from 'lucide-react';
 import { clearOtherProfileData, clearProfileError } from "../../store/Reducers/otherProfileReducer";
 import { getOtherUserPosts, getOtherUserProfile } from '../../store/Actions/otherProfileActions';
 import UserPostCard from '../../components/UserPostCard/UserPostCard';
@@ -60,7 +60,7 @@ const OtherProfile = () => {
                     <h2 className="profile__username">{user?.displayName}</h2>
 
                     {authUser?.userId?._id !== user?.userId && (
-                        <div >
+                        <div style={{ display: 'flex', gap: '0.5rem', alignItems: 'center' }}>
                             {isFollowingMap[id] ? (
                                 <button style={{
                                     backgroundColor: '#244f65ff',
@@ -80,6 +80,15 @@ const OtherProfile = () => {
                                     dispatch(followUserAction(id)).then(() => dispatch(getOtherUserProfile(id)))
                                 }}>Follow</button>
                             )}
+                            {/* Message Icon Button */}
+                            <button
+                                className="btn btn-icon"
+                                title="Message"
+                                style={{ background: 'none', border: 'none', padding: 0, cursor: 'pointer' }}
+                                onClick={() => navigate(`/chat/${user?.userId}`)}
+                            >
+                                <MessageCircle size={28} />
+                            </button>
                         </div>
                     )}
                 </div>

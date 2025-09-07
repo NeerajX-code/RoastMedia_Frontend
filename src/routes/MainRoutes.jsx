@@ -22,6 +22,7 @@ const OtherProfile = lazy(() => import("../pages/Profile/OtherProfile"));
 const Comments = lazy(() => import("../pages/Comments/Comments"));
 const FollowersPage = lazy(() => import("../pages/Followers/Followers"));
 const FollowingPage = lazy(() => import("../pages/Following/Following"));
+const PersonalChat = lazy(() => import("../pages/ChatPage/ChatPage"))
 
 const MainRoutes = () => {
     return (
@@ -68,6 +69,15 @@ const MainRoutes = () => {
                 element={
                     <AuthWrapper>
                         <EditUserDetailsPage />
+                    </AuthWrapper>
+                }
+            />
+
+              <Route
+                path="/chat/:otherId"
+                element={
+                    <AuthWrapper>
+                        <PersonalChat />
                     </AuthWrapper>
                 }
             />
