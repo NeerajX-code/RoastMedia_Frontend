@@ -75,8 +75,15 @@
 }
 .ig-outgoing {
   align-self: flex-end;
-  background: linear-gradient(90deg, #7f5af0 0%, #39e079 100%);
+  background: linear-gradient(90deg, #7f5af042 0%, #d2ad086f 100%);
   color: #fff;
+}
+.msg-status {
+  margin-left: 8px;
+  vertical-align: middle;
+  display: inline-flex;
+  align-items: center;
+  color: #bdbdbd;
 }
 .ig-chat-inputbar {
     flex: 0 0 auto;
