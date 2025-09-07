@@ -12,8 +12,6 @@ const Home = () => {
   const { posts, loading, error } = useSelector((state) => state.HomePostReducer);
   const dispatch = useDispatch()
 
-  console.log(posts);
-
   useEffect(() => {
 
     if (posts.length == 0) {
