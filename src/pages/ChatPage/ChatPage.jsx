@@ -109,16 +109,19 @@ export default function ChatPage() {
 
     const onUserOffline = ({ userId }) => {
       if (String(userId) === String(otherId)) setOnline(false);
+      console.log("userId:", userId);
+      console.log("otherId:",otherId);
       console.log(online);
     };
 
     socket.on("userOffline", onUserOffline);
     socket.on("messagesSeen", onMessagesSeen);
     socket.on("messagesDelivered", ({ conversationId, userId }) => {
+      console.log(`✅ Messages delivered to ${userId} in conversation ${conversationId}`);
       if (String(userId) !== String(otherId)) return;
       setMessages((prev) =>
         prev.map((m) =>
-          m.conversationId === conversationId && m.receiver === otherId && String(m.status) == "sent" ? { ...m, status: "delivered" } : m
+          m.conversationId.toString() === conversationId && m.receiver.toString() === userId && String(m.status) == "sent" ? { ...m, status: "delivered" } : m
         )
       );
     });

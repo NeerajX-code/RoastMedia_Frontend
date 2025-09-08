@@ -3,7 +3,7 @@ import { baseURL } from "./axios.config.jsx";
 
 const socket = io(baseURL, {
   withCredentials: true,
-  autoConnect: true,
+  autoConnect: false,
 });
 
 export default socket;

@@ -27,20 +27,28 @@ const App = () => {
     // Connect when app mounts
     socket.connect();
 
-    socket.on("connect", () => {
+    const handleConnect = () => {
       console.log("✅ Socket connected:", socket.id);
-    });
 
-    socket.emit("deliveredMessages",{});
+      // 👉 Emit deliveredMessages only when user is available
+      if (user) {
+        socket.emit("deliveredMessages", {userId: user?.userId._id});
+      }
+    };
 
-    socket.on("disconnect", () => {
+    const handleDisconnect = () => {
       console.log("❌ Socket disconnected");
-    });
+    };
+
+    socket.on("connect", handleConnect);
+    socket.on("disconnect", handleDisconnect);
 
     return () => {
+      socket.off("connect", handleConnect);
+      socket.off("disconnect", handleDisconnect);
       socket.disconnect();
     };
-  }, []);
+  }, [user]);
 
 
   return (

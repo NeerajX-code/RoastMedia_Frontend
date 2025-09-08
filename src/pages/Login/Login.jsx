@@ -11,7 +11,7 @@ import "./Login.css";
 
 export default function Login() {
   const dispatch = useDispatch();
-  const { loading,isAuthenticated, error } = useSelector((state) => state.authReducer);
+  const { loading, isAuthenticated, error } = useSelector((state) => state.authReducer);
   const [onClose, setClose] = useState(false);
 
 
@@ -24,7 +24,7 @@ export default function Login() {
   } = useForm();
 
   const onSubmit = (data) => {
-    console.log("Form SUbmitted:" + data);
+    console.log("Form SSubmitted:" + data);
     dispatch(asyncLoginUser(data));
   };
 

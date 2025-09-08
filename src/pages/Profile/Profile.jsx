@@ -10,6 +10,7 @@ import UserPostCard from "../../components/UserPostCard/UserPostCard";
 import { asyncLogoutUser } from "../../store/Actions/authActions";
 import { clearUser } from "../../store/Reducers/userReducer";
 import { getHomePosts } from "../../store/Actions/HomePostActions";
+import socket from "../../utils/socket";
 
 const Profile = () => {
   const { user, posts, profileLoading, profileError, postsLoading, successMessage } =
@@ -47,6 +48,7 @@ const Profile = () => {
         dispatch(clearUser());
         dispatch(getHomePosts());
         navigate("/login");
+        socket.disconnect();
       })
       .finally(() => setShowConfirm(false));
   };
