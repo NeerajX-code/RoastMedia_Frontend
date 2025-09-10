@@ -13,7 +13,7 @@
   flex: 0 0 auto;
   display: flex;
   align-items: center;
-  padding: clamp(8px, 1vw, 14px);
+  padding: clamp(8px, 1vw, 10px);
   border-bottom: 1px solid #23232a;
   background: #1e1e23;
 }
@@ -80,7 +80,7 @@
 .ig-chat-bubble {
   max-width: 70%;
   padding: 0.7rem 1.1rem;
-  border-radius: 1.2rem;
+  border-radius: 1rem;
   font-size: 1.05rem;
   line-height: 1.5;
   word-break: break-word;
@@ -110,7 +110,7 @@
 .ig-chat-inputbar {
   flex: 0 0 auto;
   display: flex;
-  align-items: center;
+  gap: clamp(8px, 1vw, 12px);
   padding: 0.8rem 1rem;
   border-top: 1px solid #23232a;
   background: #1e1e23;
@@ -122,13 +122,13 @@
   color: #fff;
   border: none;
   border-radius: 1.2rem;
-  padding: 0.7rem 1.1rem;
+  padding: 0.6rem 1.2rem;
   font-size: 1rem;
   outline: none;
-  margin-right: 0.7rem;
 }
 
 .ig-send-btn {
+  flex: 0 0 auto;
   background: linear-gradient(90deg, #7f5af0 0%, #39e079 100%);
   color: #fff;
   border: none;
@@ -148,10 +148,6 @@
   .ig-chat-header,
   .ig-chat-inputbar {
     padding: 0.6rem;
-  }
-
-  .ig-chat-messages {
-    padding: 0.7rem 0.4rem 0.7rem 0.4rem;
   }
 
   .ig-chat-bubble {

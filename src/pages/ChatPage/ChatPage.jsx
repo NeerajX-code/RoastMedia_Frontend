@@ -1,11 +1,12 @@
 
 import { useRef } from "react";
 import React, { useEffect, useState } from "react";
-import { Check, CheckCheck } from "lucide-react";
+import { ArrowLeft, Check, CheckCheck } from "lucide-react";
 import socket from "../../utils/socket";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { useSelector } from "react-redux";
 import "./ChatPage.css";
+import Loading from '../../components/Loader/Loading'
 
 export default function ChatPage() {
   const { otherId } = useParams();
@@ -15,7 +16,9 @@ export default function ChatPage() {
   const [online, setOnline] = useState(false);
   const [otherUser, setOtherUser] = useState(null);
   const [conversationId, setConversationId] = useState(null);
+  const [loading, setLoading] = useState(true);
 
+  const navigate = useNavigate();
 
   function MessageBubble({ sender, text, status }) {
     return (
@@ -36,8 +39,10 @@ export default function ChatPage() {
   }
 
   // Refs for auto-scroll
+
   const messagesEndRef = useRef(null);
   const messagesContainerRef = useRef(null);
+
   // Auto-scroll to bottom when messages change (on load and live chat)
   useEffect(() => {
     if (messagesEndRef.current) {
@@ -50,9 +55,6 @@ export default function ChatPage() {
 
   useEffect(() => {
     if (!socket || !otherId) return;
-
-    console.log("Joining conversation with:", otherId);
-
     socket.emit("joinConversation", { otherId });
 
     const onConversationMessages = ({ conversationId, messages, otherUser }) => {
@@ -60,6 +62,7 @@ export default function ChatPage() {
       setConversationId(conversationId);
       setMessages(messages || []);
       setOtherUser(otherUser);
+      setLoading(false)
       console.log("otherUser data:", otherUser);
     };
 
@@ -109,6 +112,7 @@ export default function ChatPage() {
   }, [conversationId, messages, otherId]);
 
   /* --- 2) Listen for messagesSeen and update messages safely --- */
+
   useEffect(() => {
     const onMessagesSeen = ({ userId: seenBy, conversationId: seenConvId }) => {
       console.log(`👀 Messages seen by ${seenBy} in conversation ${seenConvId}`);
@@ -148,19 +152,29 @@ export default function ChatPage() {
     };
   }, []); // this handler uses setMessages(prev => ...) so it's safe to keep [] deps
 
+  if(loading){
+    return <Loading />
+  }
+
   return (
     <div className="ig-chat-page">
+      <div className="ig-chat-header" style={{ display: "flex", alignItems: "center", gap: "10px" }}>
+        <ArrowLeft size={32} style={{ cursor: "pointer" }} onClick={() => navigate(-1)} />
 
-      <div className="ig-chat-header">
-        <div className="ig-chat-avatar">
-          <img src={otherUser?.avatarUrl || "/default-avatar.png"} alt="avatar" />
-          <span className={online ? "ig-online" : "ig-offline"}></span>
-        </div>
-        <div className="ig-chat-userinfo">
-          <div className="ig-chat-username">
-            {otherUser?.displayName || `User ${otherId?.slice(0, 6)}`}
+        <div className="userProfile" onClick={() => navigate(`/other/profile/${otherId}`)} style={{ cursor: "pointer",
+          display: "flex",
+         }}>
+          <div className="ig-chat-avatar">
+            <img src={otherUser?.avatarUrl || "/default-avatar.png"} alt="avatar" />
+            <span className={online ? "ig-online" : "ig-offline"}></span>
           </div>
-          <div className="ig-chat-status">{online ? "Active now" : "Offline"}</div>
+
+          <div className="ig-chat-userinfo">
+            <div className="ig-chat-username">
+              {otherUser?.displayName || `User ${otherId?.slice(0, 6)}`}
+            </div>
+            <div className="ig-chat-status">{online ? "Active now" : "Offline"}</div>
+          </div>
         </div>
       </div>
 

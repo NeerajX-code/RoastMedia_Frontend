@@ -5,20 +5,22 @@ import "./ConversationsPage.css";
 import { ArrowLeft } from "lucide-react";
 import { useState } from "react";
 import socket from '../../utils/socket'
+import Loading from '../../components/Loader/Loading'
 
 export default function ConversationsPage() {
 
   const navigate = useNavigate();
   const [conversations, setConversations] = useState([]);
+  const [loading, setLoading] = useState(true);
 
   const { user } = useSelector((s) => s.userReducer);
-
 
   useEffect(() => {
     socket.emit("getConversations", {});
 
     socket.on("conversationsList", (data) => {
       setConversations(data.conversations);
+      setLoading(false);
     });
 
     socket.on("updatedConversation", (data) => {
@@ -45,50 +47,48 @@ export default function ConversationsPage() {
         }} onClick={() => navigate(-1)} />
         <h2>Chats</h2>
       </div>
+      
+      {!loading && conversations.length === 0 && <div className="no-conversations">No conversations yet.</div>}
 
-      {conversations.length === 0 && <div className="no-conversations">No conversations yet.</div>}
+      {conversations.length > 0 &&
+        <div className="conversations-list">
 
-      {conversations.length > 0 && <div className="conversations-list">
+          {conversations.map((conv) => {
+            const other = conv.participants.find(
+              (u) => String(u._id) !== String(user?.userId?._id)
+            );
 
-        {conversations.map((conv) => {
-          const other = conv.participants.find(
-            (u) => String(u._id) !== String(user?.userId?._id)
-          );
+            return (
+              <div
+                className="conversation-item"
+                key={conv._id}
+                onClick={() => navigate(`/chat/${conv?.otherParticipantId}`)}
+              >
+                <img
+                  src={conv?.otherParticipantData?.avatarUrl || "/default-avatar.png"}
+                  alt={conv?.otherParticipantData?.displayName || "User"}
+                  className="conversation-avatar"
+                />
 
+                <div className="conversation-info">
+                  <div className="conversation-name">
+                    {conv?.otherParticipantData?.displayName || "User"}
+                  </div>
 
-          return (
-            <div
-              className="conversation-item"
-              key={conv._id}
-              onClick={() => navigate(`/chat/${conv?.otherParticipantId}`)}
-            >
-              <img
-                src={conv?.otherParticipantData?.avatarUrl || "/default-avatar.png"}
-                alt={conv?.otherParticipantData?.displayName || "User"}
-                className="conversation-avatar"
-              />
-              <div className="conversation-info">
-                <div className="conversation-name">
-                  {conv?.otherParticipantData?.displayName || "User"}
+                  <div className="conversation-lastmsg">
+                    {conv.lastMessage || <em>No messages yet</em>}
+                  </div>
                 </div>
 
-                <div className="conversation-lastmsg">
-                  {conv.lastMessage || <em>No messages yet</em>}
-                </div>
-              </div>
-
-              <div className="unreadCounts">
                 {conv.unreadCounts[String(user.userId._id)] > 0 &&
-                  <div className="unread-badge" style={{
-                    color: 'white', backgroundColor: 'red'
-                  }}>{conv.unreadCounts[String(user.userId._id)]}</div>
+                  <div className="unread-badge" >
+                    {conv.unreadCounts[String(user.userId._id)]}</div>
                 }
               </div>
-            </div>
-          );
-        })}
+            );
+          })}
 
-      </div>
+        </div>
       }
     </div>
   );

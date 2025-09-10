@@ -114,12 +114,19 @@ const NotificationPage = () => {
             </p>
           )} */}
         </div>
+        
         {item?.post?.image && (
           <div
             className="thumb"
             aria-label="post thumbnail"
             onClick={(e) => { e.stopPropagation(); item?.type === 'comment' ? goToComments(item?.post?._id) : goToPost(item?.post?._id); }}
-            style={{ backgroundImage: `url(${item?.post?.image})` }}
+            style={{ 
+              backgroundImage: `url(${item?.post?.image})`,
+               width: '50px',
+               height: '50px',
+               backgroundSize: 'cover',
+               backgroundPosition: 'center',
+          }}
           />
         )}
       </div>
