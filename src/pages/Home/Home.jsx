@@ -14,7 +14,7 @@ const Home = () => {
 
   useEffect(() => {
 
-    if (posts.length == 0) {
+    if (posts?.length == 0) {
       dispatch(getHomePosts());
     }
 
