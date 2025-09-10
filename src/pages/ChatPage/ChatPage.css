@@ -1,13 +1,13 @@
 .ig-chat-page {
-    flex:1;
+  flex: 1;
   display: flex;
   flex-direction: column;
   background: #18181b;
   color: #fff;
-  font-family: 'Inter', sans-serif;
+  font-family: "Inter", sans-serif;
 }
 .ig-chat-header {
-    flex: 0 0 auto;
+  flex: 0 0 auto;
   display: flex;
   align-items: center;
   padding: 1rem;
@@ -27,7 +27,8 @@
   object-fit: cover;
   border: 2px solid #333;
 }
-.ig-online, .ig-offline {
+.ig-online,
+.ig-offline {
   position: absolute;
   bottom: 4px;
   right: 4px;
@@ -36,8 +37,12 @@
   border-radius: 50%;
   border: 2px solid #18181b;
 }
-.ig-online { background: #39e079; }
-.ig-offline { background: #aaa; }
+.ig-online {
+  background: #39e079;
+}
+.ig-offline {
+  background: #aaa;
+}
 .ig-chat-userinfo {
   display: flex;
   flex-direction: column;
@@ -86,7 +91,7 @@
   color: #bdbdbd;
 }
 .ig-chat-inputbar {
-    flex: 0 0 auto;
+  flex: 0 0 auto;
   display: flex;
   align-items: center;
   padding: 0.8rem 1rem;
@@ -118,7 +123,15 @@
   opacity: 0.9;
 }
 @media (max-width: 600px) {
-  .ig-chat-header, .ig-chat-inputbar { padding: 0.6rem; }
-  .ig-chat-messages { padding: 0.7rem 0.4rem 0.7rem 0.4rem; }
-  .ig-chat-bubble { font-size: 0.98rem; padding: 0.6rem 0.8rem; }
+  .ig-chat-header,
+  .ig-chat-inputbar {
+    padding: 0.6rem;
+  }
+  .ig-chat-messages {
+    padding: 0.7rem 0.4rem 0.7rem 0.4rem;
+  }
+  .ig-chat-bubble {
+    font-size: 0.98rem;
+    padding: 0.6rem 0.8rem;
+  }
 }

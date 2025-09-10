@@ -1,6 +1,6 @@
 import { NavLink, useNavigate } from "react-router-dom";
 import "./Sidebar.css";
-import { Bell, Bookmark, Ellipsis, Home, Search, UserRound } from "lucide-react";
+import { Bell, Bookmark, Ellipsis, Home, Search, UserRound, MessageCircle } from "lucide-react";
 import { useDispatch, useSelector } from "react-redux";
 import { useState, useEffect } from "react";
 import { clearUser } from "../../store/Reducers/userReducer";
@@ -67,6 +67,10 @@ export default function Sidebar() {
               {unread > 0 && <span className="dot" aria-label={`${unread} unread`}></span>}
             </span>
             <span className="label">Notifications</span>
+          </NavLink>
+          <NavLink to="/conversations" className="menu-item">
+            <span className="icon"><MessageCircle /></span>
+            <span className="label">Chats</span>
           </NavLink>
           <NavLink to="/Save" className="menu-item"><span className="icon"><Bookmark /></span>
             <span className="label">My Saves</span></NavLink>

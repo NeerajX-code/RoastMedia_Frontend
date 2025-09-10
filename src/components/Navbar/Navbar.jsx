@@ -1,3 +1,4 @@
+import { MessageCircle } from "lucide-react";
 import React, { useEffect } from "react";
 import { NavLink } from "react-router-dom";
 import "./Navbar.css";
@@ -69,6 +70,13 @@ export default function Navbar() {
                 </div>
             </NavLink>
 
+            <NavLink className={({ isActive }) =>
+                `nav-item ${isActive ? "active" : ""}`
+            } to="/conversations">
+                <div className="icon">
+                    <MessageCircle />
+                </div>
+            </NavLink>
             <NavLink className={({ isActive }) =>
                 `nav-item ${isActive ? "active" : ""}`
             } to="/Profile">

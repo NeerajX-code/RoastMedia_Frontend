@@ -25,6 +25,7 @@ export const store = configureStore({
     PostDetailsReducer: singlePostSlice,
     CommentsReducer: commentSlice,
     FollowReducer: followSlice,
-  NotificationReducer: notificationSlice,
+    NotificationReducer: notificationSlice,
+
   },
 })

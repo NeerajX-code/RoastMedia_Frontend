@@ -1,3 +1,4 @@
+  
 import { useRef } from "react";
 import React, { useEffect, useState } from "react";
 import { Check, CheckCheck } from "lucide-react";
@@ -34,6 +35,19 @@ export default function ChatPage() {
     );
   }
 
+  // Refs for auto-scroll
+  const messagesEndRef = useRef(null);
+  const messagesContainerRef = useRef(null);
+  // Auto-scroll to bottom when messages change (on load and live chat)
+  useEffect(() => {
+    if (messagesEndRef.current) {
+      messagesEndRef.current.scrollIntoView({ behavior: "auto" });
+    }
+    if (messagesContainerRef.current) {
+      messagesContainerRef.current.scrollTop = messagesContainerRef.current.scrollHeight;
+    }
+  }, [messages]);
+
   useEffect(() => {
     if (!socket || !otherId) return;
 
@@ -41,10 +55,12 @@ export default function ChatPage() {
 
     socket.emit("joinConversation", { otherId });
 
-    const onConversationMessages = ({ conversationId, messages }) => {
+    const onConversationMessages = ({ conversationId, messages , otherUser }) => {
       console.log("📂 Got conversation messages:", { conversationId, messages });
       setConversationId(conversationId);
       setMessages(messages || []);
+      setOtherUser(otherUser);
+      console.log("otherUser data:", otherUser);
     };
 
     const onNewMessage = (msg) => {
@@ -147,10 +163,15 @@ export default function ChatPage() {
         </div>
       </div>
 
-      <div className="ig-chat-messages">
+      <div
+        className="ig-chat-messages"
+        style={{ overflowY: "auto", maxHeight: "calc(100vh - 200px)" }}
+        ref={messagesContainerRef}
+      >
         {messages.map((msg, i) => (
           <MessageBubble key={msg?._id || i} sender={String(msg?.sender) === String(user?.userId?._id) ? "user" : "other"} text={msg?.content || (msg?.mediaUrl ? "Media" : "")} status={msg?.status} />
         ))}
+        <div ref={messagesEndRef} />
       </div>
 
       <div className="ig-chat-inputbar">
