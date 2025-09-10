@@ -5,11 +5,13 @@
   flex-direction: column;
   border: 1px solid rgba(255, 255, 255, 0.152);
   border-top: none;
+  color: white;
   border-bottom: none;
   font-family: "Space Grotesk", "Noto Sans", sans-serif;
   overflow-x: hidden;
 }
 .notification-page .header {
+  flex: 0 0 auto;
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -34,29 +36,12 @@
   font-size: 1.1rem;
   padding: 1rem 1rem 0.5rem;
 }
-/* Empty state */
-.notification-page .notifications-empty {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  gap: 0.5rem;
-  padding: 3rem 1rem;
-  color: #cfcfcf;
-  text-align: center;
-  min-height: 50vh; /* vertically center in remaining space */
-  margin: 0 auto;
-}
-.notification-page .notifications-empty .empty-emoji {
-  font-size: 2rem;
-  line-height: 1;
-}
 .notification-page .notification-item {
+  flex: 1;
   display: flex;
-  align-items: flex-start; /* keep avatar/thumb size stable */
+  align-items: center;
   gap: 1rem;
   padding: 0.75rem 1rem;
-  cursor: pointer;
 }
 .notification-page .notification-item .avatar {
   width: 3.5rem;
@@ -64,44 +49,20 @@
   border-radius: 50%;
   background-size: cover;
   background-position: center;
-  flex-shrink: 0; /* don't shrink avatar on long text */
-}
-.notification-page .notification-item .content {
-  flex: 1;
-  min-width: 0; /* allow text to wrap instead of pushing layout */
 }
 .notification-page .notification-item .content .text {
   color: #ffffff;
   font-size: 1rem;
   font-weight: 500;
-  overflow-wrap: anywhere;
-  word-break: break-word;
 }
 .notification-page .notification-item .content .time {
   color: #ad92c9;
   font-size: 0.85rem;
 }
-
-.notification-page .notification-item .thumb {
-  margin-left: auto;
-  width: 56px;
-  height: 56px;
-  border-radius: 8px;
-  background-size: cover;
-  background-position: center;
-  flex-shrink: 0; /* don't shrink thumbnail */
-}
-
-.notification-page .notification-item .content .comment-text {
-  color: #d1d5db;
-  font-size: 0.95rem;
-  overflow-wrap: anywhere;
-  word-break: break-word;
-}
-
-.notification-page .notification-item .content .post-snippet {
-  color: #a3a3a3;
-  font-size: 0.9rem;
-  margin-top: 0.25rem;
-}
-/*# sourceMappingURL=NotificationPage.css.map */
+.notification-page .notifications-empty {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}/*# sourceMappingURL=NotificationPage.css.map */

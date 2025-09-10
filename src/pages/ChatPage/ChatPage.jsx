@@ -1,4 +1,4 @@
-  
+
 import { useRef } from "react";
 import React, { useEffect, useState } from "react";
 import { Check, CheckCheck } from "lucide-react";
@@ -55,7 +55,7 @@ export default function ChatPage() {
 
     socket.emit("joinConversation", { otherId });
 
-    const onConversationMessages = ({ conversationId, messages , otherUser }) => {
+    const onConversationMessages = ({ conversationId, messages, otherUser }) => {
       console.log("📂 Got conversation messages:", { conversationId, messages });
       setConversationId(conversationId);
       setMessages(messages || []);
@@ -126,7 +126,7 @@ export default function ChatPage() {
     const onUserOffline = ({ userId }) => {
       if (String(userId) === String(otherId)) setOnline(false);
       console.log("userId:", userId);
-      console.log("otherId:",otherId);
+      console.log("otherId:", otherId);
       console.log(online);
     };
 
@@ -150,6 +150,7 @@ export default function ChatPage() {
 
   return (
     <div className="ig-chat-page">
+
       <div className="ig-chat-header">
         <div className="ig-chat-avatar">
           <img src={otherUser?.avatarUrl || "/default-avatar.png"} alt="avatar" />
@@ -163,9 +164,7 @@ export default function ChatPage() {
         </div>
       </div>
 
-      <div
-        className="ig-chat-messages"
-        style={{ overflowY: "auto", maxHeight: "calc(100vh - 200px)" }}
+      <div className="ig-chat-messages"
         ref={messagesContainerRef}
       >
         {messages.map((msg, i) => (
@@ -186,6 +185,7 @@ export default function ChatPage() {
           Send
         </button>
       </div>
+
     </div>
   );
 }

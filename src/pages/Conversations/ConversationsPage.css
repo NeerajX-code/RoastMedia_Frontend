@@ -1,8 +1,10 @@
 .conversations-page {
+  flex: 1;
   width: 100%;
-  max-width: 680px;
-  background: #181c24;
-  border-radius: 12px;
+  display: flex;
+  flex-direction: column;
+  border: 1px solid rgba(255, 255, 255, 0.19);
+  background: #120c18;
   box-shadow: 0 2px 8px #0002;
   color: white;
 }
@@ -10,21 +12,30 @@
 .conversations-header {
   display: flex;
   flex: 0 0 auto;
-  padding: 8px clamp(0.5rem, 2vw, 1rem);
-  border-bottom: 1px solid #222;
-  text-align: center;
-  background: #1f2230;
+  padding: 10px clamp(0.5rem, 2vw, 1rem);
+  background: #1e1426;
 
-  h2{
+  .arrow-left {
+    flex: 0 0 auto;
+  }
+
+  h2 {
+    display: flex;
+    justify-content: end;
     flex: 1;
   }
 }
 
-.conversations-list {
-  margin-top: 1rem;
+.no-conversations {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .conversation-item {
+  flex: 1;
+  overflow-y: auto;
   display: flex;
   align-items: center;
   gap: 1rem;
@@ -33,9 +44,11 @@
   cursor: pointer;
   transition: background 0.2s;
 }
+
 .conversation-item:hover {
   background: #23283a;
 }
+
 .conversation-avatar {
   width: 48px;
   height: 48px;
@@ -43,10 +56,12 @@
   object-fit: cover;
   background: #222;
 }
+
 .conversation-info {
   flex: 1;
   min-width: 0;
 }
+
 .conversation-name {
   font-weight: 600;
   color: #fff;
@@ -56,6 +71,7 @@
   overflow: hidden;
   white-space: nowrap;
 }
+
 .conversation-lastmsg {
   color: #aaa;
   font-size: 0.97rem;
@@ -63,6 +79,7 @@
   overflow: hidden;
   white-space: nowrap;
 }
+
 .conv-loading,
 .conv-error {
   text-align: center;

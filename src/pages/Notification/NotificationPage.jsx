@@ -135,7 +135,7 @@ const NotificationPage = () => {
           outline: "none",
           cursor: "pointer",
         }}>
-          <i class="ri-arrow-left-line" style={{
+          <i className="ri-arrow-left-line" style={{
             fontSize: "24px",
             color: "white"
           }}></i>

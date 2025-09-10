@@ -1,5 +1,5 @@
-import React, { useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { useEffect } from "react";
+import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import "./ConversationsPage.css";
 import { ArrowLeft } from "lucide-react";
@@ -10,7 +10,6 @@ export default function ConversationsPage() {
 
   const navigate = useNavigate();
   const [conversations, setConversations] = useState([]);
-  const [flag, setFlag] = useState(false)
 
   const { user } = useSelector((s) => s.userReducer);
 
@@ -20,41 +19,41 @@ export default function ConversationsPage() {
 
     socket.on("conversationsList", (data) => {
       setConversations(data.conversations);
-      setFlag(true)
     });
 
-    socket.on("messagesSeen" , ({ conversationId, userId }) => {
+    socket.on("updatedConversation", (data) => {
       setConversations((prevConvs) =>
         prevConvs.map((conv) =>
-          conv._id === conversationId
-            ? { ...conv, unreadCounts: { ...conv.unreadCounts, [userId]: 0 } }
+          conv._id.toString() === data._id.toString()
+            ? { ...conv, unreadCounts: data.unreadCounts, lastMessage: data.lastMessage }
             : conv
         )
       );
-    });
+    })
 
-    console.log("conversations", conversations);
+    return () => {
+      socket.off("conversationsList");
+      socket.off("updatedConversation");
+    }
   }, []);
 
   return (
     <div className="conversations-page">
       <div className="conversations-header">
-        <ArrowLeft size={32} style={{
+        <ArrowLeft className="arrow-left" size={32} style={{
           cursor: 'pointer'
         }} onClick={() => navigate(-1)} />
         <h2>Chats</h2>
       </div>
 
-      <div className="conversations-list">
-        {conversations.length === 0 && <div>No conversations yet.</div>}
+      {conversations.length === 0 && <div className="no-conversations">No conversations yet.</div>}
+
+      {conversations.length > 0 && <div className="conversations-list">
 
         {conversations.map((conv) => {
-          // Find the other user (not me)
           const other = conv.participants.find(
             (u) => String(u._id) !== String(user?.userId?._id)
           );
-
-          console.log(conv.unreadCounts[user.userId._id]);
 
 
           return (
@@ -88,7 +87,9 @@ export default function ConversationsPage() {
             </div>
           );
         })}
+
       </div>
+      }
     </div>
   );
 }

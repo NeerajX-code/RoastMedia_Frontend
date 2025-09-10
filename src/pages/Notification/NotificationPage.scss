@@ -11,11 +11,13 @@ $text-secondary: #ad92c9;
     flex-direction: column;
     border: 1px solid rgba(255, 255, 255, 0.152);
     border-top: none;
+    color: white;
     border-bottom: none;
     font-family: "Space Grotesk", "Noto Sans", sans-serif;
     overflow-x: hidden;
 
     .header {
+        flex: 0 0 auto;
         display: flex;
         justify-content: space-between;
         align-items: center;
@@ -45,11 +47,12 @@ $text-secondary: #ad92c9;
     }
 
     .notification-item {
+        flex: 1;
         display: flex;
         align-items: center;
         gap: 1rem;
         padding: 0.75rem 1rem;
-        
+
         .avatar {
             width: 3.5rem;
             height: 3.5rem;
@@ -70,6 +73,14 @@ $text-secondary: #ad92c9;
                 font-size: 0.85rem;
             }
         }
+    }
+
+    .notifications-empty {
+        flex: 1;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
     }
 
 }
